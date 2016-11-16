@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<html ng-app="trader">
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <meta charset="UTF-8">
@@ -8,36 +9,103 @@
 <body>
 	<div class="jumbotron"><h1>Magic Trader</h1></div>
 
+	<!-- <div ng-repeat="cardName in this.model">
+
+	<button ng-click="this.clicked(cardName)">Click</button>
+	
+	</div> -->
+
+	<!-- Trade directive -->
+	<div ng-controller="TradeController as trade">
+
 	<div class="container">
 		<div class="row">
 			
 			<!-- Your Cards -->
 			<div class="col-md-5">
 				<h1>Your Cards</h1>
-				<div id="have"></div>
-					<div class="input-group">
-					  <span class="input-group-addon" id="sizing-addon2">+</span>
-					  <input type="text" class="form-control" placeholder="Card Name" aria-describedby="sizing-addon2">
-					</div>
+				<div id="yourCards"></div>
+				<div ng-repeat=""></div>
+					<h1><a href="{{trade.have.link}}">{{trade.have.id}}</a></h1>
+					<p>{{trade.have.avgprice}}</p>
+						<div class="input-group">
+						<input type="text" class="form-control" placeholder="Card Name" id="yourCardInput">
+      						<span class="input-group-btn">
+        					<button class="btn btn-default" data-toggle="modal" data-target="#yourCardModal">Search</button>
+     						</span>
+						</div>
 				</div>
 			
 			<!-- Compare Section -->
 			<div class="col-md-2">
 				<h1>Value</h1>
+					<p>{{value}}</p>
 			</div>
 
 			<!-- Want Cards -->
 			<div class="col-md-5">
 				<h1>For Trade</h1>
-				<div id="want"
-					<div class="input-group">
-					  <span class="input-group-addon" id="sizing-addon2">+</span>
-					  <input type="text" class="form-control" placeholder="Card Name" aria-describedby="sizing-addon2">
-					</div>
+				<div id="wantCards">
+					<h1><a href="{{trade.want.link}}">{{trade.want.id}}</a></h1>
+					<p>{{trade.want.avgprice}}</p>
+						<div class="input-group">
+						  <input type="text" class="form-control" placeholder="Card Name" id="wantCardInput">
+      						<span class="input-group-btn">
+        					<button class="btn btn-default" type="button" id="wantCardButton" data-toggle="modal" data-target="#wantCardModal">Search</button>
+     						</span>
+						</div>
 			</div>
 		</div>
+	<!-- Your Modal -->
+	<div class="modal fade" id="yourCardModal" role="dialog">
+		<div class="modal-dialog">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Modal Header</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Some text in the modal.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+
+		  </div>
+	</div>
+
+	<!-- Want Modal -->
+	<div class="modal fade" id="wantCardModal" role="dialog">
+
+	<div class="modal-dialog">
+
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">&times;</button>
+		        <h4 class="modal-title">Modal Header</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>Some text in the modal.</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+
+		  </div>
+	</div>
+
+	</div>
 	</div>
   <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-  <script src="app.js"></script>
+  <script type="text/javascript" src="angular.min.js"</script>
+  <script type="text/javascript" src="app.js"></script>
+  
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
