@@ -1,0 +1,9 @@
+body{
+	background-color: #b57252;
+}
+.jumbotron{
+	background-color: #765b39;
+	border-bottom: 2px solid black;
+	color: #7b99c4;
+	text-align: center;
+}
