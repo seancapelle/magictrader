@@ -3,7 +3,7 @@
 <html ng-app="trader">
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link href="public/assets/css/style.css" type="text/css" rel="stylesheet">
+  <link href="/assets/css/style.css" type="text/css" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Magic Trader</title>
 </head>
@@ -30,10 +30,12 @@
 					<h1><a href="{{trade.have.link}}">{{trade.have.id}}</a></h1>
 					<p>{{trade.have.avgprice}}</p>
 						<div class="input-group">
+						<form>
 						<input type="text" class="form-control" placeholder="Card Name" id="yourCardInput">
       						<span class="input-group-btn">
-        					<button class="btn btn-default" data-toggle="modal" data-target="#yourCardModal">Search</button>
+        					<button class="btn btn-default" data-toggle="modal" data-target="#yourCardModal" ng-click="this.clicked(cardName)">Search</button>
      						</span>
+     					</form>
 						</div>
 				</div>
 			
@@ -52,7 +54,7 @@
 						<div class="input-group">
 						  <input type="text" class="form-control" placeholder="Card Name" id="wantCardInput">
       						<span class="input-group-btn">
-        					<button class="btn btn-default" type="button" id="wantCardButton" data-toggle="modal" data-target="#wantCardModal">Search</button>
+        					<button class="btn btn-default" type="button" id="wantCardButton" data-toggle="modal" data-target="#wantCardModal" ng-click="this.clicked(cardName)">Search</button>
      						</span>
 						</div>
 			</div>
@@ -65,10 +67,10 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">Modal Header</h4>
+		        <h4 class="modal-title">Which card do you want to add?</h4>
 		      </div>
 		      <div class="modal-body">
-		        <p>Some text in the modal.</p>
+		        <p>Pick a card, any card!</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -87,10 +89,10 @@
 		    <div class="modal-content">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        <h4 class="modal-title">Modal Header</h4>
+		        <h4 class="modal-title">Which card do you want to trade for?</h4>
 		      </div>
 		      <div class="modal-body">
-		        <p>Some text in the modal.</p>
+		        <p>Pick a card, any card!</p>
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -102,14 +104,43 @@
 
 	</div>
 	</div>
-  
-  <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <script type="text/javascript">
+  	                $("form").on('submit', function(e) {
+
+                    e.preventDefault();
+
+                    var formData = new FormData();
+                   formData.append("name", $('#yourCardInput').val().trim());
+
+
+var url = window.location.origin + "/test";
+
+// console.log(jsonData);
+$.ajax({
+    url: url,
+    type: 'POST',
+    data: formData,
+    async: true,
+    complete: function(data) {
+    	console.log(data);
+    },
+    cache: false,
+    contentType: false,
+    processData: false
+}); // End AJAX
+
+
+                })
+
+  </script>
+  <!-- <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script> -->
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
   <!-- <script type="text/javascript" src="angular.min.js"</script> -->
-  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="/config/app.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
