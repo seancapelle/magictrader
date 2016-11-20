@@ -19,11 +19,20 @@ $("form").on('submit', function(e) {
         	console.log(data);
 
         	
-        	// $('.modal-body').append(data.responseJSON.name + '<br>');
-        	// $('.modal-body').append('<img src="' + data.responseJSON.imageUrl + '"><br>');
+        	$('.modal-body').append('<h3>' + data.responseJSON.name + '</h3>');
+        	
     		$('.modal-body').append('<img src="' + data.responseJSON.imageUrl + '"><br>');
-        	for(var i=0; i < data.responseJSON.printings.length; i++){
-        		$('.modal-body').append('<a href="' + setSearch + '">' + data.responseJSON.printings[i] + '</a> ');
+        	
+            //Append all sets the card appears in
+            for(var i=0; i < data.responseJSON.printings.length; i++){
+        		
+                var setPrinting = $('<a href="' + setSearch + '">' + data.responseJSON.printings[i] + '</a>');
+
+                setPrinting.attr("data-id", data.responseJSON.printings[i]);
+
+                $('.modal-body').append(setPrinting);
+
+                $('.modal-body').append(" ");
         		
         	}
 
