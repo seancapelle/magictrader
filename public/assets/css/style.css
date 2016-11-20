@@ -3,10 +3,12 @@ body{
 }
 .jumbotron{
 	background-color: #765b39;
+	border-top: 2px solid black;
 	border-bottom: 2px solid black;
 	color: #7b99c4;
 	text-align: center;
 }
+
 
 /*Modal*/
 .modal-body h3{

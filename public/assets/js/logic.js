@@ -32,6 +32,13 @@ $("form").on('submit', function(e) {
         //Add card title and img
         $('.card-view').append('<h3>' + data.responseJSON.name + '</h3>');         
         $('.card-view').append('<img src="' + data.responseJSON.imageUrl + '"><br>');
+
+        //Create bogus pricing
+        var lowPrice = (Math.random() * 2);
+        var highPrice = lowPrice + 2.00;
+        var avgPrice = (highPrice + lowPrice) / 2;
+
+        $('.prices').append("Low Price: $" + lowPrice.toFixed(2) + " Average Price: $" + avgPrice.toFixed(2) + " High Price: $" + highPrice.toFixed(2));
             
         //Append all sets the card appears in
         for(var i=0; i < data.responseJSON.printings.length; i++){
