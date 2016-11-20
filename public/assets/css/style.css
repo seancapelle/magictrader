@@ -7,3 +7,19 @@ body{
 	color: #7b99c4;
 	text-align: center;
 }
+
+/*Modal*/
+.modal-body h3{
+	text-align: center;
+}
+.modal-body img{
+	margin: auto;
+	display: block;
+}
+.modal-body p{
+	font-weight: bold;
+	text-align: center;
+}
+.sets{
+	text-align: center;
+}

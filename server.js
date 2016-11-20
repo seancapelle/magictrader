@@ -68,12 +68,10 @@ app.post('/test', function(req,res){
 
 app.post('/sets', function(req,res){
 
-	// console.log(req.body);
-	// console.log(req.body.name);
 	console.log(req.body.set);
 
 	// Filter Cards
-	mtg.card.all({ name: '"' + req.body.name + '"', set: '3ED'})
+	mtg.card.all({ name: '"' + req.body.name + '"', set: '"' + req.body.set + '"'})
 	.on('data', function (card) {
 	    res.send(card);
 	});

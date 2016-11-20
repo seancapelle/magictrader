@@ -52,12 +52,12 @@
 					<h1><a href="{{trade.want.link}}">{{trade.want.id}}</a></h1>
 					<p>{{trade.want.avgprice}}</p>
 						<div class="input-group">
-						<form>
+						<!-- <form> -->
 						  <input type="text" class="form-control" placeholder="Card Name" id="wantCardInput">
       						<span class="input-group-btn">
         					<button class="btn btn-default" type="button" id="wantCardButton" data-toggle="modal" data-target="#wantCardModal" ng-click="this.clicked(cardName)">Search</button>
      						</span>
-     					</form>
+     					<!-- </form> -->
 						</div>
 			</div>
 		</div>
@@ -72,7 +72,9 @@
 		        <h4 class="modal-title">Which card do you want to add?</h4>
 		      </div>
 		      <div class="modal-body">
-		       
+				  <div class="card-view"></div>	
+			      	<p>Set Printings<p>
+			      <div class="sets"></div> 
 		      </div>
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
