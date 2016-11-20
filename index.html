@@ -52,10 +52,12 @@
 					<h1><a href="{{trade.want.link}}">{{trade.want.id}}</a></h1>
 					<p>{{trade.want.avgprice}}</p>
 						<div class="input-group">
+						<form>
 						  <input type="text" class="form-control" placeholder="Card Name" id="wantCardInput">
       						<span class="input-group-btn">
         					<button class="btn btn-default" type="button" id="wantCardButton" data-toggle="modal" data-target="#wantCardModal" ng-click="this.clicked(cardName)">Search</button>
      						</span>
+     					</form>
 						</div>
 			</div>
 		</div>
@@ -105,35 +107,8 @@
 	</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-  <script type="text/javascript">
-  	                $("form").on('submit', function(e) {
+	<script type ="text/javascript" src="/assets/js/logic.js">
 
-                    e.preventDefault();
-
-                    var formData = new FormData();
-                   formData.append("name", $('#yourCardInput').val().trim());
-
-
-var url = window.location.origin + "/test";
-
-// console.log(jsonData);
-$.ajax({
-    url: url,
-    type: 'POST',
-    data: formData,
-    async: true,
-    complete: function(data) {
-    	console.log(data);
-    },
-    cache: false,
-    contentType: false,
-    processData: false
-}); // End AJAX
-
-
-                })
-
-  </script>
   <!-- <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script> -->
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>

@@ -53,37 +53,34 @@ app.use('/', express.static(__dirname + '/public'));
 
 app.post('/test', function(req,res){
 
-console.log(req.body);
-console.log(req.body.name);
+	// console.log(req.body);
+	// console.log(req.body.name);
 
 
-	
-// 	// Get all cards
-// mtg.card.all()
-// .on('data', function (card) {
-//   console.log(card.name)
-// });
+	// Filter Cards
+	mtg.card.all({ name: '"' + req.body.name + '"'})
+	.on('data', function (card) {
+	    res.send(card);
+	});
 
-// // Filter Cards
-// mtg.card.all({ supertypes: 'legendary', types: 'creature', colors: 'red,white' })
-// .on('data', function (card) {
-//     console.log(card.name)
-// });
-
-// Filter Cards
-mtg.card.all({ name: '"' + req.body.name + '"'})
-.on('data', function (card) {
-    res.send(card);
-    // console.log(card.name + " " + card.setName + " " + card.multiverseid);
-});
-
-// // Get cards on a specific page / pageSize
-// mtg.card.where({ page: 50, pageSize: 50})
-// .then(cards => {
-//     console.log(cards[0].name)
-// })
 
 })
+
+app.post('/sets', function(req,res){
+
+	// console.log(req.body);
+	// console.log(req.body.name);
+	console.log(req.body.set);
+
+	// Filter Cards
+	mtg.card.all({ name: '"' + req.body.name + '"', set: '3ED'})
+	.on('data', function (card) {
+	    res.send(card);
+	});
+
+
+})
+
 
 
 app.listen(3000, function(){
