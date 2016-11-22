@@ -8,7 +8,47 @@ body{
 	color: #7b99c4;
 	text-align: center;
 }
-
+.centered{
+	text-align: center;
+}
+.card-well{
+	border: 1px solid black;
+	border-radius: 10px;
+	height: 400px;
+	width: 60%;
+	margin: auto;
+	background-color: white;
+}
+.value-well{
+	border: 1px solid black;
+	border-radius: 50px;
+	background-color: lightgreen;
+	width: 100px;
+	height: 100px;
+	margin: auto;
+}
+.value-well p{
+	text-align: center;
+	position: relative;
+	top: 40px;
+}
+.search{
+	margin: auto;
+}
+.input-group{
+	width: 30%;
+	margin: auto;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+footer{
+	background-color: #765b39;
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	text-align: center;
+}
 
 /*Modal*/
 .modal-body h3{

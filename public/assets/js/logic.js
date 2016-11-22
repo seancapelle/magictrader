@@ -1,11 +1,11 @@
 //Card search
-$("form").on('submit', function(e) {
-
+// $("form").on('submit', function(e) {
+$("#cardSearchButton").on('click', function(e) {
     e.preventDefault();
-
+   
     //Grab user input
     var formData = new FormData();
-    formData.append("name", $('#yourCardInput').val().trim());
+    formData.append("name", $('#cardInput').val().trim());
 
     var url = window.location.origin + "/test";
     
@@ -35,7 +35,7 @@ $("form").on('submit', function(e) {
 
         //Create bogus pricing
         var lowPrice = (Math.random() * 2);
-        var highPrice = lowPrice + 2.00;
+        var highPrice = lowPrice + 1;
         var avgPrice = (highPrice + lowPrice) / 2;
 
         $('.prices').append("Low Price: $" + lowPrice.toFixed(2) + " Average Price: $" + avgPrice.toFixed(2) + " High Price: $" + highPrice.toFixed(2));
@@ -85,4 +85,5 @@ $('.modal').on('hidden.bs.modal', function () {
     // $(this).find("input,textarea,select").val('').end();
    $('.card-view').empty(); 
    $('.sets').empty();
+   $('.prices').empty();
 });
