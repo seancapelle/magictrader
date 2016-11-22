@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-	<!-- <html ng-app="trader"> -->
+<html lang="en" ng-app="cardTrade">
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href="/assets/css/style.css" type="text/css" rel="stylesheet">
@@ -16,31 +15,29 @@
 	
 	</div> -->
 
-<!-- Trade directive -->
-<div ng-controller="TradeController as trade">
-
 	<div class="container">
 		<div class="row">
 			
 			<!-- Your Cards -->
-			<div class="col-md-5">
+			<div class="col-md-5" ng-controller="TradeController as trade">
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
-					<h1><a href="{{trade.have.link}}">{{trade.have.id}}</a></h1>
-					<p>{{trade.have.avgprice}}</p>
+					<h1><a href="{{trade.your.link}}">{{trade.your.id}}</a></h1>
+					<p>{{trade.your.avgprice}}</p>
+
 				</div>	
 			</div>
 			
 			<!-- Compare Section -->
-			<div class="col-md-2">
+			<div class="col-md-2" ng-controller="TradeController as trade">
 				<h1 class="centered">Value</h1>
 				<div id="value" class="value-well">
-					<p>{{value}}</p>
+					<p>{{0 | currency}}</p>
 				</div>
 			</div>
 
 			<!-- Want Cards -->
-			<div class="col-md-5">
+			<div class="col-md-5" ng-controller="TradeController as trade">
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
 					<h1><a href="{{trade.want.link}}">{{trade.want.id}}</a></h1>
@@ -121,13 +118,14 @@
 
 	</div>
 	</div>
+	<!-- jQuery -->
 	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-	<script type ="text/javascript" src="/assets/js/logic.js">
-
-  <!-- <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script> -->
+	
+	<!-- Front end logic -->
+	<script type ="text/javascript" src="/assets/js/logic.js"></script>
+  
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-  <!-- <script type="text/javascript" src="angular.min.js"</script> -->
   <script type="text/javascript" src="/config/app.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
