@@ -1,4 +1,4 @@
-//Angular 
+//Angular module
 (function(){
 	var app = angular.module('cardTrade', []);
 

@@ -43,8 +43,6 @@ app.use('/', express.static(__dirname + '/public'));
 //Card search route
 app.post('/search', function(req,res){
 
-	console.log(req.body.set);
-
 	//Grab card by name and set (optional)
 	mtg.card.all({ name: req.body.name, set: req.body.set})
 	.on('data', function (card) {
