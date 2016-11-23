@@ -51,19 +51,13 @@ app.get('/', function(req,res){
 app.use('/', express.static(__dirname + '/public'));
 
 
-app.post('/test', function(req,res){
-
-	// console.log(req.body);
-	// console.log(req.body.name);
-
+app.post('/search', function(req,res){
 
 	// Filter Cards
-	mtg.card.all({ name: '"' + req.body.name + '"'})
+	mtg.card.all({ name: '"' + req.body.name + '"', set: ''})
 	.on('data', function (card) {
 	    res.send(card);
 	});
-
-
 })
 
 app.post('/sets', function(req,res){
@@ -75,8 +69,6 @@ app.post('/sets', function(req,res){
 	.on('data', function (card) {
 	    res.send(card);
 	});
-
-
 })
 
 

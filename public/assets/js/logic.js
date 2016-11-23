@@ -1,5 +1,36 @@
+//Gather all card sets for the dropdown
+$(document).ready(function(){
+    
+    var setBank = [];
+
+    //Ajax call to get all sets
+    $.ajax({
+        url: 'https://api.magicthegathering.io/v1/sets/',
+        method: 'GET'
+    })
+
+    //Ajax response
+    .done(function(response) {
+
+        //Push all sets into setBank array
+        for (var i = 0; i < response.sets.length; i++){
+                
+            setBank.push(response.sets[i].name);
+        }
+
+        //Sort setBank alphabetically
+        setBank.sort();
+
+        //Append sets to dropdown element
+        for (var i = 0; i < setBank.length; i++){
+               
+            $('#setsDropdownMenu').append('<li><a href="#">' + setBank[i] + '</a></li>');
+        }       
+    });
+})
+
+
 //Card search
-// $("form").on('submit', function(e) {
 $("#cardSearchButton").on('click', function(e) {
     e.preventDefault();
    
@@ -7,10 +38,8 @@ $("#cardSearchButton").on('click', function(e) {
     var formData = new FormData();
     formData.append("name", $('#cardInput').val().trim());
 
-    var url = window.location.origin + "/test";
+    var url = window.location.origin + "/search";
     
-    var setBlank = "#";
-
     // console.log(jsonData);
     $.ajax({
         url: url,
@@ -27,9 +56,11 @@ $("#cardSearchButton").on('click', function(e) {
     //When AJAX completed
     function dataReceived(data){
     
+         var setBlank = "#";
+
         console.log(data.responseJSON);
     
-        //Add card title and img
+        //Add card title and img to modal
         $('.card-view').append('<h3>' + data.responseJSON.name + '</h3>');         
         $('.card-view').append('<img src="' + data.responseJSON.imageUrl + '"><br>');
 
@@ -41,12 +72,16 @@ $("#cardSearchButton").on('click', function(e) {
         $('.prices').append("Low Price: $" + lowPrice.toFixed(2) + " Average Price: $" + avgPrice.toFixed(2) + " High Price: $" + highPrice.toFixed(2));
             
         //Append all sets the card appears in
-        for(var i=0; i < data.responseJSON.printings.length; i++){
-            var setPrinting = $('<a href="' + setBlank + '">' + data.responseJSON.printings[i] + '</a>');
+        for(var i = 0; i < data.responseJSON.printings.length; i++){
+            // var setPrinting = $('<a href="' + setBlank + '">' + data.responseJSON.printings[i] + '</a>');
+            // setPrinting.attr("data-id", data.responseJSON.printings[i]);
+            // setPrinting.addClass('set');
+            // $('.sets').append(setPrinting);
+            // $('.sets').append(" ");   
+            var setPrinting = $('<li><a href="' + setBlank + '">' + data.responseJSON.printings[i] + '</a></li>');
             setPrinting.attr("data-id", data.responseJSON.printings[i]);
             setPrinting.addClass('set');
-            $('.sets').append(setPrinting);
-            $('.sets').append(" ");   
+            $('#printingsDropdown').append(setPrinting);
         }
 
         //User clicks setPrinting
@@ -84,6 +119,6 @@ $("#cardSearchButton").on('click', function(e) {
 $('.modal').on('hidden.bs.modal', function () {
     // $(this).find("input,textarea,select").val('').end();
    $('.card-view').empty(); 
-   $('.sets').empty();
+   // $('.sets').empty();
    $('.prices').empty();
 });

@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <title>Magic Trader</title>
 </head>
-<body>
+<body ng-controller="TradeController as trade">
 	<div class="jumbotron"><h1>Magic Trader</h1></div>
 
 	<!-- <div ng-repeat="cardName in this.model">
@@ -19,17 +19,18 @@
 		<div class="row">
 			
 			<!-- Your Cards -->
-			<div class="col-md-5" ng-controller="TradeController as trade">
+			<div class="col-md-5" >
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
-					<h1><a href="{{trade.your.link}}">{{trade.your.id}}</a></h1>
-					<p>{{trade.your.avgprice}}</p>
+					<h1><a href="{{trade.your.link}}">{{trade.your[0].id}}</a></h1>
+					<p>{{trade.your[0].avgprice}}</p>
+					<p>Total: {{0 | currency }}</p>
 
 				</div>	
 			</div>
 			
 			<!-- Compare Section -->
-			<div class="col-md-2" ng-controller="TradeController as trade">
+			<div class="col-md-2">
 				<h1 class="centered">Value</h1>
 				<div id="value" class="value-well">
 					<p>{{0 | currency}}</p>
@@ -37,11 +38,12 @@
 			</div>
 
 			<!-- Want Cards -->
-			<div class="col-md-5" ng-controller="TradeController as trade">
+			<div class="col-md-5">
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
-					<h1><a href="{{trade.want.link}}">{{trade.want.id}}</a></h1>
-					<p>{{trade.want.avgprice}}</p>
+					<h1><a href="{{trade.want[0].link}}">{{trade.want[0].id}}</a></h1>
+					<p>{{trade.want[0].avgprice}}</p>
+					<p>Total: {{0 | currency}}
 				</div>
 			</div>
 		</div>
@@ -51,12 +53,22 @@
 			<div class="col-md-12 search">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Card Name" id="cardInput">
-	      			<span class="input-group-btn"><button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="this.clicked(cardName)">Search</button></span>
+	      			<span class="input-group-btn"><button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="this.clicked(cardName)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></span>
 	     		</div>
 			</div>
 		</div>
 
 	</div>
+</div>
+
+<div class="dropdown">
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+    Set Search
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="setsDropdownMenu">
+    <!-- jQuery puts set names here -->
+  </ul>
 </div>
 
 <footer>
@@ -68,7 +80,7 @@
 		</div>
 	</div>
 </footer>
-	<!-- Your Modal -->
+		<!-- Card Modal -->
 	<div class="modal fade" id="cardModal" role="dialog">
 		<div class="modal-dialog">
 
@@ -79,20 +91,44 @@
 		        <h4 class="modal-title">Which card do you want to add?</h4>
 		      </div>
 		      <div class="modal-body">
+		      	<!-- START -->
+		      	<!-- <div class="container">
+		     	 	<div class="row">
+		     	 		<div class="col-md-1">
+		     	 			<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+		     	 		</div>
+		     	 		<div class="col-md-10">
+		     	 		<div class="card-view"></div>	
+				      	<p>Price</p>
+				      		<div class="prices"></div>
+				      	<p>Set Printings<p>
+			      		<div class="sets"></div> 
+		     	 		</div>
+		     	 		<div class="col-md-1">
+		     	 			<span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
+		     	 		</div>
+		     	 	</div>
+		     	 </div> -->
+		     	 <!-- END -->
 				  <div class="card-view"></div>	
 			      	<p>Price</p>
-			      		<div class="prices">
-			 
-			      		</div>
-			      	<p>Set Printings<p>
-			      <div class="sets"></div> 
-		      </div>
+			      		<div class="prices"></div>
+			      <div class="sets">
+			      	<div class="dropdown">
+  						<button class="btn btn-default dropdown-toggle" type="button" id="printingsDropDownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Set Printings
+  						<span class="caret"></span>
+ 						</button>
+  							<ul class="dropdown-menu printings" aria-labelledby="dropdownMenu2" id="printingsDropdown">
+    							<!-- jQuery puts set names here -->
+  							</ul>
+					</div>
+			      </div> 
+		      <!-- </div> -->
 		      <div class="modal-footer">
 		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 		      </div>
 		    </div>
-
-		  </div>
+		</div>
 	</div>
 
 	<!-- 

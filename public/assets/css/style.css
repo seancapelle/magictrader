@@ -44,6 +44,11 @@ body{
 	border: 1px solid black;
 	border-radius: 5px;
 }
+.dropdown-menu{
+    height: auto;
+    max-height: 100px;
+    overflow-x: hidden;
+}
 footer{
 	background-color: #765b39;
 	border-top: 2px solid black;
