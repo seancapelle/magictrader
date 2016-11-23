@@ -1,5 +1,3 @@
-var set = 0;
-
 //Gather all card sets for the dropdown
 $(document).ready(function(){
     
@@ -16,8 +14,9 @@ $(document).ready(function(){
 
         //Push all sets into setBank array
         for (var i = 0; i < response.sets.length; i++){
-                
-            setBank.push(response.sets[i].name);
+            
+            //Grab set name and set code and attach together with a period     
+            setBank.push(response.sets[i].name + "." + response.sets[i].code);
         }
 
         //Sort setBank alphabetically
@@ -25,9 +24,14 @@ $(document).ready(function(){
 
         //Append sets to dropdown element
         for (var i = 0; i < setBank.length; i++){
+
+            //Separate set name from set code for each
+            var splitter = setBank[i];
+            var splitSet = splitter.split('.');
             
-            var setName = $('<li><a href="#">' + setBank[i] + '</a></li>');
-            setName.attr("data-id", setBank[i]);
+            //Set code is the data-id for each set name
+            var setName = $('<li><a href="#">' + splitSet[0] + '</a></li>');
+            setName.attr("data-id", splitSet[1]);
             setName.addClass('set');
             $('#setsDropdownMenu').append(setName);
         }  
@@ -37,46 +41,39 @@ $(document).ready(function(){
 //NEED TO MAKE SET GLOBAL!!!
             var set = $(this).data('id');
 
-            
+            $('#setInput').val($('#setInput').val() + set);
+            // $('#setInput').append(set);
+            setID(set);
         });
 
     });
 })
 
+function setID(set){
+    console.log("in test");
+    console.log(set);
+
+}
+
 //Card search
 $("#cardSearchButton").on('click', function(e) {
     e.preventDefault();
    
-    // //Grab user input
-    // var formData = new FormData();
-    // formData.append("name", $('#cardInput').val().trim());
-
-    // var url = window.location.origin + "/search";
-    
-    // // console.log(jsonData);
-    // $.ajax({
-    //     url: url,
-    //     type: 'POST',
-    //     data: formData,
-    //     async: true,
-    //     complete: dataReceived, 
-    //     cache: false,
-    //     contentType: false,
-    //     processData: false
-
 
     //Grab user input
     var card = $('#cardInput').val().trim();
+    var set = $('#setInput').val().trim();
+
+    console.log(card + " " + set);
     
+    //Object with card and set info for the Ajax call
     var cardSearch = {
         name: card,
-        //SET IS HARD CODED!!!
-        set: '3ED' 
+        set: set 
     }
 
     var url = window.location.origin + "/search";
     
-    // console.log(jsonData);
     $.ajax({
         url: url,
         type: 'POST',

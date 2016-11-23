@@ -53,7 +53,10 @@
 			<div class="col-md-12 search">
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Card Name" id="cardInput">
-	      			<span class="input-group-btn"><button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="this.clicked(cardName)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button></span>
+	      			
+	      			<span class="input-group-btn">
+	      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="this.clicked(cardName)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+	      			</span>
 	     		</div>
 			</div>
 		</div>
@@ -61,15 +64,20 @@
 	</div>
 </div>
 
-<div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+
+<div class="input-group">
+      <input type="text" class="form-control" placeholder="Set Printed In (optional)" id="setInput">
+      <span class="input-group-btn">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
     Set Search
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" aria-labelledby="dropdownMenu1" id="setsDropdownMenu">
     <!-- jQuery puts set names here -->
   </ul>
-</div>
+      </span>
+    </div>
+
 
 <footer>
 	<div class="container">
