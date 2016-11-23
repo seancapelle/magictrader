@@ -5,17 +5,7 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 
-
 var mtg = require('mtgsdk');
-
-// var jsonParser = bodyParser.json();
-
-// BodyParser makes it easy for our server to interpret data sent to it.
-// The code below is pretty standard.
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({
-//    extended: true
-// }));
 
 var app = express();
 
@@ -50,22 +40,13 @@ app.get('/', function(req,res){
 
 app.use('/', express.static(__dirname + '/public'));
 
-
+//Card search route
 app.post('/search', function(req,res){
-
-	// Filter Cards
-	mtg.card.all({ name: '"' + req.body.name + '"', set: ''})
-	.on('data', function (card) {
-	    res.send(card);
-	});
-})
-
-app.post('/sets', function(req,res){
 
 	console.log(req.body.set);
 
-	// Filter Cards
-	mtg.card.all({ name: '"' + req.body.name + '"', set: '"' + req.body.set + '"'})
+	//Grab card by name and set (optional)
+	mtg.card.all({ name: req.body.name, set: req.body.set})
 	.on('data', function (card) {
 	    res.send(card);
 	});
