@@ -1,10 +1,8 @@
-//Setup
+//Dependencies
 var express = require('express');
-
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-
 var mtg = require('mtgsdk');
 
 var app = express();
@@ -50,6 +48,39 @@ app.post('/search', function(req,res){
 	});
 })
 
+//Database post for your cards
+app.post('/your', function(req,res){
+
+	var yourCard = new Card(req.body);
+
+	yourCard.save(function(err, doc) {
+    // send any errors to the browser
+    if (err) {
+      res.send(err);
+    }
+    // otherwise, send the new doc to the browser
+    else {
+      res.send(doc);
+    }
+
+})
+
+//Database post for want cards
+app.post('/want', function(req,res){
+
+	var wantCard = new Card(req.body);
+
+	wantCard.save(function(err, doc) {
+    // send any errors to the browser
+    if (err) {
+      res.send(err);
+    }
+    // otherwise, send the new doc to the browser
+    else {
+      res.send(doc);
+    }
+
+})
 
 
 app.listen(3000, function(){

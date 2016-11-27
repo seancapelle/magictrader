@@ -61,7 +61,7 @@ function searchSetup(setCode){
     $("#cardSearchButton").on('click', function(e) {
         e.preventDefault();
 
-//NEED TO TOGGLE FOR IF SET CODE SELECTED OR NOT!!!
+//NEED TO TOGGLE FOR IF SET CODE SELECTED OR NOT!!! (CURRENTLY SET IS REQUIRED FOR SEARCH)
 
         //Grab user input
         var card = $('#cardInput').val().trim();
