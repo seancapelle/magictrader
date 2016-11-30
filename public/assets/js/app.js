@@ -145,11 +145,22 @@ function searchSetup(setCode){
 
                 }); // End AJAX
             });
+        $('.glyphicon-menu-left').on('click', function(){
+            //Add your card to localstorage
+            localStorage.setItem('yourCard', JSON.stringify(data.responseJSON.name));
+        });
+
+        $('.glyphicon-menu-right').on('click', function(){
+            //Add want card to localstorage
+            localStorage.setItem('wantCard', JSON.stringify(data.responseJSON.name));
+        });
+
 
         }
 
     })
 }
+
 
 //Modal close
 $('.modal').on('hidden.bs.modal', function () {

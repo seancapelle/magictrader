@@ -1,18 +1,32 @@
 //Angular module
 (function(){
+	// var app = angular.module('cardTrade', ['ngstorage']);
 	var app = angular.module('cardTrade', []);
 
-	app.controller('TradeController', function(){
+	// app.controller('TradeController', function($scope, $localStorage, $sessionStorage){
+	app.controller('TradeController', function(){	
 		this.your = yourCards;
 		this.want = wantCards;	
 	});
 		
+	//Save to local storage	
+	// $scope.save = function(){
+
+	// 	$localStorage.cards = "Your Cards and Want Cards";
+	// }
+
+	// //Get from local storage
+	// $scope.load = function(){
+
+	// 	$scope.data = $localStorage.cards;
+	// }
+
 	//Card you have to trade
 	var yourCards = [
 		{
 			products: 'products',
 			product: 'product',
-			id: 'id',
+			id: JSON.parse(localStorage.getItem('yourCard')),
 			hiprice: 'hiprice',
 			lowprice: 'lowprice',
 			avgprice: 'avgprice',

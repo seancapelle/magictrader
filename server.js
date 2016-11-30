@@ -5,6 +5,9 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mtg = require('mtgsdk');
 
+//Angular local storage
+// var ngstorage = require('ngstorage');
+
 var app = express();
 
 app.use(require('connect').bodyParser());
@@ -51,18 +54,20 @@ app.post('/search', function(req,res){
 //Database post for your cards
 app.post('/your', function(req,res){
 
+	console.log("On Your route");
+
 	var yourCard = new Card(req.body);
 
 	yourCard.save(function(err, doc) {
-    // send any errors to the browser
-    if (err) {
-      res.send(err);
-    }
-    // otherwise, send the new doc to the browser
-    else {
-      res.send(doc);
-    }
-
+	    // send any errors to the browser
+	    if (err) {
+	      res.send(err);
+	    }
+	    // otherwise, send the new doc to the browser
+	    else {
+	      res.send(doc);
+	    }
+	})    
 })
 
 //Database post for want cards
@@ -71,15 +76,15 @@ app.post('/want', function(req,res){
 	var wantCard = new Card(req.body);
 
 	wantCard.save(function(err, doc) {
-    // send any errors to the browser
-    if (err) {
-      res.send(err);
-    }
-    // otherwise, send the new doc to the browser
-    else {
-      res.send(doc);
-    }
-
+	    // send any errors to the browser
+	    if (err) {
+	      res.send(err);
+	    }
+	    // otherwise, send the new doc to the browser
+	    else {
+	      res.send(doc);
+	    }
+	})
 })
 
 

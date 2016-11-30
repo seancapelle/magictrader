@@ -1,6 +1,12 @@
 body{
+	background-color: white;
+}
+.main-container{
 	background-color: #b57252;
 }
+/*main{
+	height: ;
+}*/
 .jumbotron{
 	/*background-color: #765b39;*/
 	background-color: #534742;
@@ -87,4 +93,7 @@ footer{
 }
 .sets{
 	text-align: center;
+}
+.glyphicon-menu-right{
+	float: right;
 }
