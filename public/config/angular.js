@@ -26,7 +26,7 @@
 		{
 			products: 'products',
 			product: 'product',
-			id: JSON.parse(localStorage.getItem('yourCard')),
+			id: 'id',//JSON.parse(localStorage.getItem('yourCard')),
 			hiprice: 'hiprice',
 			lowprice: 'lowprice',
 			avgprice: 'avgprice',

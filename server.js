@@ -46,6 +46,7 @@ app.post('/search', function(req,res){
 
 	//Grab card by name and set (optional)
 	mtg.card.all({ name: req.body.name, set: req.body.set})
+	// mtg.card.all({name: req.body.name})
 	.on('data', function (card) {
 	    res.send(card);
 	});
