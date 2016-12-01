@@ -26,11 +26,12 @@
 		{
 			products: 'products',
 			product: 'product',
-			id: 'id',//JSON.parse(localStorage.getItem('yourCard')),
+			id: JSON.parse(localStorage.getItem('yourCardName')),
 			hiprice: 'hiprice',
 			lowprice: 'lowprice',
-			avgprice: 'avgprice',
-			link: 'link'
+			avgprice: JSON.parse(localStorage.getItem('yourCardPrice')),
+			link: 'link',
+			image: JSON.parse(localStorage.getItem('yourCardPic'))
 		},
 		{
 			products: 'products',
@@ -48,11 +49,12 @@
 		{
 			products: 'products',
 			product: 'product',
-			id: 'id',
+			id: JSON.parse(localStorage.getItem('wantCardName')),
 			hiprice: 'hiprice',
 			lowprice: 'lowprice',
-			avgprice: 'avgprice',
-			link: 'link'
+			avgprice: JSON.parse(localStorage.getItem('wantCardPrice')),
+			link: 'link',
+			image: JSON.parse(localStorage.getItem('wantCardPic'))
 		}
 	];
 

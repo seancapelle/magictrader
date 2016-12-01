@@ -25,8 +25,9 @@
 			<div class="col-md-5 col-sm-12" >
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
-					<h1><a href="{{trade.your.link}}">{{trade.your[0].id}}</a></h1>
-					<p>{{trade.your[0].avgprice}}</p>
+					<!-- <h1><a href="{{trade.your.link}}">{{trade.your[0].id}}</a></h1> -->
+					<img src={{trade.your[0].image}}>
+					<p>{{trade.your[0].avgprice | currency }}</p>
 					<p>Total: {{0 | currency }}</p>
 
 				</div>	
@@ -44,8 +45,9 @@
 			<div class="col-md-5">
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
-					<h1><a href="{{trade.want[0].link}}">{{trade.want[0].id}}</a></h1>
-					<p>{{trade.want[0].avgprice}}</p>
+					<!-- <h1><a href="{{trade.want[0].link}}">{{trade.want[0].id}}</a></h1> -->
+					<img src={{trade.want[0].image}}>
+					<p>{{trade.want[0].avgprice | currency}}</p>
 					<p>Total: {{0 | currency}}
 				</div>
 			</div>

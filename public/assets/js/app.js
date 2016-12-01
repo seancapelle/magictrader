@@ -165,19 +165,24 @@ function currentCard(data){
                 }); // End AJAX
             });
         $('.glyphicon-menu-left').on('click', function(){
+            
             //Add your card to localstorage
-            localStorage.setItem('yourCard', JSON.stringify(data.responseJSON));
+            localStorage.setItem('yourCardName', JSON.stringify(data.responseJSON.name));
+            localStorage.setItem('yourCardPrice', JSON.stringify(avgPrice));
+            localStorage.setItem('yourCardPic', JSON.stringify(data.responseJSON.imageUrl));
         });
 
         $('.glyphicon-menu-right').on('click', function(){
             //Add want card to localstorage
-            localStorage.setItem('wantCard', JSON.stringify(data.responseJSON.name));
+            localStorage.setItem('wantCardName', JSON.stringify(data.responseJSON.name));
+            localStorage.setItem('wantCardPrice', JSON.stringify(avgPrice));
+            localStorage.setItem('wantCardPic', JSON.stringify(data.responseJSON.imageUrl));
         });
 
 
        }
 
-    }//)
+    }
 })
 
 
