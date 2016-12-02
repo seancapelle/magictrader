@@ -57,6 +57,8 @@
 
 // function searchSetup(setCode){
 
+
+
 //Ajax call that takes the cardSearch object for search params, and func for function when done
 function ajaxCall(cardSearch, func){
         
@@ -75,7 +77,7 @@ function ajaxCall(cardSearch, func){
         }); 
 }
 
-//Card search
+//Card search if button clicked
 $("#cardSearchButton").on('click', function(e) {
     e.preventDefault();
 
@@ -89,6 +91,14 @@ $("#cardSearchButton").on('click', function(e) {
     //Grab the initial card
     ajaxCall(cardSearch, dataReceived);
 
+}) 
+
+//Card search if Enter key pressed
+$("#cardInput").keyup(function(event) {
+
+    if(event.keyCode == 13){
+        $("#cardSearchButton").click();
+    }
 }) 
 
 //After first call
@@ -160,6 +170,10 @@ function currentCard(data){
         var side = "yourCards";  
         addCard(side); 
 
+        // var yourCards = [];
+        // var side = yourCards;
+
+        // addCard(side);
     });
 
     $('.glyphicon-menu-right').on('click', function(){
@@ -174,18 +188,25 @@ function currentCard(data){
     function addCard(side){
 
         var exisitingCards = JSON.parse(localStorage.getItem(side)) || [];
-        var cardName = data.responseJSON.name;
-        var cardPrice = avgPrice;
-        var cardPic = data.responseJSON.imageUrl;
+      
         var newEntry = {
-            "name": cardName,
-            "price": cardPrice,
-            "pic": cardPic
-        };
+            "name": data.responseJSON.name,
+            "price": avgPrice,
+            "pic": data.responseJSON.imageUrl
+        }
         localStorage.setItem("newEntry", JSON.stringify(newEntry));
         exisitingCards.push(newEntry);
         localStorage.setItem(side, JSON.stringify(exisitingCards));
 
+        // var newEntry = {
+        //     "name": data.responseJSON.name,
+        //     "price": avgPrice,
+        //     "pic": data.responseJSON.imageUrl
+        // }
+
+        // side.push(newEntry);
+
+        // console.log(side);
     }
 }
 
@@ -195,3 +216,5 @@ $('.modal').on('hidden.bs.modal', function () {
    $('.prices').empty();
    $('#printingsDropdown').empty();
 });
+
+// module.exports(side);
