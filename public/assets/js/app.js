@@ -57,134 +57,137 @@
 
 // function searchSetup(setCode){
 
-    //Card search
-    $("#cardSearchButton").on('click', function(e) {
-        e.preventDefault();
-
-        //Grab user input
-        var card = $('#cardInput').val().trim();
+//Ajax call that takes the cardSearch object for search params, and func for function when done
+function ajaxCall(cardSearch, func){
         
-        //Object with card and set info for the Ajax call
-        var cardSearch = {
-            name: card
-        }
-     
-        var url = window.location.origin + "/search";
-        
+    var url = window.location.origin + "/search";
+            
         $.ajax({
             url: url,
             type: 'POST',
             data: JSON.stringify(cardSearch), 
             async: true,
-            complete: dataReceived, 
+            complete: func, 
             cache: false,
             contentType: "application/json",
             processData: false
 
-        }); // End AJAX
+        }); 
+}
 
-        //Populates modal when call completed
-        function dataReceived(data){
+//Card search
+$("#cardSearchButton").on('click', function(e) {
+    e.preventDefault();
+
+    //Grab user input
+    var card = $('#cardInput').val().trim();
         
-            console.log(data.responseJSON);
+    //Object with card info for the Ajax call
+    var cardSearch = {
+            name: card
+        }
+    //Grab the initial card
+    ajaxCall(cardSearch, dataReceived);
 
-            //currentSet will grab the most recent printing of the card
-            var currentSet = data.responseJSON.printings[data.responseJSON.printings.length - 1];
+}) 
 
-             //Object with card and set info for the Ajax call
-                var cardSearch = {
-                    name: data.responseJSON.name,
-                    set: currentSet 
-                }
+//After first call
+function dataReceived(data){
+        
+    console.log(data.responseJSON);
 
-                var url = window.location.origin + "/search";
-                
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: JSON.stringify(cardSearch),
-                    async: true,
-                    complete: currentCard, 
-                    cache: false,
-                    contentType: "application/json",
-                    processData: false
+    //currentSet will grab the most recent printing of the card
+    var currentSet = data.responseJSON.printings[data.responseJSON.printings.length - 1];
 
-                }); // End AJAX
+    //Object with card and set info for the Ajax call
+    var cardSearch = {
+            name: data.responseJSON.name,
+            set: currentSet 
+        }
+        
+    //Make second call to display the card printing from the most recent set    
+    ajaxCall(cardSearch, currentCard);
+}   
+
+//Displays the selected card printing         
 function currentCard(data){
 
-            //Clear the modal
-            $('.card-view').empty();
-            $('.prices').empty();
-            $('#printingsDropdown').empty();
+    //Clear the modal
+    $('.card-view').empty();
+    $('.prices').empty();
+    $('#printingsDropdown').empty();
 
-            //Add card title and img to modal
-            $('.card-view').append('<h3>' + data.responseJSON.name + '</h3>'); 
-            $('.card-view').append('<p>' + data.responseJSON.setName + '</p>');         
-            $('.card-view').append('<img src="' + data.responseJSON.imageUrl + '"><br>');
+    //Add card title and img to modal
+    $('.card-view').append('<h3>' + data.responseJSON.name + '</h3>'); 
+    $('.card-view').append('<p>' + data.responseJSON.setName + '</p>');         
+    $('.card-view').append('<img src="' + data.responseJSON.imageUrl + '"><br>');
 
-            //Create bogus pricing
-            var lowPrice = (Math.random() * 2);
-            var highPrice = lowPrice + 1;
-            var avgPrice = (highPrice + lowPrice) / 2;
+    //Create bogus pricing
+    var lowPrice = (Math.random() * 2);
+    var highPrice = lowPrice + 1;
+    var avgPrice = (highPrice + lowPrice) / 2;
 
-            //Append said bogus pricing, fixed to two decimals
-            $('.prices').append("Low Price: $" + lowPrice.toFixed(2) + " Average Price: $" + avgPrice.toFixed(2) + " High Price: $" + highPrice.toFixed(2));
+    //Append said bogus pricing, fixed to two decimals
+    $('.prices').append("Low Price: $" + lowPrice.toFixed(2) + " Average Price: $" + avgPrice.toFixed(2) + " High Price: $" + highPrice.toFixed(2));
                 
-            //Append to dropdown all sets card printed in
-            for(var i = 0; i < data.responseJSON.printings.length; i++){  
-                var setPrinting = $('<li><a href="#">' + data.responseJSON.printings[i] + '</a></li>');
-                setPrinting.attr("data-id", data.responseJSON.printings[i]);
-                setPrinting.addClass('set');
-                $('#printingsDropdown').append(setPrinting);
+    //Append to dropdown all sets card printed in
+    for(var i = 0; i < data.responseJSON.printings.length; i++){  
+            var setPrinting = $('<li><a href="#">' + data.responseJSON.printings[i] + '</a></li>');
+            setPrinting.attr("data-id", data.responseJSON.printings[i]);
+            setPrinting.addClass('set');
+            $('#printingsDropdown').append(setPrinting);
+        }
+
+    //User clicks setPrinting to select a different set
+    $('.set').on('click', function() {
+
+        //Take user input 
+        setPick = $(this).data('id');
+
+        //Object with card and set info for the Ajax call
+        var cardSearch = {
+                name: data.responseJSON.name,
+                set: setPick 
             }
-
-            //User clicks setPrinting
-            $('.set').on('click', function() {
-
-                //Take user input 
-                setPick = $(this).data('id');
-
-               //Object with card and set info for the Ajax call
-                var cardSearch = {
-                    name: data.responseJSON.name,
-                    set: setPick 
-                }
-
-                var url = window.location.origin + "/search";
                 
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: JSON.stringify(cardSearch),
-                    async: true,
-                    complete: currentCard, 
-                    cache: false,
-                    contentType: "application/json",
-                    processData: false
+        ajaxCall(cardSearch, currentCard);
+                
+    });
 
-                }); // End AJAX
-            });
-        $('.glyphicon-menu-left').on('click', function(){
-            
-            //Add your card to localstorage
-            localStorage.setItem('yourCardName', JSON.stringify(data.responseJSON.name));
-            localStorage.setItem('yourCardPrice', JSON.stringify(avgPrice));
-            localStorage.setItem('yourCardPic', JSON.stringify(data.responseJSON.imageUrl));
-        });
+    $('.glyphicon-menu-left').on('click', function(){
+        
+        //Set the side for the cards to go on and add run addCard
+        var side = "yourCards";  
+        addCard(side); 
 
-        $('.glyphicon-menu-right').on('click', function(){
-            //Add want card to localstorage
-            localStorage.setItem('wantCardName', JSON.stringify(data.responseJSON.name));
-            localStorage.setItem('wantCardPrice', JSON.stringify(avgPrice));
-            localStorage.setItem('wantCardPic', JSON.stringify(data.responseJSON.imageUrl));
-        });
+    });
 
+    $('.glyphicon-menu-right').on('click', function(){
+        
+        //Set the side for the cards to go on and add run addCard
+        var side = "wantCards";  
+        addCard(side); 
 
-       }
+    });
+
+    //Determines which side to add the selected card into localStorage
+    function addCard(side){
+
+        var exisitingCards = JSON.parse(localStorage.getItem(side)) || [];
+        var cardName = data.responseJSON.name;
+        var cardPrice = avgPrice;
+        var cardPic = data.responseJSON.imageUrl;
+        var newEntry = {
+            "name": cardName,
+            "price": cardPrice,
+            "pic": cardPic 
+        };
+        localStorage.setItem("newEntry", JSON.stringify(newEntry));
+        exisitingCards.push(newEntry);
+        localStorage.setItem(side, JSON.stringify(exisitingCards));
 
     }
-})
-
+}
 
 //Modal close
 $('.modal').on('hidden.bs.modal', function () {

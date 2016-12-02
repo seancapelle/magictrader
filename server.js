@@ -46,14 +46,13 @@ app.post('/search', function(req,res){
 
 	//Grab card by name and set (optional)
 	mtg.card.all({ name: req.body.name, set: req.body.set})
-	// mtg.card.all({name: req.body.name})
 	.on('data', function (card) {
 	    res.send(card);
 	});
 })
 
 //Database post for your cards
-app.post('/your', function(req,res){
+app.post('/yourCard', function(req,res){
 
 	console.log("On Your route");
 
@@ -72,7 +71,7 @@ app.post('/your', function(req,res){
 })
 
 //Database post for want cards
-app.post('/want', function(req,res){
+app.post('/wantCard', function(req,res){
 
 	var wantCard = new Card(req.body);
 
