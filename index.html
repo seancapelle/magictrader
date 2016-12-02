@@ -25,13 +25,10 @@
 			<div class="col-md-5 col-sm-12" >
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
-					<div ng-repeat="card in trade.your">
-						
-						<img src={{card.pic}}>
-						<p>{{ card.price | currency }}</p>
-						
-					</div>
-					<p>Total: {{0 | currency }}</p>
+					<ul ng-repeat="card in trade.your">		
+						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p></div></li>	
+					</ul>
+					Total: {{trade.yourValue | currency }}
 				</div>	
 			</div>
 			
@@ -39,7 +36,7 @@
 			<div class="col-md-2 col-sm-12">
 				<h1 class="centered">Value</h1>
 				<div id="value" class="value-well">
-					<p>{{0 | currency}}</p>
+					<p>{{ trade.yourValue - trade.wantValue | currency}}</p>
 				</div>
 			</div>
 
@@ -47,10 +44,10 @@
 			<div class="col-md-5">
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
-					<!-- <h1><a href="{{trade.want[0].link}}">{{trade.want[0].id}}</a></h1> -->
-					<img src={{trade.want[0].image}}>
-					<p>{{trade.want[0].avgprice | currency}}</p>
-					<p>Total: {{0 | currency}}
+					<ul ng-repeat="card in trade.want">
+						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p></div></li>
+					</ul>
+					Total: {{trade.wantValue | currency}}
 				</div>
 			</div>
 		</div>
@@ -84,7 +81,7 @@
       </span>
     </div> -->
 
-</main>
+	</main>
 <footer>
 	<div class="container">
 		<div class="row">

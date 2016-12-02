@@ -180,7 +180,7 @@ function currentCard(data){
         var newEntry = {
             "name": cardName,
             "price": cardPrice,
-            "pic": cardPic 
+            "pic": cardPic
         };
         localStorage.setItem("newEntry", JSON.stringify(newEntry));
         exisitingCards.push(newEntry);

@@ -6,52 +6,80 @@
 	// app.controller('TradeController', function($scope, $localStorage, $sessionStorage){
 	app.controller('TradeController', function(){	
 	
-		this.your = [];
-		this.want = wantCards;	
+			this.your = [];
+			this.want = [];	
+			
+		//Save to local storage	
+		// $scope.save = function(){
 
-		
-	//Save to local storage	
-	// $scope.save = function(){
+		// 	$localStorage.cards = "Your Cards and Want Cards";
+		// }
 
-	// 	$localStorage.cards = "Your Cards and Want Cards";
-	// }
+		// //Get from local storage
+		// $scope.load = function(){
 
-	// //Get from local storage
-	// $scope.load = function(){
-
-	// 	$scope.data = $localStorage.cards;
-	// }
+		// 	$scope.data = $localStorage.cards;
+		// }
 
 
-	//Card you have to trade
-	var yourCards = []
-	var cardsArray = JSON.parse(localStorage.getItem('yourCards'));
+		//Card you have to trade
+		var yourCards = [];
+		var yourArray = JSON.parse(localStorage.getItem('yourCards'));
 
-	cardsArray.forEach(function(element){
-		yourCards.push(element);
-	})
+		yourArray.forEach(function(element){
+			yourCards.push(element);
+		})
 
-	
-	this.your = yourCards;
+		var yourValue = []
 
+		for (var i = 0; i < yourCards.length; i++){
+			yourValue.push(yourCards[i].price);
+		}
+		var yourSum = yourValue.reduce(add, 0);
+
+		function add(a, b){
+			return a + b;
+		}
+
+		this.yourValue = yourSum;
+
+		this.your = yourCards;
+
+
+		//Card you want
+		var wantCards = [];
+		var wantArray = JSON.parse(localStorage.getItem('wantCards'));
+
+		wantArray.forEach(function(element){
+			wantCards.push(element);
+		})
+
+		var wantValue = []
+
+		for (var i = 0; i < wantCards.length; i++){
+			wantValue.push(wantCards[i].price);
+		}
+		var wantSum = wantValue.reduce(add, 0);
+
+		function add(a, b){
+			return a + b;
+		}
+
+		this.wantValue = wantSum;
+
+		this.want = wantCards;
+
+		// //Value
+		// var value = [];
+		// var priceArray = JSON.parse(localStorage.getItem('price'));
+
+		// priceArray.forEach(function(element){
+		// 	value.push(element);
+		// })
 
 	});
-	//console.log( this.your )
-	//console.log( this.your[0].price )
-
-
-	// [
-	// 	{
-	// 		products: 'products',
-	// 		product: 'product',
-	// 		id: JSON.parse(localStorage.getItem('yourCardName')),
-	// 		hiprice: 'hiprice',
-	// 		lowprice: 'lowprice',
-	// 		avgprice: JSON.parse(localStorage.getItem('yourCardPrice')),
-	// 		link: 'link',
-	// 		image: JSON.parse(localStorage.getItem('yourCardPic'))
-	// 	},
-	// 	{
+	
+	
 	// 		products: 'products',
 	// 		product: 'product',
 	// 		id: 'id',
@@ -59,22 +87,8 @@
 	// 		lowprice: 'lowprice',
 	// 		avgprice: 'avgprice',
 	// 		link: 'link'
-	// 	}
 
-	// ];
-	//Card you want from trade
-	var wantCards = [
-		{
-			products: 'products',
-			product: 'product',
-			id: JSON.parse(localStorage.getItem('wantCardName')),
-			hiprice: 'hiprice',
-			lowprice: 'lowprice',
-			avgprice: JSON.parse(localStorage.getItem('wantCardPrice')),
-			link: 'link',
-			image: JSON.parse(localStorage.getItem('wantCardPic'))
-		}
-	];
+
 
 	// var model = [
 	// 	card1, card2, card3, card4
