@@ -72,6 +72,12 @@ body{
 	bottom: 330px;
 	text-align: center;
 }
+.your-value{
+	float: left;
+}
+.want-value{
+	float: right;
+}
 .value-well{
 	border: 1px solid black;
 	border-radius: 50px;
@@ -80,10 +86,10 @@ body{
 	height: 100px;
 	margin: auto;
 }
-.value-well p{
+.value-well h2{
 	text-align: center;
 	position: relative;
-	top: 40px;
+	top: 13px;
 	color: white;
 }
 .search{

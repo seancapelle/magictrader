@@ -28,15 +28,16 @@
 					<ul ng-repeat="card in trade.your">		
 						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="yourDelete(card)"> X </button></li>	
 					</ul>
-					Total: {{ yourTotal() | currency }}
+					
 				</div>	
+				<h1 class="centered">Total: {{ yourTotal() | currency }}</h1>
 			</div>
 			
-			<!-- Compare Section -->
+			<!-- Value Section -->
 			<div class="col-md-2 col-sm-12">
 				<h1 class="centered">Value</h1>
 				<div id="value" class="value-well">
-					<!-- <p>{{ trade.yourValue - trade.wantValue | currency}}</p> -->
+					<h2>{{ yourTotal() - wantTotal() | currency}}</h2>
 				</div>
 			</div>
 
@@ -46,10 +47,9 @@
 				<div id="wantCards" class="card-well">
 					<ul ng-repeat="card in trade.want">
 						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="wantDelete(card)"> X </button></li> 
-						
 					</ul>
-					Total: {{ wantTotal() | currency}}
 				</div>
+				<h1 class="centered">Total: {{ wantTotal() | currency}}</h1>
 			</div>
 		</div>
 
