@@ -4,7 +4,7 @@
 	var app = angular.module('cardTrade', []);
 
 	// app.controller('TradeController', function($scope, $localStorage, $sessionStorage){
-	app.controller('TradeController', function(){	
+	app.controller('TradeController', function($scope){	
 	
 			this.your = [];
 			this.want = [];	
@@ -24,62 +24,59 @@
 
 		//Card you have to trade
 		var yourCards = [];
-		var yourArray = JSON.parse(localStorage.getItem('yourCards'));
-
-		yourArray.forEach(function(element){
-			yourCards.push(element);
-		})
-
 		var yourValue = []
 
-		for (var i = 0; i < yourCards.length; i++){
-			yourValue.push(yourCards[i].price);
-		}
+		var yourArray = JSON.parse(localStorage.getItem('yourCards'));
+
+		//Populate your card and value arrays
+		yourArray.forEach(function(element){
+			yourCards.push(element);
+			yourValue.push(element.price);
+		})
+
+		//Adds up prices of yourCards
 		var yourSum = yourValue.reduce(add, 0);
 
 		function add(a, b){
 			return a + b;
 		}
 
+		this.your = yourCards;
 		this.yourValue = yourSum;
 
-		this.your = yourCards;
 
-
-		//Card you want
+		//Card you want from the trade
 		var wantCards = [];
+		var wantValue = [];
+
 		var wantArray = JSON.parse(localStorage.getItem('wantCards'));
 
+		//Populate want card and value arrays
 		wantArray.forEach(function(element){
 			wantCards.push(element);
+			wantValue.push(element.price)
 		})
 
-		var wantValue = []
-
-		for (var i = 0; i < wantCards.length; i++){
-			wantValue.push(wantCards[i].price);
-		}
+		//Adds up prices of wantCards
 		var wantSum = wantValue.reduce(add, 0);
 
 		function add(a, b){
 			return a + b;
 		}
 
+		this.want = wantCards;
 		this.wantValue = wantSum;
 
-		this.want = wantCards;
+		$scope.yourCards = yourCards;
+console.log($scope.yourCards);
+		$scope.delete = function(card){
+		
+			$scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
+		}
 
-		// //Value
-		// var value = [];
-		// var priceArray = JSON.parse(localStorage.getItem('price'));
-
-		// priceArray.forEach(function(element){
-		// 	value.push(element);
-		// })
 
 	});
-	
-	
+
 	// 		products: 'products',
 	// 		product: 'product',
 	// 		id: 'id',

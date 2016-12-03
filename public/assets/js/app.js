@@ -164,7 +164,7 @@ function currentCard(data){
                 
     });
 
-    $('.glyphicon-menu-left').on('click', function(){
+    $('.yourCardsAdd').on('click', function(){
         
         //Set the side for the cards to go on and add run addCard
         var side = "yourCards";  
@@ -176,7 +176,7 @@ function currentCard(data){
         // addCard(side);
     });
 
-    $('.glyphicon-menu-right').on('click', function(){
+    $('.wantCardsAdd').on('click', function(){
         
         //Set the side for the cards to go on and add run addCard
         var side = "wantCards";  
@@ -192,7 +192,8 @@ function currentCard(data){
         var newEntry = {
             "name": data.responseJSON.name,
             "price": avgPrice,
-            "pic": data.responseJSON.imageUrl
+            "pic": data.responseJSON.imageUrl,
+            "none": false
         }
         localStorage.setItem("newEntry", JSON.stringify(newEntry));
         exisitingCards.push(newEntry);

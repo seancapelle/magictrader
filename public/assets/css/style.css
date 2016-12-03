@@ -50,9 +50,9 @@ body{
   position: relative;
   display: block;    
 }
-.card-well li:hover {
+/*.card-well li:hover {
   z-index: 9999;
-}
+}*/
 .card-well img{
 /*	width: 80%;*/
 	margin: auto;
@@ -64,6 +64,12 @@ body{
 	position: relative;
 	right: 150px;
 	bottom: 300px;
+	text-align: center;
+}
+.remove{
+	position: relative;
+	left: 280px;
+	bottom: 330px;
 	text-align: center;
 }
 .value-well{
@@ -118,6 +124,9 @@ footer{
 .sets{
 	text-align: center;
 }
-.glyphicon-menu-right{
+.yourCardsAdd{
+	float: left;
+}
+.wantCardsAdd{
 	float: right;
 }

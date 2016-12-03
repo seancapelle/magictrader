@@ -26,8 +26,9 @@
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
 					<ul ng-repeat="card in trade.your">		
-						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p></div></li>	
+						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="delete(card)"> X </button></li>	
 					</ul>
+					<!-- ng-click="this.clicked(cardName)" -->
 					Total: {{trade.yourValue | currency }}
 				</div>	
 			</div>
@@ -45,7 +46,7 @@
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
 					<ul ng-repeat="card in trade.want">
-						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p></div></li>
+						<li ng-hide="card.none"><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p></div></li>
 					</ul>
 					Total: {{trade.wantValue | currency}}
 				</div>
@@ -58,7 +59,7 @@
 				<div class="input-group">
 					<input type="text" class="form-control" placeholder="Card Name" id="cardInput">
 		      			<span class="input-group-btn">
-		      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="this.clicked(cardName)"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 		      			</span>
 	     		</div>
 			</div>
@@ -106,13 +107,15 @@
 			  <!--  <button ng-click="save()"><span class="glyphicon glyphicon-menu-left yourCardsAdd" aria-hidden="true"></span></button>
 			   <button ng-click="load()"><span class="glyphicon glyphicon-menu-right wantCardsAdd" aria-hidden="true"></span></button> -->
 
-			    <button><span class="glyphicon glyphicon-menu-left yourCardsAdd" aria-hidden="true"></span></button>
-			   <button><span class="glyphicon glyphicon-menu-right wantCardsAdd" aria-hidden="true"></span></button>
+			<button class="yourCardsAdd"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
+			<button class="wantCardsAdd"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
+			  
 
 				<div class="card-view"></div>	
 			      	<p>Price</p>
-			      		<div class="prices"></div>
+			    <div class="prices"></div>
 			      <div class="sets">
+				
 			      	<div class="dropdown">
   						<button class="btn btn-default dropdown-toggle" type="button" id="printingsDropDownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Expansions
   						<span class="caret"></span>
