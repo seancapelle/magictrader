@@ -26,10 +26,9 @@
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
 					<ul ng-repeat="card in trade.your">		
-						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="delete(card)"> X </button></li>	
+						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="yourDelete(card)"> X </button></li>	
 					</ul>
-					<!-- ng-click="this.clicked(cardName)" -->
-					Total: {{trade.yourValue | currency }}
+					Total: {{ yourTotal() | currency }}
 				</div>	
 			</div>
 			
@@ -37,7 +36,7 @@
 			<div class="col-md-2 col-sm-12">
 				<h1 class="centered">Value</h1>
 				<div id="value" class="value-well">
-					<p>{{ trade.yourValue - trade.wantValue | currency}}</p>
+					<!-- <p>{{ trade.yourValue - trade.wantValue | currency}}</p> -->
 				</div>
 			</div>
 
@@ -46,9 +45,10 @@
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
 					<ul ng-repeat="card in trade.want">
-						<li ng-hide="card.none"><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p></div></li>
+						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="wantDelete(card)"> X </button></li> 
+						
 					</ul>
-					Total: {{trade.wantValue | currency}}
+					Total: {{ wantTotal() | currency}}
 				</div>
 			</div>
 		</div>
