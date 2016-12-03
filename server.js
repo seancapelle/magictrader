@@ -33,6 +33,11 @@ db.once('open', function(){
 	console.log('Mongoose connection successful.');
 });
 
+//Bring in Card models
+ var Card = require('./server/models/cardModel.js');
+ var YourCard = require('./server/models/yourCardModel.js');
+ var WantCard = require('./server/models/wantCardModel.js')
+
 
 //Routes
 app.get('/', function(req,res){
@@ -51,13 +56,14 @@ app.post('/search', function(req,res){
 	});
 })
 
-//Database post for your cards
+//DB post for your cards
 app.post('/yourCard', function(req,res){
 
-	console.log("On Your route");
+	console.log(req.body);
 
-	var yourCard = new Card(req.body);
+	var yourCard = new YourCard(req.body);
 
+	//console.log(yourCard);
 	yourCard.save(function(err, doc) {
 	    // send any errors to the browser
 	    if (err) {
@@ -70,10 +76,10 @@ app.post('/yourCard', function(req,res){
 	})    
 })
 
-//Database post for want cards
+//DB post for want cards
 app.post('/wantCard', function(req,res){
 
-	var wantCard = new Card(req.body);
+	var wantCard = new WantCard(req.body);
 
 	wantCard.save(function(err, doc) {
 	    // send any errors to the browser

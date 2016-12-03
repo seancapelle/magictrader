@@ -50,9 +50,9 @@ body{
   position: relative;
   display: block;    
 }
-/*.card-well li:hover {
+.card-well li:hover {
   z-index: 9999;
-}*/
+}
 .card-well img{
 /*	width: 80%;*/
 	margin: auto;

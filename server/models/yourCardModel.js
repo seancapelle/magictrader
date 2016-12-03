@@ -3,15 +3,15 @@ var mongoose = require('mongoose');
 // create a schema class
 var Schema = mongoose.Schema;
 
-// create the Card schema
-var CardSchema = new Schema({
+// create the YourCard schema
+var YourCardSchema = new Schema({
   name:String,
   price: String,
   pic : String
 });
 
 // create the Card model with the CardSchema
-var Card = mongoose.model('Card', CardSchema);
+var YourCard = mongoose.model('YourCard', YourCardSchema);
 
 // export the Card model
-module.exports = Card;
+module.exports = YourCard;

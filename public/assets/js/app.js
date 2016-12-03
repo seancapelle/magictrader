@@ -167,7 +167,7 @@ function currentCard(data){
     $('.yourCardsAdd').on('click', function(){
         
         //Set the side for the cards to go on and add run addCard
-        var side = "yourCards";  
+        var side = "yourCard";  
         addCard(side); 
 
         // var yourCards = [];
@@ -179,7 +179,7 @@ function currentCard(data){
     $('.wantCardsAdd').on('click', function(){
         
         //Set the side for the cards to go on and add run addCard
-        var side = "wantCards";  
+        var side = "wantCard";  
         addCard(side); 
 
     });
@@ -187,27 +187,46 @@ function currentCard(data){
     //Determines which side to add the selected card into localStorage
     function addCard(side){
 
-        var exisitingCards = JSON.parse(localStorage.getItem(side)) || [];
+    // var exisitingCards = JSON.parse(localStorage.getItem(side)) || [];
       
-        var newEntry = {
+       var newEntry = {
             "name": data.responseJSON.name,
             "price": avgPrice,
-            "pic": data.responseJSON.imageUrl,
-            "none": false
+            "pic": data.responseJSON.imageUrl
         }
-        localStorage.setItem("newEntry", JSON.stringify(newEntry));
-        exisitingCards.push(newEntry);
-        localStorage.setItem(side, JSON.stringify(exisitingCards));
 
-        // var newEntry = {
-        //     "name": data.responseJSON.name,
-        //     "price": avgPrice,
-        //     "pic": data.responseJSON.imageUrl
-        // }
+        //Determine which route to send to
+        if (side == 'yourCard'){
+            console.log(side);
+            search(side, newEntry);
 
-        // side.push(newEntry);
+        }
+        else {
+            console.log(side);
+            search(side, newEntry);
+        }
 
-        // console.log(side);
+        //Send card info on route
+        function search(side, newEntry){
+
+            var url = "/" + side;
+
+                $.ajax({
+                    method: "POST",
+                    data: newEntry,
+                    url: url
+                })
+                .done(function(data){
+                     console.log(data);
+                })
+        }
+      
+
+        //LOCAL STORAGE STARTS HERE
+        // localStorage.setItem("newEntry", JSON.stringify(newEntry));
+        // exisitingCards.push(newEntry);
+        // localStorage.setItem(side, JSON.stringify(exisitingCards));
+
     }
 }
 
