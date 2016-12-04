@@ -5,9 +5,6 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mtg = require('mtgsdk');
 
-//Angular local storage
-// var ngstorage = require('ngstorage');
-
 var app = express();
 
 app.use(require('connect').bodyParser());
@@ -59,11 +56,8 @@ app.post('/search', function(req,res){
 //DB post for your cards
 app.post('/yourCard', function(req,res){
 
-	console.log(req.body);
-
 	var yourCard = new YourCard(req.body);
 
-	//console.log(yourCard);
 	yourCard.save(function(err, doc) {
 	    // send any errors to the browser
 	    if (err) {
@@ -93,6 +87,35 @@ app.post('/wantCard', function(req,res){
 	})
 })
 
+//DB pull for your cards
+app.get('/pullYourCards', function(req, res){
+	// grab every doc in the Articles array
+	YourCard.find({}, function(err, doc){
+		// log any errors
+		if (err){
+			console.log(err);
+		} 
+		// or send the doc to the browser as a json object
+		else {
+			res.json(doc);
+		}
+	});
+});
+
+//DB pull for want cards
+app.get('/pullWantCards', function(req, res){
+	// grab every doc in the Articles array
+	WantCard.find({}, function(err, doc){
+		// log any errors
+		if (err){
+			console.log(err);
+		} 
+		// or send the doc to the browser as a json object
+		else {
+			res.json(doc);
+		}
+	});
+});
 
 app.listen(3000, function(){
 	console.log("App listening on port 3000");

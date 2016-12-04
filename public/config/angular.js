@@ -1,40 +1,61 @@
-//Angular module
 (function(){
-	// var app = angular.module('cardTrade', ['ngstorage']);
-	var app = angular.module('cardTrade', []);
-
-	// app.controller('TradeController', function($scope, $localStorage, $sessionStorage){
-	app.controller('TradeController', function($scope){	
 	
-			this.your = [];
-			this.want = [];	
+	// var app = angular.module('cardTrade', []);
+
+	// app.controller('TradeController', function($scope, $http){	
+	angular.module('cardTrade', [])
+				.controller( 'TradeController', TradeController)//added
+
+				TradeController.$inject = ['$scope', '$http'];//added
+
+	function TradeController( $scope, $http ){
+	
+
+		//Pull localStorage
+		// var yourArray = JSON.parse(localStorage.getItem('yourCards'));
+		var yourArray = [];
+		var wantArray = [];
+
+		$http.get('/pullYourCards')
+		.then(function(response){
+			console.log( "calling your response ")
+			console.log(response.data);
+			$scope.yourCards = response.data;
+			
+			response.data.forEach(function(element){
+				yourArray.push(element);
+			})
+		})
 
 		//Card you have to trade
 		var yourCards = [];
-
-		var yourArray = JSON.parse(localStorage.getItem('yourCards'));
-
-		//Populate your card and value arrays
-		yourArray.forEach(function(element){
-			yourCards.push(element);
-		})
-
-		this.your = yourCards;
 		
+		$scope.yourCards = yourArray;
+		// console.log($scope.yourCards);
+		
+		//Pull localStorage
+		// var wantArray = JSON.parse(localStorage.getItem('wantCards'));
+
+		$http.get('/pullWantCards')
+		.then(function(response){
+			console.log( "calling want response ")
+			console.log(response.data);
+			$scope.wantCards = response.data;
+			
+			response.data.forEach(function(element){
+				wantArray.push(element);
+			})
+		})
 		//Card you want from the trade
 		var wantCards = [];
 
-		var wantArray = JSON.parse(localStorage.getItem('wantCards'));
+		// //Populate want card and value arrays
+		// wantArray.forEach(function(element){
+		// 	wantCards.push(element);
+		// })
 
-		//Populate want card and value arrays
-		wantArray.forEach(function(element){
-			wantCards.push(element);
-		})
+		$scope.wantCards = wantCards;
 
-
-		this.want = wantCards;
-
-		$scope.yourCards = yourCards;
 
 		$scope.yourDelete = function(card){
 		
@@ -44,24 +65,22 @@
 		//Total price of your cards
 		$scope.yourTotal = function(){
 			
-			var yourCurrent = $scope.yourCards;
+			// var yourCurrent = $scope.yourCards;
 
 			var yourValue = [];
 
-			yourCurrent.forEach(function(element){
-				yourValue.push(element.price);
+			$scope.yourCards.forEach(function(element){
+				var yourParse = parseFloat(element.price);
+				yourValue.push(yourParse);
 			})
-
+		
 			var yourSum = yourValue.reduce(add, 0);
-
 			function add(a, b){
 				return a + b;
 			}
-			
+			console.log(yourSum);
 			return yourSum;
 		}
-
-		$scope.wantCards = wantCards;
 
 		$scope.wantDelete = function(card){
 		
@@ -71,11 +90,11 @@
 		//Total price of your cards
 		$scope.wantTotal = function(){
 			
-			var wantCurrent = $scope.wantCards;
+			// var wantCurrent = $scope.wantCards;
 
 			var wantValue = [];
 
-			wantCurrent.forEach(function(element){
+			$scope.wantCards.forEach(function(element){
 				wantValue.push(element.price);
 			})
 
@@ -84,27 +103,10 @@
 			function add(a, b){
 				return a + b;
 			}
-
+			console.log(wantSum);
 			return wantSum;
 		}
 
-		$scope.findValue = function(your){
-
-			console.log(your);
-		}
-
-	});
-
-	// 		products: 'products',
-	// 		product: 'product',
-	// 		id: 'id',
-	// 		hiprice: 'hiprice',
-	// 		lowprice: 'lowprice',
-	// 		avgprice: 'avgprice',
-	// 		link: 'link'
-
-
-	//function to add up all prices and ng-show to toggle showing good, bad, or equal trade value
-
-	
+	// });
+	}
 })();

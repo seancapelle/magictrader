@@ -25,7 +25,7 @@
 			<div class="col-md-5 col-sm-12" >
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
-					<ul ng-repeat="card in trade.your">		
+					<ul ng-repeat="card in yourCards">		
 						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="yourDelete(card)"> X </button></li>	
 					</ul>
 					
@@ -45,7 +45,7 @@
 			<div class="col-md-5">
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
-					<ul ng-repeat="card in trade.want">
+					<ul ng-repeat="card in wantCards">
 						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="wantDelete(card)"> X </button></li> 
 					</ul>
 				</div>
