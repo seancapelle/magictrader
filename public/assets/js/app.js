@@ -20,7 +20,7 @@ function ajaxCall(cardSearch, func){
 //Card search if button clicked
 $("#cardSearchButton").on('click', function(e) {
     e.preventDefault();
-
+console.log("in app.js");
     //Grab user input
     var card = $('#cardInput').val().trim();
         
