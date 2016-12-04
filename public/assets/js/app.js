@@ -2,8 +2,8 @@
 //Ajax call that takes the cardSearch object for search params, and func for function when done
 function ajaxCall(cardSearch, func){
         
-    var url = window.location.origin + "/search";
-            
+    var url =  "/search";
+            //window.location.origin +
         $.ajax({
             url: url,
             type: 'POST',
