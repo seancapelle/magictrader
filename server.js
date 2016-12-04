@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // mongoose.connect('mongodb://localhost/magictrader');
 
 //Heroku mongoose connection
-mongoose.connect('mongodb://heroku_02s0x6w6:vtp54uth802806jt60jrjjp4ae@ds139267.mlab.com:39267/heroku_02s0x6w6');
+mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
 
 var db = mongoose.connection;
 
