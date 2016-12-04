@@ -1,0 +1,27 @@
+{
+  "name": "magictrader",
+  "version": "1.0.0",
+  "description": "Trade Magic cards",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seancapelle/magictrader.git"
+  },
+  "author": "Sean Capelle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seancapelle/magictrader/issues"
+  },
+  "homepage": "https://github.com/seancapelle/magictrader#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.1",
+    "morgan": "^1.7.0",
+    "mtgsdk": "^0.1.1"
+  }
+}

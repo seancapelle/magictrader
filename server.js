@@ -13,10 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Configuration
 // Database configuration with mongoose
-mongoose.connect('mongodb://localhost/magictrader');
+// mongoose.connect('mongodb://localhost/magictrader');
 
 //Heroku mongoose connection
-//mongoose.connect('mongodb://heroku_02s0x6w6:vtp54uth802806jt60jrjjp4ae@ds139267.mlab.com:39267/heroku_02s0x6w6');
+mongoose.connect('mongodb://heroku_02s0x6w6:vtp54uth802806jt60jrjjp4ae@ds139267.mlab.com:39267/heroku_02s0x6w6');
 
 var db = mongoose.connection;
 
@@ -116,6 +116,27 @@ app.get('/pullWantCards', function(req, res){
 		}
 	});
 });
+
+//Remove a your card from DB
+app.get('/removeYourCard/:id', function(req, res){
+
+console.log(req.params.id);
+	var cardID = req.params.id.toString();
+
+	// YourCard.remove({"_id": cardID}, function(err, result){
+	// 	if (err){
+	// 		console.log(err);
+	// 	}
+	// 	else{
+	// 		res.redirect('/');
+	// 	}
+	// })
+})
+
+// //Remove a want card from DB
+// app.delete('/removeWantCard', function(req, res){
+// 	WantCard.
+// })
 
 app.listen(3000, function(){
 	console.log("App listening on port 3000");

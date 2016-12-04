@@ -109,11 +109,7 @@ function currentCard(data){
         //Set the side for the cards to go on and add run addCard
         var side = "yourCard";  
         addCard(side); 
-
-        // var yourCards = [];
-        // var side = yourCards;
-
-        // addCard(side);
+    
     });
 
     $('.wantCardsAdd').on('click', function(){
@@ -161,12 +157,6 @@ function currentCard(data){
                 })
         }
       
-
-        //LOCAL STORAGE STARTS HERE
-        // localStorage.setItem("newEntry", JSON.stringify(newEntry));
-        // exisitingCards.push(newEntry);
-        // localStorage.setItem(side, JSON.stringify(exisitingCards));
-
     }
 }
 
