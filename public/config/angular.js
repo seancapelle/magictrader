@@ -51,17 +51,12 @@
 		//Remove yourCards from display
 		$scope.yourDelete = function(card){
 
-
-			$scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
-			// console.log(card._id);
-
-			// var id = card._id;
-			
-		
-			// $http.get('/removeYourCard/:id')
-			// .then(function(response){
-		
-			// })
+			var id = card._id;
+					
+			$http.delete('/removeYourCard/:' + id)
+			.then(function(response){
+				$scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
+			})
 			
 		}
 
@@ -85,8 +80,14 @@
 
 		//Remove wantCards from display
 		$scope.wantDelete = function(card){
-		
-			$scope.wantCards.splice($scope.wantCards.indexOf(card), 1);
+			
+			var id = card._id;
+					
+			$http.delete('/removeWantCard/:' + id)
+			.then(function(response){
+				$scope.WantCards.splice($scope.wantCards.indexOf(card), 1);
+			})
+			
 		}
 
 		//Total price of your cards
@@ -119,12 +120,14 @@
    				//Nested search to grab the card and its most current printing
 				$http.get('https://api.magicthegathering.io/v1/cards?name=' + $scope.cardName + "&set=" + currentSet.set)
 				.then(function(response){
+
 					console.log(response.data);
 
 					//Display card
 					$scope.name = response.data.cards[0].name;
 					$scope.set = response.data.cards[0].setName;
 					$scope.picURL = response.data.cards[0].imageUrl;
+					
 					//Create bogus pricing
 					$scope.lowPrice = (Math.random() * 2);
     				$scope.highPrice = $scope.lowPrice + 1;
@@ -135,9 +138,8 @@
     				response.data.cards[0].printings.forEach(function(element){
 						setArray.push(element);
 					})
-					console.log(setArray);
+
 					$scope.setList = setArray;
-					console.log($scope.setList);
 				})
          	})
 		}

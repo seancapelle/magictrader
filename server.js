@@ -44,11 +44,11 @@ app.get('/', function(req,res){
 app.use('/', express.static(__dirname + '/public'));
 
 //Card search route
-app.post('/search', function(req,res){
-
+app.get('/search', function(req,res){
+console.log(req.body);
 	//Grab card by name and set (optional)
-	// mtg.card.all({ name: req.body.name, set: req.body.set})
-	mtg.card.all({ name: req.body.name})
+	mtg.card.all({ name: req.body.name, set: req.body.set})
+	// mtg.card.all({ name: req.body.name})
 	.on('data', function (card) {
 	    res.send(card);
 	});
@@ -119,25 +119,40 @@ app.get('/pullWantCards', function(req, res){
 });
 
 //Remove a your card from DB
-app.get('/removeYourCard/:id', function(req, res){
+app.delete('/removeYourCard/:id', function(req, res){
 
-console.log(req.params.id);
-	var cardID = req.params.id.toString();
+	var split = req.params.id.split(':');
+	
+	var cardID = split[1];
 
-	// YourCard.remove({"_id": cardID}, function(err, result){
-	// 	if (err){
-	// 		console.log(err);
-	// 	}
-	// 	else{
-	// 		res.redirect('/');
-	// 	}
-	// })
+	YourCard.findByIdAndRemove(cardID, function(err, res){
+		if (err){
+			console.log(err);
+		}
+		else{
+
+			res.redirect('/');
+		}
+	})
 })
 
-// //Remove a want card from DB
-// app.delete('/removeWantCard', function(req, res){
-// 	WantCard.
-// })
+//Remove a want card from DB
+app.delete('/removeWantCard/:id', function(req, res){
+	
+	var split = req.params.id.split(':');
+
+	var cardID = split[1];
+
+	WantCard.findByIdAndRemove(cardID, function(err, res){
+		if (err){
+			console.log(err);
+		}
+		else{
+
+			res.redirect('/');
+		}
+	})
+})
 var port=Number(process.env.PORT || 3000);
 
 app.listen(port, function(){
