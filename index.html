@@ -2,14 +2,14 @@
 <html lang="en" ng-app="cardTrade">
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link href="public/assets/css/style.css" type="text/css" rel="stylesheet">
+  <link href="assets/css/style.css" type="text/css" rel="stylesheet">
   <meta charset="UTF-8">
   <title>Magic Trader</title>
 </head>
 <body ng-controller="TradeController as trade">
 <div class="main-container">
 	<div class="jumbotron">
-		<img src="public/assets/img/magic-trader.png" class="logo">
+		<img src="assets/img/magic-trader.png" class="logo">
 	</div>
 
 
@@ -52,9 +52,9 @@
 		<div class="row">
 			<div class="col-md-12 search">
 				<div class="input-group">
-					<input type="text" class="form-control" placeholder="Card Name" id="cardInput">
+					<input type="text" class="form-control"  id="cardInput" ng-model="cardName" ng-value="name">
 		      			<span class="input-group-btn">
-		      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 		      			</span>
 	     		</div>
 			</div>
@@ -88,17 +88,23 @@
 			<button class="wantCardsAdd"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
 			  
 
-				<div class="card-view"></div>	
+				<div class="card-view"></div>
+					<h3> {{ name }} </h3>
+					<p> {{ set }} </p>
+					<img src="{{ picURL }}">
+					<br>	
 			      	<p>Price</p>
-			    <div class="prices"></div>
+			    <div class="prices">
+			    	<button>{{ lowPrice | currency }}</button> <button>{{ avgPrice | currency }} </button> <button>{{ highPrice | currency }}</button
+			    </div>
 			      <div class="sets">
 				
 			      	<div class="dropdown">
   						<button class="btn btn-default dropdown-toggle" type="button" id="printingsDropDownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Expansions
   						<span class="caret"></span>
  						</button>
-  							<ul class="dropdown-menu printings" aria-labelledby="dropdownMenu2" id="printingsDropdown">
-    							<!-- jQuery puts set names here -->
+  							<ul class="dropdown-menu printings" aria-labelledby="dropdownMenu2" id="printingsDropdown" >
+    							<!-- Angular puts set names here -->
   							</ul>
 					</div>
 			      </div> 
@@ -114,15 +120,15 @@
 	<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
 	
 	<!-- Front end logic -->
-	<script type ="text/javascript" src="public/assets/js/app.js"></script>
+	<!-- <script type ="text/javascript" src="assets/js/app.js"></script> -->
   
   <!-- Angular -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-  <script type="text/javascript" src="public/config/angular.js"></script>
+  <script type="text/javascript" src="config/angular.js"></script>
   
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="public/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 </div>
 </body>
 </html>

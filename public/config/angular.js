@@ -9,7 +9,9 @@
 
 				TradeController.$inject = ['$scope', '$http'];//added
 
+
 	function TradeController( $scope, $http ){
+
 		//Global variables	
 		var yourArray = [];
 		var wantArray = [];
@@ -17,8 +19,8 @@
 		//Grab yourCards from DB
 		$http.get('/pullYourCards')
 		.then(function(response){
-			console.log( "calling your response ")
-			console.log(response.data);
+			// console.log( "calling your response ")
+			// console.log(response.data);
 			$scope.yourCards = response.data;
 			
 			//Push to yourArray to make global
@@ -33,8 +35,8 @@
 		//Grab wantCards from DB
 		$http.get('/pullWantCards')
 		.then(function(response){
-			console.log( "calling want response ")
-			console.log(response.data);
+			// console.log( "calling want response ")
+			// console.log(response.data);
 			$scope.wantCards = response.data;
 			
 			//Push to wantArray to make global
@@ -105,5 +107,38 @@
 
 			return wantSum;
 		}
+	// MODAL FUNCTIONS 
+		$scope.search = function(){
+			
+			//Initial search to find the card
+         	$http.get('https://api.magicthegathering.io/v1/cards?name=' + $scope.cardName)
+         	.then(function(response){
+         		//Selects the most current printing of the card
+         		var currentSet = response.data.cards[response.data.cards.length - 1];
+   				
+   				//Nested search to grab the card and its most current printing
+				$http.get('https://api.magicthegathering.io/v1/cards?name=' + $scope.cardName + "&set=" + currentSet.set)
+				.then(function(response){
+					console.log(response.data);
+
+					//Display card
+					$scope.name = response.data.cards[0].name;
+					$scope.set = response.data.cards[0].setName;
+					$scope.picURL = response.data.cards[0].imageUrl;
+					//Create bogus pricing
+					$scope.lowPrice = (Math.random() * 2);
+    				$scope.highPrice = $scope.lowPrice + 1;
+    				$scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
+					
+    				
+				})
+         	})
+		}
+
+		$scope.currentCard = function(data){
+			console.log("hi");
+		}
+
+
 	}
 })();

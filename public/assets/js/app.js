@@ -17,34 +17,34 @@ function ajaxCall(cardSearch, func){
         }); 
 }
 
-//Card search if button clicked
-$("#cardSearchButton").on('click', function(e) {
-    e.preventDefault();
-console.log("in app.js");
-    //Grab user input
-    var card = $('#cardInput').val().trim();
+// //Card search if button clicked
+// $("#cardSearchButton").on('click', function(e) {
+//     e.preventDefault();
+
+//     //Grab user input
+//     var card = $('#cardInput').val().trim();
         
-    //Object with card info for the Ajax call
-    var cardSearch = {
-            name: card
-        }
-    //Grab the initial card
-    ajaxCall(cardSearch, dataReceived);
+//     //Object with card info for the Ajax call
+//     var cardSearch = {
+//             name: card
+//         }
+//     //Grab the initial card
+//     ajaxCall(cardSearch, dataReceived);
 
-}) 
+// }) 
 
-//Card search if Enter key pressed
-$("#cardInput").keyup(function(event) {
+// //Card search if Enter key pressed
+// $("#cardInput").keyup(function(event) {
 
-    if(event.keyCode == 13){
-        $("#cardSearchButton").click();
-    }
-}) 
+//     if(event.keyCode == 13){
+//         $("#cardSearchButton").click();
+//     }
+// }) 
 
 //After first call
 function dataReceived(data){
         
-    console.log(data.responseJSON);
+    // console.log(data.responseJSON);
 
     //currentSet will grab the most recent printing of the card
     var currentSet = data.responseJSON.printings[data.responseJSON.printings.length - 1];
