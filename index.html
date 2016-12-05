@@ -41,7 +41,7 @@
 				<h1 class="centered">Want Cards</h1>
 				<div id="wantCards" class="card-well">
 					<ul ng-repeat="card in wantCards">
-						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="wantDelete(card)"> X </button></li> 
+						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="wantDelete(card)"> X </button></div></li> 
 					</ul>
 				</div>
 				<h1 class="centered">Total: {{ wantTotal() | currency}}</h1>
@@ -104,7 +104,9 @@
   						<span class="caret"></span>
  						</button>
   							<ul class="dropdown-menu printings" aria-labelledby="dropdownMenu2" id="printingsDropdown" >
-    							<!-- Angular puts set names here -->
+    							<div ng-repeat="set in setList">
+    							<li> <p class="centered" ng-click="setPick(set)"> {{ set }} </p></li> 
+    							</div>
   							</ul>
 					</div>
 			      </div> 

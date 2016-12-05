@@ -130,9 +130,20 @@
     				$scope.highPrice = $scope.lowPrice + 1;
     				$scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
 					
-    				
+					var setArray = [];
+
+    				response.data.cards[0].printings.forEach(function(element){
+						setArray.push(element);
+					})
+					console.log(setArray);
+					$scope.setList = setArray;
+					console.log($scope.setList);
 				})
          	})
+		}
+
+		$scope.setPick = function(set){
+			console.log(set);
 		}
 
 		$scope.currentCard = function(data){
