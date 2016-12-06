@@ -67,7 +67,6 @@ app.post('/yourCard', function(req,res){
 	    // otherwise, send the new doc to the browser
 	    else {
 	      res.send(doc);
-//NEED TO GO BACK TO INDEX AND REFRESH
 	    }
 	})    
 })
@@ -85,7 +84,6 @@ app.post('/wantCard', function(req,res){
 	    // otherwise, send the new doc to the browser
 	    else {
 	      res.send(doc);
-//NEED TO GO BACK TO INDEX AND REFRESH
 	    }
 	})
 })

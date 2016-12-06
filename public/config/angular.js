@@ -7,7 +7,7 @@
 	angular.module('cardTrade', [])
 				.controller( 'TradeController', TradeController)//added
 
-				TradeController.$inject = ['$scope', '$http'];//added
+				TradeController.$inject = ['$scope', '$http', '$window'];//added
 
 
 	function TradeController( $scope, $http ){
@@ -87,6 +87,8 @@
 			$http.delete('/removeWantCard/:' + id)
 			.then(function(response){
 				$scope.WantCards.splice($scope.wantCards.indexOf(card), 1);
+				//REFRESH PAGE. NEEDED?
+				location.reload();
 			})
 			
 		}
@@ -195,8 +197,9 @@
 
 	            $http.post(url, data)
        			.success(function(data, status) {
-       			
+       					
        				console.log(data);
+       				location.reload();
         		})
 
 	        }
