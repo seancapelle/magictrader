@@ -109,48 +109,59 @@
 			return wantSum;
 		}
 	// MODAL FUNCTIONS 
+
 		$scope.search = function(){
 			
 			//Initial search to find the card
          	$http.get('https://api.magicthegathering.io/v1/cards?name=' + $scope.cardName)
          	.then(function(response){
          		//Selects the most current printing of the card
-         		var currentSet = response.data.cards[response.data.cards.length - 1];
-   				
-   				//Nested search to grab the card and its most current printing
-				$http.get('https://api.magicthegathering.io/v1/cards?name=' + $scope.cardName + "&set=" + currentSet.set)
-				.then(function(response){
+         		var currentVersion = response.data.cards[response.data.cards.length - 1];
 
-					console.log(response.data);
-
-					//Display card
-					$scope.name = response.data.cards[0].name;
-					$scope.set = response.data.cards[0].setName;
-					$scope.picURL = response.data.cards[0].imageUrl;
-					
-					//Create bogus pricing
-					$scope.lowPrice = (Math.random() * 2);
-    				$scope.highPrice = $scope.lowPrice + 1;
-    				$scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
-					
-					var setArray = [];
-
-    				response.data.cards[0].printings.forEach(function(element){
-						setArray.push(element);
-					})
-
-					$scope.setList = setArray;
-				})
+         		$scope.currentCard(currentVersion);
          	})
-		}
+   		}
 
+   		$scope.currentCard = function(currentVersion){
+   			
+			//Display card
+			$scope.name = currentVersion.name;
+			$scope.set = currentVersion.setName;
+			$scope.picURL = currentVersion.imageUrl;
+					
+			//Create bogus pricing
+			$scope.lowPrice = (Math.random() * 2);
+    		$scope.highPrice = $scope.lowPrice + 1;
+    		$scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
+			
+			//Push all card printings to array		
+			var setArray = [];
+
+    		currentVersion.printings.forEach(function(element){
+				setArray.push(element);
+			})
+
+			$scope.setList = setArray;
+   		}		
+
+   		//When user selects different set from modal dropdown
 		$scope.setPick = function(set){
-			console.log(set);
+			
+	        var data = {
+	        	name: $scope.name,
+	        	set: set
+	        }
+
+       		$http.post('/search', data)
+       		.success(function(data, status) {
+       			
+     			//Send new card info into currentCard()
+	            $scope.currentCard(data);
+        	})
+			
 		}
 
-		$scope.currentCard = function(data){
-			console.log("hi");
-		}
+		
 
 
 	}

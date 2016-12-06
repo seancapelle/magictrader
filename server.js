@@ -44,7 +44,7 @@ app.get('/', function(req,res){
 app.use('/', express.static(__dirname + '/public'));
 
 //Card search route
-app.get('/search', function(req,res){
+app.post('/search', function(req,res){
 console.log(req.body);
 	//Grab card by name and set (optional)
 	mtg.card.all({ name: req.body.name, set: req.body.set})
@@ -131,7 +131,7 @@ app.delete('/removeYourCard/:id', function(req, res){
 		}
 		else{
 
-			res.redirect('/');
+			res.redirect('back');
 		}
 	})
 })
