@@ -16,6 +16,8 @@
 		var yourArray = [];
 		var wantArray = [];
 
+	//Main page display
+
 		//Grab yourCards from DB
 		$http.get('/pullYourCards')
 		.then(function(response){
@@ -35,8 +37,7 @@
 		//Grab wantCards from DB
 		$http.get('/pullWantCards')
 		.then(function(response){
-			// console.log( "calling want response ")
-			// console.log(response.data);
+
 			$scope.wantCards = response.data;
 			
 			//Push to wantArray to make global
@@ -108,7 +109,9 @@
 
 			return wantSum;
 		}
+	
 	// MODAL FUNCTIONS 
+
 		//Initial search to find card
 		$scope.search = function(){
 			
@@ -167,8 +170,38 @@
 			
 		}
 
-		
+		$scope.addCard = function(side){
 
+			var data = {
+	            "name": $scope.cardName,
+	            "price": $scope.avgPrice,
+	            "pic": $scope.picURL
+        	}
+        	//Determine which route to send to
+        	if (side == 'yourCard'){
+            
+            	search(side, data);
+
+        	}
+        	else {
+            
+            	search(side, data);
+        	}
+
+	        //Send card info on route
+	        function search(side, data){
+
+	            var url = "/" + side;
+
+	            $http.post(url, data)
+       			.success(function(data, status) {
+       			
+       				console.log(data);
+        		})
+
+	        }
+
+		}
 
 	}
 })();

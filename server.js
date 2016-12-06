@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Configuration
 // Database configuration with mongoose
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/magictrader');
 
 //Heroku mongoose connection
@@ -45,10 +46,9 @@ app.use('/', express.static(__dirname + '/public'));
 
 //Card search route
 app.post('/search', function(req,res){
-console.log(req.body);
+
 	//Grab card by name and set (optional)
 	mtg.card.all({ name: req.body.name, set: req.body.set})
-	// mtg.card.all({ name: req.body.name})
 	.on('data', function (card) {
 	    res.send(card);
 	});
@@ -67,6 +67,7 @@ app.post('/yourCard', function(req,res){
 	    // otherwise, send the new doc to the browser
 	    else {
 	      res.send(doc);
+//NEED TO GO BACK TO INDEX AND REFRESH
 	    }
 	})    
 })
@@ -84,6 +85,7 @@ app.post('/wantCard', function(req,res){
 	    // otherwise, send the new doc to the browser
 	    else {
 	      res.send(doc);
+//NEED TO GO BACK TO INDEX AND REFRESH
 	    }
 	})
 })
@@ -130,8 +132,8 @@ app.delete('/removeYourCard/:id', function(req, res){
 			console.log(err);
 		}
 		else{
-
-			res.redirect('back');
+//NEED TO GO BACK TO INDEX AND REFRESH
+			res.redirect('/');
 		}
 	})
 })
@@ -148,7 +150,7 @@ app.delete('/removeWantCard/:id', function(req, res){
 			console.log(err);
 		}
 		else{
-
+//NEED TO GO BACK TO INDEX AND REFRESH
 			res.redirect('/');
 		}
 	})
