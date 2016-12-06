@@ -109,23 +109,29 @@
 			return wantSum;
 		}
 	// MODAL FUNCTIONS 
-
+		//Initial search to find card
 		$scope.search = function(){
 			
-			//Initial search to find the card
-         	$http.get('https://api.magicthegathering.io/v1/cards?name=' + $scope.cardName)
-         	.then(function(response){
-         		//Selects the most current printing of the card
-         		var currentVersion = response.data.cards[response.data.cards.length - 1];
+			var data = {
+				name: $scope.cardName
+			}
+			$http.post('/search', data)
+       		.success(function(data, status) {
+       			
+       			//Selects the most current printing of the card
+         		var set = data.printings[data.printings.length - 1];
 
-         		$scope.currentCard(currentVersion);
-         	})
+         		//Sends to setPick() to search
+         		$scope.setPick(set);
+
+        	})
+
    		}
-
+   		//Display the currently selected card
    		$scope.currentCard = function(currentVersion){
    			
 			//Display card
-			$scope.name = currentVersion.name;
+			$scope.cardName = currentVersion.name;
 			$scope.set = currentVersion.setName;
 			$scope.picURL = currentVersion.imageUrl;
 					
@@ -148,13 +154,13 @@
 		$scope.setPick = function(set){
 			
 	        var data = {
-	        	name: $scope.name,
+	        	name: $scope.cardName,
 	        	set: set
 	        }
 
        		$http.post('/search', data)
        		.success(function(data, status) {
-       			
+
      			//Send new card info into currentCard()
 	            $scope.currentCard(data);
         	})
