@@ -18,6 +18,9 @@
 
 	//Main page display
 
+		// $scope.pullYourCards = function(){
+			
+		// }
 		//Grab yourCards from DB
 		$http.get('/pullYourCards')
 		.then(function(response){
@@ -52,11 +55,13 @@
 		//Remove yourCards from display
 		$scope.yourDelete = function(card){
 
+			$scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
+
 			var id = card._id;
 					
 			$http.delete('/removeYourCard/:' + id)
 			.then(function(response){
-				$scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
+				console.log(response.data.message);
 			})
 			
 		}
@@ -82,13 +87,14 @@
 		//Remove wantCards from display
 		$scope.wantDelete = function(card){
 			
+			$scope.wantCards.splice($scope.wantCards.indexOf(card), 1);
+
 			var id = card._id;
 					
 			$http.delete('/removeWantCard/:' + id)
 			.then(function(response){
-				$scope.WantCards.splice($scope.wantCards.indexOf(card), 1);
-				//REFRESH PAGE. NEEDED?
-				location.reload();
+				
+				console.log(response.data.message);
 			})
 			
 		}
@@ -97,7 +103,6 @@
 		$scope.wantTotal = function(){
 
 			var wantValue = [];
-
 			$scope.wantCards.forEach(function(element){
 				var wantParse = parseFloat(element.price);
 				wantValue.push(wantParse);
@@ -197,9 +202,15 @@
 
 	            $http.post(url, data)
        			.success(function(data, status) {
-       					
+       				console.log("HERE");	
        				console.log(data);
-       				location.reload();
+       				console.log(yourArray);
+ // location.reload();	
+ 						console.log("BEFORE PUSH");
+ 						console.log($scope.yourCards) 
+ 						// $scope.yourCards = data[0];
+ 						console.log($scope.yourCards)
+ 						console.log("AFTER PUSH");
         		})
 
 	        }

@@ -22,139 +22,149 @@ mongoose.connect('mongodb://localhost/magictrader');
 var db = mongoose.connection;
 
 //Show any mongoose errors
-db.on('error', function(err){
-	console.log('Mongoose Error: ', err);
+db.on('error', function(err) {
+    console.log('Mongoose Error: ', err);
 });
 
 //Log a success message
-db.once('open', function(){
-	console.log('Mongoose connection successful.');
+db.once('open', function() {
+    console.log('Mongoose connection successful.');
 });
 
 //Bring in Card models
- var Card = require('./server/models/cardModel.js');
- var YourCard = require('./server/models/yourCardModel.js');
- var WantCard = require('./server/models/wantCardModel.js')
+var Card = require('./server/models/cardModel.js');
+var YourCard = require('./server/models/yourCardModel.js');
+var WantCard = require('./server/models/wantCardModel.js')
 
 
 //Routes
-app.get('/', function(req,res){
-	res.sendFile(__dirname + '/index.html');
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
 })
 
 app.use('/', express.static(__dirname + '/public'));
 
 //Card search route
-app.post('/search', function(req,res){
+app.post('/search', function(req, res) {
 
-	//Grab card by name and set (optional)
-	mtg.card.all({ name: req.body.name, set: req.body.set})
-	.on('data', function (card) {
-	    res.send(card);
-	});
+    //Grab card by name and set (optional)
+    mtg.card.all({ name: req.body.name, set: req.body.set })
+        .on('data', function(card) {
+            res.send(card);
+        });
 })
 
 //DB post for your cards
-app.post('/yourCard', function(req,res){
+app.post('/yourCard', function(req, res) {
 
-	var yourCard = new YourCard(req.body);
+    var yourCard = new YourCard(req.body);
 
-	yourCard.save(function(err, doc) {
-	    // send any errors to the browser
-	    if (err) {
-	      res.send(err);
-	    }
-	    // otherwise, send the new doc to the browser
-	    else {
-	      res.send(doc);
-	    }
-	})    
+    yourCard.save(function(err, doc) {
+        // send any errors to the browser
+        if (err) {
+            res.send(err);
+        }
+        // otherwise, send the new doc to the browser
+        else {
+
+            YourCard.find({}, function(err, doc) {
+                // log any errors
+                if (err) {
+                    console.log(err);
+                }
+                // or send the doc to the browser as a json object
+                else {
+                    res.json(doc);
+                }
+            })
+        }
+    })
 })
 
 //DB post for want cards
-app.post('/wantCard', function(req,res){
+app.post('/wantCard', function(req, res) {
 
-	var wantCard = new WantCard(req.body);
+    var wantCard = new WantCard(req.body);
 
-	wantCard.save(function(err, doc) {
-	    // send any errors to the browser
-	    if (err) {
-	      res.send(err);
-	    }
-	    // otherwise, send the new doc to the browser
-	    else {
-	      res.send(doc);
-	    }
-	})
+    wantCard.save(function(err, doc) {
+        // send any errors to the browser
+        if (err) {
+            res.send(err);
+        }
+        // otherwise, send the new doc to the browser
+        else {
+            res.send(doc);
+        }
+    })
 })
 
 //DB pull for your cards
-app.get('/pullYourCards', function(req, res){
-	// grab every doc in the Articles array
-	YourCard.find({}, function(err, doc){
-		// log any errors
-		if (err){
-			console.log(err);
-		} 
-		// or send the doc to the browser as a json object
-		else {
-			res.json(doc);
-		}
-	});
+app.get('/pullYourCards', function(req, res) {
+    // grab every doc in the Articles array
+    YourCard.find({}, function(err, doc) {
+        // log any errors
+        if (err) {
+            console.log(err);
+        }
+        // or send the doc to the browser as a json object
+        else {
+            res.json(doc);
+        }
+    });
 });
 
 //DB pull for want cards
-app.get('/pullWantCards', function(req, res){
-	// grab every doc in the Articles array
-	WantCard.find({}, function(err, doc){
-		// log any errors
-		if (err){
-			console.log(err);
-		} 
-		// or send the doc to the browser as a json object
-		else {
-			res.json(doc);
-		}
-	});
+app.get('/pullWantCards', function(req, res) {
+    // grab every doc in the Articles array
+    WantCard.find({}, function(err, doc) {
+        // log any errors
+        if (err) {
+            console.log(err);
+        }
+        // or send the doc to the browser as a json object
+        else {
+            res.json(doc);
+        }
+    });
 });
 
 //Remove a your card from DB
-app.delete('/removeYourCard/:id', function(req, res){
+app.delete('/removeYourCard/:id', function(req, res) {
 
-	var split = req.params.id.split(':');
-	
-	var cardID = split[1];
+    var split = req.params.id.split(':');
 
-	YourCard.findByIdAndRemove(cardID, function(err, res){
-		if (err){
-			console.log(err);
-		}
-		else{
-//NEED TO GO BACK TO INDEX AND REFRESH
-			res.redirect('/');
-		}
-	})
+    var cardID = split[1];
+
+    YourCard.findByIdAndRemove(cardID, function(err, res) {
+        if (err) {
+            console.log(err);
+        }
+    })
+    res.json({
+        message: 'Removed yourCard',
+        status: false
+    })
 })
 
 //Remove a want card from DB
-app.delete('/removeWantCard/:id', function(req, res){
-	
-	var split = req.params.id.split(':');
+app.delete('/removeWantCard/:id', function(req, res) {
 
-	var cardID = split[1];
+    var split = req.params.id.split(':');
 
-	WantCard.findByIdAndRemove(cardID, function(err, res){
-		if (err){
-			console.log(err);
-		}
-		else{
-//NEED TO GO BACK TO INDEX AND REFRESH
-			res.redirect('/');
-		}
-	})
+    var cardID = split[1];
+
+    WantCard.findByIdAndRemove(cardID, function(err, res) {
+        if (err) {
+            console.log(err);
+        }
+    })
+    res.json({
+        message: 'Removed wantCard',
+        status: false
+    })
 })
-var port=Number(process.env.PORT || 3000);
+var port = Number(process.env.PORT || 3000);
 
-app.listen(port, function(){
-	console.log("App listening on port " + port);
+app.listen(port, function() {
+    console.log("App listening on port " + port);
 });
