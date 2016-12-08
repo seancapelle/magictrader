@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mtg = require('mtgsdk');
+var sessions = require('client-sessions');
 
 var app = express();
 
@@ -13,8 +14,87 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //Configuration
 
-// Create new session ID on startup
-// Connect to DB with new session ID
+app.use(sessions({
+    cookieName: 'tradeSession',
+    secret: 'FblthpIsNotT0tallyLost!',
+    duration: 24 * 60 * 60 * 1000,
+    activeDuration: 1000 * 60 * 5
+}));
+
+app.post('/login', function(req, res){
+    User.findOne({email: req.body.email}, function(err, user){
+        if(!user){
+            //If the user isn't in the DB, reset the session info and redirect
+            res.render('login.jade', {error: 'Invalid email or password.'});
+        }
+        else{
+            if(req.body.password === user.password){
+                req.session.user = user;
+                res.redirect('/dashboard');
+            }
+            else{
+                res.render('login.jade', {error: 'Invalid email or password.'});
+            }
+        }
+    })
+})
+
+// app.get('/dashboard', function(req, res){
+//     if(req.session && req.session.user){
+//         User.findOne({ email: req.session.user.email }, function (err, user){
+//             if(!user){
+//                 req.session.reset();
+//                 res.redirect('/login');
+//             }
+//             else{
+//                 //expose the user to the template
+//                 res.locals.user = user;
+
+//                 //render the dashboard page
+//                 res.render('dashboard.jade');
+//             }
+//         });
+//     }
+//     else{
+//         res.redirect('/login');
+//     }
+// })
+
+app.use(function(req, res, next){
+    if (req.session && req.session.user){
+        User.findOne({ email: req.session.user.email }, function(err, user){
+            if (user) {
+                req.user = user;
+                delete req.user.password;
+                req.session.user = user;
+                res.locals.user = user;
+            }
+            // Finish processing the middleware and run the route
+            next();
+        });
+    }
+    else {
+        next();
+    }
+});
+
+function requireLogin (req, res, next) {
+    if (!req.user) {
+        res.redirect('/login');
+    }
+    else {
+        next();
+    }
+};
+
+app.get('/dashboard', requireLogin, function(req, res){
+    res.render('dashboard.jade');
+});
+
+app.get('/logout', function(req, res) {
+    req.session.reset();
+    res.redirect('/');
+});
 
 // Database configuration with mongoose
 mongoose.Promise = global.Promise;

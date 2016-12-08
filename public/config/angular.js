@@ -145,7 +145,7 @@
    		}
    		//Display the currently selected card
    		$scope.currentCard = function(currentVersion){
-   			
+   			console.log(currentVersion);
 			//Display card
 			$scope.cardName = currentVersion.name;
 			$scope.set = currentVersion.setName;
