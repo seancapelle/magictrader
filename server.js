@@ -12,6 +12,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Configuration
+
+// Create new session ID on startup
+// Connect to DB with new session ID
+
 // Database configuration with mongoose
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/magictrader');

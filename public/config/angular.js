@@ -5,10 +5,9 @@
 	// app.controller('TradeController', function($scope, $http){
 
 	angular.module('cardTrade', [])
-				.controller( 'TradeController', TradeController)//added
+				.controller( 'TradeController', TradeController)
 
-				TradeController.$inject = ['$scope', '$http', '$window'];//added
-
+				TradeController.$inject = ['$scope', '$http', '$window'];
 
 	function TradeController( $scope, $http ){
 
@@ -16,38 +15,44 @@
 		var yourArray = [];
 		var wantArray = [];
 
-	//Main page display
+		pullYourCards();
+		pullWantCards();
 
-		// $scope.pullYourCards = function(){
+		//Main page display
+
+		function pullYourCards(){
 			
-		// }
-		//Grab yourCards from DB
-		$http.get('/pullYourCards')
-		.then(function(response){
-			// console.log( "calling your response ")
-			// console.log(response.data);
-			$scope.yourCards = response.data;
+			//Grab yourCards from DB
+			$http.get('/pullYourCards')
+			.then(function(response){
 			
-			//Push to yourArray to make global
-			response.data.forEach(function(element){
-				yourArray.push(element);
+				$scope.yourCards = response.data;
+					
+				//Push to yourArray to make global
+				response.data.forEach(function(element){
+					yourArray.push(element);
+				})
 			})
-		})
+		}
+
 
 		//Attach $scope to yourArray
 		$scope.yourCards = yourArray;
 
-		//Grab wantCards from DB
-		$http.get('/pullWantCards')
-		.then(function(response){
+		function pullWantCards(){
+			//Grab wantCards from DB
+			$http.get('/pullWantCards')
+			.then(function(response){
 
-			$scope.wantCards = response.data;
-			
-			//Push to wantArray to make global
-			response.data.forEach(function(element){
-				wantArray.push(element);
+				$scope.wantCards = response.data;
+				
+				//Push to wantArray to make global
+				response.data.forEach(function(element){
+					wantArray.push(element);
+				})
 			})
-		})
+		}
+		
 
 		//Attach $scope to wantArray
 		$scope.wantCards = wantCards;
@@ -66,7 +71,7 @@
 			
 		}
 
-		//Total price of your cards
+		//Total price of your cards: SOMETHING IS WRONG WITH THE WAY THE DATA IS GETTING PULLED
 		$scope.yourTotal = function(){
 
 			var yourValue = [];
@@ -99,10 +104,11 @@
 			
 		}
 
-		//Total price of your cards
+		//Total price of your cards: SOMETHING IS WRONG WITH THE WAY THE DATA IS GETTING PULLED
 		$scope.wantTotal = function(){
 
 			var wantValue = [];
+
 			$scope.wantCards.forEach(function(element){
 				var wantParse = parseFloat(element.price);
 				wantValue.push(wantParse);
@@ -202,20 +208,12 @@
 
 	            $http.post(url, data)
        			.success(function(data, status) {
-       				console.log("HERE");	
-       				console.log(data);
-       				console.log(yourArray);
- // location.reload();	
- 						console.log("BEFORE PUSH");
- 						console.log($scope.yourCards) 
- 						// $scope.yourCards = data[0];
- 						console.log($scope.yourCards)
- 						console.log("AFTER PUSH");
+
+ 					pullYourCards();
+ 					pullWantCards();
         		})
 
 	        }
-
 		}
-
 	}
 })();
