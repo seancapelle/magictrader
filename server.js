@@ -4,7 +4,17 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var mtg = require('mtgsdk');
-var sessions = require('client-sessions');
+
+var passport = require('passport');
+var flash = require('connect-flash');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+var configDB = require('./server/config/database.js')
+
+// var sessions = require('client-sessions');
+
+
+// var FileStore = require('session-file-store')//(session);
 
 var app = express();
 
@@ -12,32 +22,60 @@ app.use(require('connect').bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(morgan('dev')); 
+app.use(cookieParser());
+app.use(bodyParser());
+
+app.set('view engine', 'ejs');
+
+// Required for passport
+app.use(session({ secret: 'FblthpIsNotT0tallyLost!' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+require('./server/routes/routes.js')(app, passport);
+require('./server/config/passport')(passport);
+
 //Configuration
 
-app.use(sessions({
-    cookieName: 'tradeSession',
-    secret: 'FblthpIsNotT0tallyLost!',
-    duration: 24 * 60 * 60 * 1000,
-    activeDuration: 1000 * 60 * 5
-}));
+// app.use(sessions({
+//     cookieName: 'tradeSession',
+//     secret: 'FblthpIsNotT0tallyLost!',
+//     duration: 24 * 60 * 60 * 1000,
+//     activeDuration: 1000 * 60 * 5
+// }));
 
-app.post('/login', function(req, res){
-    User.findOne({email: req.body.email}, function(err, user){
-        if(!user){
-            //If the user isn't in the DB, reset the session info and redirect
-            res.render('login.jade', {error: 'Invalid email or password.'});
-        }
-        else{
-            if(req.body.password === user.password){
-                req.session.user = user;
-                res.redirect('/dashboard');
-            }
-            else{
-                res.render('login.jade', {error: 'Invalid email or password.'});
-            }
-        }
-    })
-})
+// app.use(session({
+//     name: 'MagicTrader',
+//     secret: 'FblthpIsNotT0tallyLost!',
+//     resave: true,
+//     saveUninitialized: true,
+//     duration: 30 * 60 * 1000,
+//     activeDuration: 5 * 60 * 1000,
+//     httpOnly: true,
+//     secure: true,
+//     ephemeral: true,
+//     // store: new FileStore()
+// }))
+
+// app.post('/login', function(req, res){
+//     User.findOne({email: req.body.email}, function(err, user){
+//         if(!user){
+//             //If the user isn't in the DB, reset the session info and redirect
+//             res.render('login.jade', {error: 'Invalid email or password.'});
+//         }
+//         else{
+//             if(req.body.password === user.password){
+//                 req.session.user = user;
+//                 res.redirect('/dashboard');
+//             }
+//             else{
+//                 res.render('login.jade', {error: 'Invalid email or password.'});
+//             }
+//         }
+//     })
+// })
 
 // app.get('/dashboard', function(req, res){
 //     if(req.session && req.session.user){
@@ -60,41 +98,41 @@ app.post('/login', function(req, res){
 //     }
 // })
 
-app.use(function(req, res, next){
-    if (req.session && req.session.user){
-        User.findOne({ email: req.session.user.email }, function(err, user){
-            if (user) {
-                req.user = user;
-                delete req.user.password;
-                req.session.user = user;
-                res.locals.user = user;
-            }
-            // Finish processing the middleware and run the route
-            next();
-        });
-    }
-    else {
-        next();
-    }
-});
+// app.use(function(req, res, next){
+//     if (req.session && req.session.user){
+//         User.findOne({ email: req.session.user.email }, function(err, user){
+//             if (user) {
+//                 req.user = user;
+//                 delete req.user.password;
+//                 req.session.user = user;
+//                 res.locals.user = user;
+//             }
+//             // Finish processing the middleware and run the route
+//             next();
+//         });
+//     }
+//     else {
+//         next();
+//     }
+// });
 
-function requireLogin (req, res, next) {
-    if (!req.user) {
-        res.redirect('/login');
-    }
-    else {
-        next();
-    }
-};
+// function requireLogin (req, res, next) {
+//     if (!req.user) {
+//         res.redirect('/login');
+//     }
+//     else {
+//         next();
+//     }
+// };
 
-app.get('/dashboard', requireLogin, function(req, res){
-    res.render('dashboard.jade');
-});
+// app.get('/dashboard', requireLogin, function(req, res){
+//     res.render('dashboard.jade');
+// });
 
-app.get('/logout', function(req, res) {
-    req.session.reset();
-    res.redirect('/');
-});
+// app.get('/logout', function(req, res) {
+//     req.session.reset();
+//     res.redirect('/');
+// });
 
 // Database configuration with mongoose
 mongoose.Promise = global.Promise;
@@ -120,10 +158,37 @@ var Card = require('./server/models/cardModel.js');
 var YourCard = require('./server/models/yourCardModel.js');
 var WantCard = require('./server/models/wantCardModel.js')
 
+var Session = require('./server/models/sessionModel.js');
+
 
 //Routes
+// Originalvvv
+// app.get('/', function(req, res) {
+//     res.sendFile(__dirname + '/index.html');
+// })
 app.get('/', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+
+    var session = new Session();
+
+    session.save(function(err, doc){
+        if (err) {
+            res.send(err);
+        }
+        else {
+            res.sendFile(__dirname + '/index.html');
+            console.log(doc);
+        }
+
+    })
+    // New
+    app.get('pullSessionID', function(err, res){
+        var test = Session.find({}).sort({_id: 1}).limit(1);
+        console.log(test);
+    })
+    // app.get('/pullSessionID', function(err, res) {
+    //     Session.find().sort({_id:1})
+
+    //     })
 })
 
 app.use('/', express.static(__dirname + '/public'));

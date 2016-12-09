@@ -15,6 +15,7 @@
 		var yourArray = [];
 		var wantArray = [];
 
+		// Run functions to display cards
 		pullYourCards();
 		pullWantCards();
 
@@ -30,7 +31,7 @@
 					
 				//Push to yourArray to make global
 				response.data.forEach(function(element){
-					yourArray.push(element);
+					yourArray.push(element);	
 				})
 			})
 		}
@@ -61,7 +62,7 @@
 		$scope.yourDelete = function(card){
 
 			$scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
-
+			
 			var id = card._id;
 					
 			$http.delete('/removeYourCard/:' + id)
@@ -76,11 +77,18 @@
 
 			var yourValue = [];
 
-			$scope.yourCards.forEach(function(element){
+			// $scope.yourCards.forEach(function(element){
+			// 	var yourParse = parseFloat(element.price);
+			// 	yourValue.push(yourParse);
+			// })
+		
+			yourArray.forEach(function(element) {
 				var yourParse = parseFloat(element.price);
 				yourValue.push(yourParse);
 			})
-		
+
+			$scope.yourCards = yourArray;
+
 			var yourSum = yourValue.reduce(add, 0);
 			function add(a, b){
 				return a + b;
@@ -109,10 +117,17 @@
 
 			var wantValue = [];
 
-			$scope.wantCards.forEach(function(element){
+			// $scope.wantCards.forEach(function(element){
+			// 	var wantParse = parseFloat(element.price);
+			// 	wantValue.push(wantParse);
+			// })
+
+			wantArray.forEach(function(element){
 				var wantParse = parseFloat(element.price);
 				wantValue.push(wantParse);
 			})
+			
+			$scope.wantCards = wantArray;
 
 			var wantSum = wantValue.reduce(add, 0);
 
