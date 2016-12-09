@@ -77,17 +77,17 @@
 
 			var yourValue = [];
 
-			// $scope.yourCards.forEach(function(element){
-			// 	var yourParse = parseFloat(element.price);
-			// 	yourValue.push(yourParse);
-			// })
-		
-			yourArray.forEach(function(element) {
+			$scope.yourCards.forEach(function(element){
 				var yourParse = parseFloat(element.price);
 				yourValue.push(yourParse);
 			})
+		
+			// yourArray.forEach(function(element) {
+			// 	var yourParse = parseFloat(element.price);
+			// 	yourValue.push(yourParse);
+			// })
 
-			$scope.yourCards = yourArray;
+			// $scope.yourCards = yourArray;
 
 			var yourSum = yourValue.reduce(add, 0);
 			function add(a, b){
@@ -117,17 +117,17 @@
 
 			var wantValue = [];
 
-			// $scope.wantCards.forEach(function(element){
-			// 	var wantParse = parseFloat(element.price);
-			// 	wantValue.push(wantParse);
-			// })
-
-			wantArray.forEach(function(element){
+			$scope.wantCards.forEach(function(element){
 				var wantParse = parseFloat(element.price);
 				wantValue.push(wantParse);
 			})
+
+			// wantArray.forEach(function(element){
+			// 	var wantParse = parseFloat(element.price);
+			// 	wantValue.push(wantParse);
+			// })
 			
-			$scope.wantCards = wantArray;
+			// $scope.wantCards = wantArray;
 
 			var wantSum = wantValue.reduce(add, 0);
 
