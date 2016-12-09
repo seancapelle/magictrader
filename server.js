@@ -176,19 +176,12 @@ app.get('/', function(req, res) {
         }
         else {
             res.sendFile(__dirname + '/index.html');
-            console.log(doc);
+            
+            var sessionID = doc._id;
+
+            console.log(sessionID);
         }
-
     })
-    // New
-    app.get('pullSessionID', function(err, res){
-        var test = Session.find({}).sort({_id: 1}).limit(1);
-        console.log(test);
-    })
-    // app.get('/pullSessionID', function(err, res) {
-    //     Session.find().sort({_id:1})
-
-    //     })
 })
 
 app.use('/', express.static(__dirname + '/public'));
