@@ -1,233 +1,237 @@
-(function(){
-	
-	angular.module('cardTrade', [])
-				.controller( 'TradeController', TradeController)
+(function() {
 
-				TradeController.$inject = ['$scope', '$http', '$window'];
+    angular.module('cardTrade', [])
+        .controller('TradeController', TradeController)
 
-	function TradeController( $scope, $http ){
+    TradeController.$inject = ['$scope', '$http', '$window'];
 
-		// Global variables	
-		var yourArray = [];
-		var wantArray = [];
+    function TradeController($scope, $http) {
 
-		// Run functions to display cards
-		pullYourCards();
-		pullWantCards();
+        // Global variables	
+        var yourArray = [];
+        var wantArray = [];
 
-		//Main page display
+        // Run functions to display cards
+        pullYourCards();
+        pullWantCards();
 
-		function pullYourCards(){
-			
-			// Grab yourCards from DB
-			$http.get('/pullYourCards')
-			.then(function(response){
-			
-				$scope.yourCards = response.data;
-					
-				// Push to yourArray to make global
-				response.data.forEach(function(element){
-					yourArray.push(element);	
-				})
-			})
-		}
+        //Main page display
+
+        function pullYourCards() {
+
+            // Grab yourCards from DB
+            $http.get('/pullYourCards')
+                .then(function(response) {
+
+                    $scope.yourCards = response.data;
+
+                    // Push to yourArray to make global
+                    response.data.forEach(function(element) {
+                        yourArray.push(element);
+                    })
+                })
+        }
 
 
-		// Attach $scope to yourArray
-		$scope.yourCards = yourArray;
+        // Attach $scope to yourArray
+        $scope.yourCards = yourArray;
 
-		function pullWantCards(){
-			// Grab wantCards from DB
-			$http.get('/pullWantCards')
-			.then(function(response){
+        function pullWantCards() {
+            // Grab wantCards from DB
+            $http.get('/pullWantCards')
+                .then(function(response) {
 
-				$scope.wantCards = response.data;
-				
-				// Push to wantArray to make global
-				response.data.forEach(function(element){
-					wantArray.push(element);
-				})
-			})
-		}
-		
+                    $scope.wantCards = response.data;
 
-		// Attach $scope to wantArray
-		$scope.wantCards = wantArray;
+                    // Push to wantArray to make global
+                    response.data.forEach(function(element) {
+                        wantArray.push(element);
+                    })
+                })
+        }
 
-		// Remove yourCards from display
-		$scope.yourDelete = function(card){
 
-			$scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
-			
-			var id = card._id;
-					
-			$http.delete('/removeYourCard/:' + id)
-			.then(function(response){
-				console.log(response.data.message);
-			})
-			
-		}
+        // Attach $scope to wantArray
+        $scope.wantCards = wantArray;
 
-		// Total price of your cards
-		$scope.yourTotal = function(){
+        // Remove yourCards from display
+        $scope.yourDelete = function(card) {
 
-			var yourValue = [];
+            $scope.yourCards.splice($scope.yourCards.indexOf(card), 1);
 
-			$scope.yourCards.forEach(function(element){
-				var yourParse = parseFloat(element.avgPrice);
-				yourValue.push(yourParse);
-			})
+            var id = card._id;
 
-			var yourSum = yourValue.reduce(add, 0);
-			function add(a, b){
-				return a + b;
-			}
+            $http.delete('/removeYourCard/:' + id)
+                .then(function(response) {
+                    console.log(response.data.message);
+                })
 
-			return yourSum;
-		}
+        }
 
-		// Remove wantCards from display
-		$scope.wantDelete = function(card){
-			
-			$scope.wantCards.splice($scope.wantCards.indexOf(card), 1);
+        // Total price of your cards
+        $scope.yourTotal = function() {
 
-			var id = card._id;
-					
-			$http.delete('/removeWantCard/:' + id)
-			.then(function(response){
-				
-				console.log(response.data.message);
-			})
-			
-		}
+            var yourValue = [];
 
-		// Total price of want cards
-		$scope.wantTotal = function(){
+            $scope.yourCards.forEach(function(element) {
+                var yourParse = parseFloat(element.avgPrice);
+                yourValue.push(yourParse);
+            })
 
-			var wantValue = [];
+            var yourSum = yourValue.reduce(add, 0);
 
-			$scope.wantCards.forEach(function(element){
-				var wantParse = parseFloat(element.price);
-				wantValue.push(wantParse);
-			})
+            function add(a, b) {
+                return a + b;
+            }
 
-			var wantSum = wantValue.reduce(add, 0);
+            return yourSum;
+        }
 
-			function add(a, b){
-				return a + b;
-			}
+        // Remove wantCards from display
+        $scope.wantDelete = function(card) {
 
-			return wantSum;
-		}
-	
-		// Add another card
-		$scope.plusOne = function(side, name, lowPrice, highPrice, avgPrice, pic){
-			console.log(side);
-			
-			var data = {
-	            "name": name,
-	            "lowPrice": lowPrice,
-	            "highPrice": highPrice,
-	            "avgPrice": avgPrice,
-	            "pic": pic
-        	}
+            $scope.wantCards.splice($scope.wantCards.indexOf(card), 1);
 
-			search(side, data);
-		}
+            var id = card._id;
 
-	// MODAL FUNCTIONS 
+            $http.delete('/removeWantCard/:' + id)
+                .then(function(response) {
 
-		// Initial search to find card
-		$scope.search = function(){
-			
-			var data = {
-				name: $scope.cardName
-			}
-			$http.post('/search', data)
-       		.success(function(data, status) {
-       			
-       			// Selects the most current printing of the card
-         		var set = data.printings[data.printings.length - 1];
+                    console.log(response.data.message);
+                })
 
-         		// Sends to setPick() to search
-         		$scope.setPick(set);
+        }
 
-        	})
+        // Total price of want cards
+        $scope.wantTotal = function() {
 
-   		}
-   		// Display the currently selected card
-   		$scope.currentCard = function(currentVersion){
-   			console.log(currentVersion);
-			// Display card
-			$scope.cardName = currentVersion.name;
-			$scope.set = currentVersion.setName;
-			$scope.picURL = currentVersion.imageUrl;
-					
-			// Create bogus pricing
-			$scope.lowPrice = (Math.random() * 2);
-    		$scope.highPrice = $scope.lowPrice + 1;
-    		$scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
-			
-			// Push all card printings to array		
-			var setArray = [];
+            var wantValue = [];
 
-    		currentVersion.printings.forEach(function(element){
-				setArray.push(element);
-			})
+            $scope.wantCards.forEach(function(element) {
+                var wantParse = parseFloat(element.avgPrice);
+                wantValue.push(wantParse);
+            })
 
-			$scope.setList = setArray;
-   		}		
+            var wantSum = wantValue.reduce(add, 0);
 
-   		// When user selects different set from modal dropdown
-		$scope.setPick = function(set){
-			
-	        var data = {
-	        	name: $scope.cardName,
-	        	set: set
-	        }
+            function add(a, b) {
+                return a + b;
+            }
 
-       		$http.post('/search', data)
-       		.success(function(data, status) {
+            return wantSum;
+        }
 
-     			// Send new card info into currentCard()
-	            $scope.currentCard(data);
-        	})
-			
-		}
+        // Pick which price to use
+        // $scope.pricePick = function(price){
+        // 	console.log($scope.card);
+        // }
 
-		$scope.addCard = function(side){
+        // Add another card
+        $scope.plusOne = function(side, name, lowPrice, highPrice, avgPrice, pic) {
 
-			var data = {
-	            "name": $scope.cardName,
-	            "lowPrice": $scope.lowPrice,
-	            "highPrice": $scope.highPrice,
-	            "avgPrice": $scope.avgPrice,
-	            "pic": $scope.picURL
-        	}
-        	// Determine which route to send to
-        	if (side == 'yourCard'){
-            
-            	search(side, data);
+            var data = {
+                "name": name,
+                "lowPrice": lowPrice,
+                "highPrice": highPrice,
+                "avgPrice": avgPrice,
+                "pic": pic
+            }
 
-        	}
-        	else {
-            
-            	search(side, data);
-        	}
-		}
+            search(side, data);
+        }
 
-		// Send card info on route
-	    function search(side, data){
+        // MODAL FUNCTIONS 
 
-	        var url = "/" + side;
+        // Initial search to find card
+        $scope.search = function() {
 
-	        $http.post(url, data)
-       		.success(function(data, status) {
-       			console.log(data);
- 				pullYourCards();
- 				pullWantCards();
-        	})
+                var data = {
+                    name: $scope.cardName
+                }
+                $http.post('/search', data)
+                    .success(function(data, status) {
 
-	    }
-	}
+                        // Selects the most current printing of the card
+                        var set = data.printings[data.printings.length - 1];
+
+                        // Sends to setPick() to search
+                        $scope.setPick(set);
+
+                    })
+
+            }
+            // Display the currently selected card
+        $scope.currentCard = function(currentVersion) {
+            console.log(currentVersion);
+            // Display card
+            $scope.cardName = currentVersion.name;
+            $scope.set = currentVersion.setName;
+            $scope.picURL = currentVersion.imageUrl;
+
+            // Create bogus pricing
+            $scope.lowPrice = (Math.random() * 2);
+            $scope.highPrice = $scope.lowPrice + 1;
+            $scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
+
+            // Push all card printings to array		
+            var setArray = [];
+
+            currentVersion.printings.forEach(function(element) {
+                setArray.push(element);
+            })
+
+            $scope.setList = setArray;
+        }
+
+        // When user selects different set from modal dropdown
+        $scope.setPick = function(set) {
+
+            var data = {
+                name: $scope.cardName,
+                set: set
+            }
+
+            $http.post('/search', data)
+                .success(function(data, status) {
+
+                    // Send new card info into currentCard()
+                    $scope.currentCard(data);
+                })
+
+        }
+
+        $scope.addCard = function(side) {
+
+            var data = {
+                    "name": $scope.cardName,
+                    "lowPrice": $scope.lowPrice,
+                    "highPrice": $scope.highPrice,
+                    "avgPrice": $scope.avgPrice,
+                    "pic": $scope.picURL
+                }
+                // Determine which route to send to
+            if (side == 'yourCard') {
+
+                search(side, data);
+
+            } else {
+
+                search(side, data);
+            }
+        }
+
+        // Send card info on route
+        function search(side, data) {
+
+            var url = "/" + side;
+
+            $http.post(url, data)
+                .success(function(data, status) {
+                    console.log(data);
+                    pullYourCards();
+                    pullWantCards();
+                })
+
+        }
+    }
 })();

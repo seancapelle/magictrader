@@ -22,7 +22,7 @@ app.use(require('connect').bodyParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(morgan('dev')); 
+app.use(morgan('dev'));
 // app.use(cookieParser());
 app.use(bodyParser());
 
@@ -170,13 +170,12 @@ app.get('/', function(req, res) {
 
     var session = new Session();
 
-    session.save(function(err, doc){
+    session.save(function(err, doc) {
         if (err) {
             res.send(err);
-        }
-        else {
+        } else {
             res.sendFile(__dirname + '/index.html');
-            
+
             var sessionID = doc._id;
 
             console.log(sessionID);

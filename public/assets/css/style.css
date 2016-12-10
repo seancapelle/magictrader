@@ -58,9 +58,17 @@ body{
 	margin: auto;
 	display: block;
 	margin-top: 10px;
+	margin-right: 7px;
 	border-radius: 10px;
 }
-.card-well p{
+.controls{
+	position: relative;
+	right: 35px;
+	bottom: -50px;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+/*.card-well p{
 	position: relative;
 	right: 150px;
 	bottom: 300px;
@@ -71,7 +79,7 @@ body{
 	left: 280px;
 	bottom: 330px;
 	text-align: center;
-}
+}*/
 .your-value{
 	float: left;
 }

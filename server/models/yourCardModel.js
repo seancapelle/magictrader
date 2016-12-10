@@ -5,11 +5,11 @@ var Schema = mongoose.Schema;
 
 // create the YourCard schema
 var YourCardSchema = new Schema({
-  name:String,
-  lowPrice: String,
-  highPrice: String,
-  avgPrice: String,
-  pic : String
+    name: String,
+    lowPrice: String,
+    highPrice: String,
+    avgPrice: String,
+    pic: String
 });
 
 // create the Card model with the CardSchema
