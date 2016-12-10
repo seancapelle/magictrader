@@ -19,7 +19,7 @@
   				<input type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon2">
 			</div> -->
 		</div>
-		<img src="public/assets/img/magic-trader.png" class="logo">
+		<img src="assets/img/magic-trader.png" class="logo">
 	</div>
 
 
@@ -31,7 +31,27 @@
 				<h1 class="centered">Your Cards</h1>
 				<div id="yourCards" class="card-well">
 					<ul ng-repeat="card in yourCards">		
-						<li><div class="card"><img src={{card.pic}}><p>{{ card.price | currency }}</p><button class="remove" ng-click="yourDelete(card)"><span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span></button></li>	
+						<li>
+							
+<div class="btn-group btn-group-sm" role="group" aria-label="...">
+  <div class="btn-group btn-group-sm" role="group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <strong> {{ card.avgPrice | currency }} </strong>
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <li><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
+      <li><a href="#">Average: {{ card. avgPrice | currency }} </a></li>
+      <li><a href="#">High: {{ card.highPrice | currency }}</a></li>
+    </ul>
+  </div>
+  <button type="button" ng-click="plusOne('yourCard', card.name, card.lowPrice, card.highPrice, card.avgPrice, card.pic)" class="btn btn-default"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+  <button type="button" ng-click="yourDelete(card)" class="btn btn-default"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+  
+</div>
+
+
+						<div class="card"><img src={{card.pic}}></li>	
 					</ul>
 					
 				</div>	

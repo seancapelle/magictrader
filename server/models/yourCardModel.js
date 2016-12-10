@@ -6,7 +6,9 @@ var Schema = mongoose.Schema;
 // create the YourCard schema
 var YourCardSchema = new Schema({
   name:String,
-  price: String,
+  lowPrice: String,
+  highPrice: String,
+  avgPrice: String,
   pic : String
 });
 
