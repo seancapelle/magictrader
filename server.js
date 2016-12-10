@@ -180,6 +180,8 @@ app.get('/', function(req, res) {
             var sessionID = doc._id;
 
             console.log(sessionID);
+
+            localStorage.setItem('Session', sessionID);
         }
     })
 })
