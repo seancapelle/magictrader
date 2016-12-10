@@ -181,7 +181,7 @@ app.get('/', function(req, res) {
 
             console.log(sessionID);
 
-            localStorage.setItem('Session', sessionID);
+            // localStorage.setItem('Session', sessionID);
         }
     })
 })

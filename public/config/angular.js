@@ -22,7 +22,7 @@
 		//Main page display
 
 		function pullYourCards(){
-			
+			console.log("Pull cards function");
 			//Grab yourCards from DB
 			$http.get('/pullYourCards')
 			.then(function(response){
@@ -56,7 +56,7 @@
 		
 
 		//Attach $scope to wantArray
-		$scope.wantCards = wantCards;
+		$scope.wantCards = wantArray;
 
 		//Remove yourCards from display
 		$scope.yourDelete = function(card){
@@ -126,7 +126,7 @@
 			// 	var wantParse = parseFloat(element.price);
 			// 	wantValue.push(wantParse);
 			// })
-			
+
 			// $scope.wantCards = wantArray;
 
 			var wantSum = wantValue.reduce(add, 0);
