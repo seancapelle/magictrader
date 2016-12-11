@@ -139,9 +139,9 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/magictrader');
 
 //Heroku mongoose connection
-// mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
+mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
 
-var db = mongoose.connection;
+// var db = mongoose.connection;
 
 //Show any mongoose errors
 db.on('error', function(err) {
@@ -185,7 +185,9 @@ app.get('/', function(req, res) {
     })
 })
 
-app.use('/', express.static(__dirname + '/public'));
+// app.use('/', express.static(__dirname + '/public'));
+
+app.use(express.static(__dirname + '/public'));
 
 //Card search route
 app.post('/search', function(req, res) {
