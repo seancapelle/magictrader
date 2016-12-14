@@ -3,7 +3,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-var mtg = require('mtgsdk');
+// var mtg = require('mtgsdk');
 
 // var passport = require('passport');
 // var flash = require('connect-flash');
@@ -155,161 +155,166 @@ db.once('open', function() {
     console.log('Mongoose connection successful.');
 });
 
-//Bring in Card models
-var Card = require('./server/models/cardModel.js');
-var YourCard = require('./server/models/yourCardModel.js');
-var WantCard = require('./server/models/wantCardModel.js')
+// //Bring in Card models
+// var Card = require('./server/models/cardModel.js');
+// var YourCard = require('./server/models/yourCardModel.js');
+// var WantCard = require('./server/models/wantCardModel.js')
 
-var Session = require('./server/models/sessionModel.js');
+// var Session = require('./server/models/sessionModel.js');
 
 
-//Routes
-// Original
-// app.get('/', function(req, res) {
-//     res.sendFile(__dirname + '/index.html');
+// //Routes
+// // Original
+// // app.get('/', function(req, res) {
+// //     res.sendFile(__dirname + '/index.html');
+// // })
+// router.get('/', function(req, res) {
+
+//     var session = new Session();
+
+//     session.save(function(err, doc) {
+//         if (err) {
+//             res.send(err);
+//         } else {
+//             res.sendFile(__dirname + '/index.html');
+
+//             var sessionID = doc._id;
+
+//             console.log(sessionID);
+
+//             // localStorage.setItem('Session', sessionID);
+//         }
+//     })
 // })
-router.get('/', function(req, res) {
 
-    var session = new Session();
+// // app.use('/', express.static(__dirname + '/public'));
 
-    session.save(function(err, doc) {
-        if (err) {
-            res.send(err);
-        } else {
-            res.sendFile(__dirname + '/index.html');
+app.use(express.static(__dirname + '/public'));
 
-            var sessionID = doc._id;
+// //Card search route
+// app.post('/search', function(req, res) {
 
-            console.log(sessionID);
+//     //Grab card by name and set (optional)
+//     mtg.card.all({ name: req.body.name, set: req.body.set })
+//         .on('data', function(card) {
+//             res.send(card);
+//         });
+// })
 
-            // localStorage.setItem('Session', sessionID);
-        }
-    })
-})
+// //DB post for your cards
+// app.post('/yourCard', function(req, res) {
 
-// app.use('/', express.static(__dirname + '/public'));
+//     var yourCard = new YourCard(req.body);
 
-router.use(express.static(__dirname + '/public'));
+//     yourCard.save(function(err, doc) {
+//         // send any errors to the browser
+//         if (err) {
+//             res.send(err);
+//         }
+//         // otherwise, send the new doc to the browser
+//         else {
 
-//Card search route
-router.post('/search', function(req, res) {
+//             YourCard.find({}, function(err, doc) {
+//                 // log any errors
+//                 if (err) {
+//                     console.log(err);
+//                 }
+//                 // or send the doc to the browser as a json object
+//                 else {
+//                     res.json(doc);
+//                 }
+//             })
+//         }
+//     })
+// })
 
-    //Grab card by name and set (optional)
-    mtg.card.all({ name: req.body.name, set: req.body.set })
-        .on('data', function(card) {
-            res.send(card);
-        });
-})
+// //DB post for want cards
+// app.post('/wantCard', function(req, res) {
 
-//DB post for your cards
-router.post('/yourCard', function(req, res) {
+//     var wantCard = new WantCard(req.body);
 
-    var yourCard = new YourCard(req.body);
+//     wantCard.save(function(err, doc) {
+//         // send any errors to the browser
+//         if (err) {
+//             res.send(err);
+//         }
+//         // otherwise, send the new doc to the browser
+//         else {
+//             res.send(doc);
+//         }
+//     })
+// })
 
-    yourCard.save(function(err, doc) {
-        // send any errors to the browser
-        if (err) {
-            res.send(err);
-        }
-        // otherwise, send the new doc to the browser
-        else {
+// //DB pull for your cards
+// app.get('/pullYourCards', function(req, res) {
+//     // grab every doc in the Articles array
+//     YourCard.find({}, function(err, doc) {
+//         // log any errors
+//         if (err) {
+//             console.log(err);
+//         }
+//         // or send the doc to the browser as a json object
+//         else {
+//             res.json(doc);
+//         }
+//     });
+// });
 
-            YourCard.find({}, function(err, doc) {
-                // log any errors
-                if (err) {
-                    console.log(err);
-                }
-                // or send the doc to the browser as a json object
-                else {
-                    res.json(doc);
-                }
-            })
-        }
-    })
-})
+// //DB pull for want cards
+// app.get('/pullWantCards', function(req, res) {
+//     // grab every doc in the Articles array
+//     WantCard.find({}, function(err, doc) {
+//         // log any errors
+//         if (err) {
+//             console.log(err);
+//         }
+//         // or send the doc to the browser as a json object
+//         else {
+//             res.json(doc);
+//         }
+//     });
+// });
 
-//DB post for want cards
-router.post('/wantCard', function(req, res) {
+// //Remove a your card from DB
+// app.delete('/removeYourCard/:id', function(req, res) {
 
-    var wantCard = new WantCard(req.body);
+//     var split = req.params.id.split(':');
 
-    wantCard.save(function(err, doc) {
-        // send any errors to the browser
-        if (err) {
-            res.send(err);
-        }
-        // otherwise, send the new doc to the browser
-        else {
-            res.send(doc);
-        }
-    })
-})
+//     var cardID = split[1];
 
-//DB pull for your cards
-router.get('/pullYourCards', function(req, res) {
-    // grab every doc in the Articles array
-    YourCard.find({}, function(err, doc) {
-        // log any errors
-        if (err) {
-            console.log(err);
-        }
-        // or send the doc to the browser as a json object
-        else {
-            res.json(doc);
-        }
-    });
-});
+//     YourCard.findByIdAndRemove(cardID, function(err, res) {
+//         if (err) {
+//             console.log(err);
+//         }
+//     })
+//     res.json({
+//         message: 'Removed yourCard',
+//         status: false
+//     })
+// })
 
-//DB pull for want cards
-router.get('/pullWantCards', function(req, res) {
-    // grab every doc in the Articles array
-    WantCard.find({}, function(err, doc) {
-        // log any errors
-        if (err) {
-            console.log(err);
-        }
-        // or send the doc to the browser as a json object
-        else {
-            res.json(doc);
-        }
-    });
-});
+// //Remove a want card from DB
+// app.delete('/removeWantCard/:id', function(req, res) {
 
-//Remove a your card from DB
-router.delete('/removeYourCard/:id', function(req, res) {
+//     var split = req.params.id.split(':');
 
-    var split = req.params.id.split(':');
+//     var cardID = split[1];
 
-    var cardID = split[1];
+//     WantCard.findByIdAndRemove(cardID, function(err, res) {
+//         if (err) {
+//             console.log(err);
+//         }
+//     })
+//     res.json({
+//         message: 'Removed wantCard',
+//         status: false
+//     })
+// })
 
-    YourCard.findByIdAndRemove(cardID, function(err, res) {
-        if (err) {
-            console.log(err);
-        }
-    })
-    res.json({
-        message: 'Removed yourCard',
-        status: false
-    })
-})
+var routes = require('./server/controllers/trade_controller.js')
 
-//Remove a want card from DB
-router.delete('/removeWantCard/:id', function(req, res) {
+app.use('/', routes);
 
-    var split = req.params.id.split(':');
-
-    var cardID = split[1];
-
-    WantCard.findByIdAndRemove(cardID, function(err, res) {
-        if (err) {
-            console.log(err);
-        }
-    })
-    res.json({
-        message: 'Removed wantCard',
-        status: false
-    })
-})
 var port = Number(process.env.PORT || 3000);
 
 app.listen(port, function() {
