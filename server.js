@@ -16,6 +16,8 @@ var mtg = require('mtgsdk');
 
 // var FileStore = require('session-file-store')//(session);
 
+var router = express.Router();
+
 var app = express();
 
 app.use(require('connect').bodyParser());
@@ -136,10 +138,10 @@ app.use(bodyParser());
 
 // Database configuration with mongoose
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/magictrader');
+mongoose.connect('mongodb://localhost/magictrader');
 
 //Heroku mongoose connection
-mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
+// mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
 
 var db = mongoose.connection;
 
@@ -162,11 +164,11 @@ var Session = require('./server/models/sessionModel.js');
 
 
 //Routes
-// Originalvvv
+// Original
 // app.get('/', function(req, res) {
 //     res.sendFile(__dirname + '/index.html');
 // })
-app.get('/', function(req, res) {
+router.get('/', function(req, res) {
 
     var session = new Session();
 
@@ -187,10 +189,10 @@ app.get('/', function(req, res) {
 
 // app.use('/', express.static(__dirname + '/public'));
 
-app.use(express.static(__dirname + '/public'));
+router.use(express.static(__dirname + '/public'));
 
 //Card search route
-app.post('/search', function(req, res) {
+router.post('/search', function(req, res) {
 
     //Grab card by name and set (optional)
     mtg.card.all({ name: req.body.name, set: req.body.set })
@@ -200,7 +202,7 @@ app.post('/search', function(req, res) {
 })
 
 //DB post for your cards
-app.post('/yourCard', function(req, res) {
+router.post('/yourCard', function(req, res) {
 
     var yourCard = new YourCard(req.body);
 
@@ -227,7 +229,7 @@ app.post('/yourCard', function(req, res) {
 })
 
 //DB post for want cards
-app.post('/wantCard', function(req, res) {
+router.post('/wantCard', function(req, res) {
 
     var wantCard = new WantCard(req.body);
 
@@ -244,7 +246,7 @@ app.post('/wantCard', function(req, res) {
 })
 
 //DB pull for your cards
-app.get('/pullYourCards', function(req, res) {
+router.get('/pullYourCards', function(req, res) {
     // grab every doc in the Articles array
     YourCard.find({}, function(err, doc) {
         // log any errors
@@ -259,7 +261,7 @@ app.get('/pullYourCards', function(req, res) {
 });
 
 //DB pull for want cards
-app.get('/pullWantCards', function(req, res) {
+router.get('/pullWantCards', function(req, res) {
     // grab every doc in the Articles array
     WantCard.find({}, function(err, doc) {
         // log any errors
@@ -274,7 +276,7 @@ app.get('/pullWantCards', function(req, res) {
 });
 
 //Remove a your card from DB
-app.delete('/removeYourCard/:id', function(req, res) {
+router.delete('/removeYourCard/:id', function(req, res) {
 
     var split = req.params.id.split(':');
 
@@ -292,7 +294,7 @@ app.delete('/removeYourCard/:id', function(req, res) {
 })
 
 //Remove a want card from DB
-app.delete('/removeWantCard/:id', function(req, res) {
+router.delete('/removeWantCard/:id', function(req, res) {
 
     var split = req.params.id.split(':');
 

@@ -141,6 +141,10 @@
         }
 
         // MODAL FUNCTIONS 
+        $scope.test = function(){
+        	angular.element('#cardSearchButton').trigger('click');
+        }
+		
 
         // Initial search to find card
         $scope.search = function() {
