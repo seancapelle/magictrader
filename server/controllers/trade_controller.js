@@ -2,11 +2,15 @@ var express = require('express');
 var router = express.Router();
 // var trade = require('../models/trade.js');
 
+var mtg = require('mtgsdk');
+
 //Bring in DB models
 var Card = require('../models/cardModel.js');
 var YourCard = require('../models/yourCardModel.js');
 var WantCard = require('../models/wantCardModel.js')
 var Session = require('../models/sessionModel.js');
+
+var path = require('path');
 
 //Routes
 // Original
@@ -21,7 +25,9 @@ router.get('/', function(req, res) {
         if (err) {
             res.send(err);
         } else {
-            res.sendFile(__dirname + '/index.html');
+            
+            // res.sendFile(__dirname + '/index.html');
+            res.sendFile(path.join(__dirname, '../../public/views', 'index.html'));
 
             var sessionID = doc._id;
 
