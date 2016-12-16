@@ -1,7 +1,7 @@
+// Dependencies
 var express = require('express');
 var router = express.Router();
-// var trade = require('../models/trade.js');
-
+var path = require('path');
 var mtg = require('mtgsdk');
 
 //Bring in DB models
@@ -10,13 +10,8 @@ var YourCard = require('../models/yourCardModel.js');
 var WantCard = require('../models/wantCardModel.js')
 var Session = require('../models/sessionModel.js');
 
-var path = require('path');
-
+var url = path.join(__dirname, '../../public/views', 'index.html');
 //Routes
-// Original
-// app.get('/', function(req, res) {
-//     res.sendFile(__dirname + '/index.html');
-// })
 router.get('/', function(req, res) {
 
     var session = new Session();
@@ -46,6 +41,8 @@ router.post('/search', function(req, res) {
     mtg.card.all({ name: req.body.name, set: req.body.set })
         .on('data', function(card) {
             res.send(card);
+           
+
         });
 })
 

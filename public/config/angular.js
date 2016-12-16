@@ -154,7 +154,7 @@
                 }
                 $http.post('/search', data)
                     .success(function(data, status) {
-
+console.log(data.card);
                         // Selects the most current printing of the card
                         var set = data.printings[data.printings.length - 1];
 
