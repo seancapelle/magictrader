@@ -12,15 +12,13 @@ var Session = require('../models/sessionModel.js');
 
 var url = path.join(__dirname, '../../public/views', 'index.html');
 //Routes
-<<<<<<< HEAD
 
-=======
 // Original
 // app.get('/', function(req, res) {
 //     res.sendFile(__dirname + '/index.html');
 // })
 module.exports = function(app) {
->>>>>>> ea587d098a8041c3570af15622696239984483ee
+
 
 
     // app.get('/', function(req, res) {
@@ -54,13 +52,9 @@ module.exports = function(app) {
           set: req.body.set
         })
         .on('data', function(card) {
-<<<<<<< HEAD
-    
-           
 
-=======
           res.send(card);
->>>>>>> ea587d098a8041c3570af15622696239984483ee
+
         });
     })
 
