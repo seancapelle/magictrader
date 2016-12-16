@@ -153,8 +153,10 @@
                     name: $scope.cardName
                 }
                 $http.post('/search', data)
-                    .success(function(data, status) {
-console.log(data.card);
+                    .success(function(data) {
+//data.card
+//data.status
+//data.message
                         // Selects the most current printing of the card
                         var set = data.printings[data.printings.length - 1];
 
@@ -196,7 +198,7 @@ console.log(data.card);
             }
 
             $http.post('/search', data)
-                .success(function(data, status) {
+                .success(function(data) {
 
                     // Send new card info into currentCard()
                     $scope.currentCard(data);

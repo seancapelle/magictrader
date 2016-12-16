@@ -62,6 +62,7 @@ module.exports = function(app) {
     app.post('/yourCard', function(req, res) {
 
       var yourCard = new YourCard(req.body);
+      console.log(req.body)
 
       yourCard.save(function(err, doc) {
         // send any errors to the browser
