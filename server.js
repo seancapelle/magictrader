@@ -3,14 +3,14 @@ var express = require('express');
 var mongoose = require('mongoose');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
-
+var flash = require('connect-flash');
 
 // var mtg = require('mtgsdk');
 
 // var passport = require('passport');
 // var flash = require('connect-flash');
 // var cookieParser = require('cookie-parser');
-// var session = require('express-session');
+var session = require('express-session');
 // var configDB = require('./server/config/database.js')
 
 // var sessions = require('client-sessions');
@@ -22,18 +22,22 @@ var router = express.Router();
 
 var app = express();
 
-app.use(require('connect').bodyParser());
+// app.use(require('connect'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
 
 app.use(morgan('dev'));
 // app.use(cookieParser());
 app.use(bodyParser());
+app.use(flash());
+app.set('views', __dirname + '/public/views');
+app.set('view engine', 'ejs');
 
-// app.set('view engine', 'ejs');
 
 // // Required for passport
-// app.use(session({ secret: 'FblthpIsNotT0tallyLost!' }));
+app.use(session({ secret: 'FblthpIsNotT0tallyLost!' }));
 // app.use(passport.initialize());
 // app.use(passport.session());
 // app.use(flash());
@@ -149,12 +153,12 @@ var db = mongoose.connection;
 
 //Show any mongoose errors
 db.on('error', function(err) {
-    console.log('Mongoose Error: ', err);
+  console.log('Mongoose Error: ', err);
 });
 
 //Log a success message
 db.once('open', function() {
-    console.log('Mongoose connection successful.');
+  console.log('Mongoose connection successful.');
 });
 
 // //Bring in Card models
@@ -313,12 +317,13 @@ app.use(express.static(__dirname + '/public'));
 //     })
 // })
 
-var routes = require('./server/controllers/trade_controller.js')
+var routes = require('./server/routes/routes.js')(app);
+var APIroutes = require('./server/controllers/trade_controller.js')(app);
 
-app.use('/', routes);
+// app.use('/', routes);
 
-var port = Number(process.env.PORT || 3000);
+var PORT = process.env.PORT || 3000;
 
-app.listen(port, function() {
-    console.log("App listening on port " + port);
+app.listen(PORT, function() {
+  console.log("App listening on port " + PORT);
 });

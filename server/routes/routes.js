@@ -1,6 +1,7 @@
 module.exports = function(app, passport) {
     app.get('/', function(req, res) {
-        res.render('index.ejs')
+        // res.render('index.ejs')
+        res.sendFile(process.cwd() + "/public/views/index.html")
     });
 
     app.get('/login', function(req, res) {
@@ -14,11 +15,11 @@ module.exports = function(app, passport) {
         res.render('signup.ejs', { message: req.flash('signupMessage') });
     });
 
-    app.post('/signup', passport.authenticate('local-signup', {
-        successRedirect: '/profile',
-        failureRedirect: '/signup',
-        failureFlash: true // Allow flash messages
-    }));
+    // app.post('/signup', passport.authenticate('local-signup', {
+    //     successRedirect: '/profile',
+    //     failureRedirect: '/signup',
+    //     failureFlash: true // Allow flash messages
+    // }));
 
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile.ejs', {
