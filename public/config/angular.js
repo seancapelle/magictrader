@@ -189,27 +189,29 @@
 
         // Pick which price to use on your cards
         $scope.yourPricePick = function(id, price) {
-            console.log(id);
-            console.log(price);
+
             var update = {
                 id: id,
                 price: price
             }
-// NEED TO SEND PRICE DATA ON THE ROUTE
-            $http.put('/updateYourPrice/:' + id)
-                .then(function(response) {
-                    console.log(response.data.message);
-
+  
+            $http.post('/updateYourPrice', update)
+                .success(function(data, status) {
+                    
                     pullYourCards();
-                })     
+                })  
         }
 
         // Pick which price to use on want cards
         $scope.wantPricePick = function(id, price) {
             
-            $http.put('/updateWantPrice/:' + id)
-                .then(function(response) {
-                    console.log(response.data.message);
+            var update = {
+                id: id,
+                price: price
+            }
+
+            $http.post('/updateWantPrice', update)
+                .success(function(response) {
 
                     pullWantCards();
                 })

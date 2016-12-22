@@ -134,13 +134,14 @@ module.exports = function(app) {
     });
 
     // Update your card price
-    app.put('/updateYourPrice/:id', function(req, res) {
+    app.post('/updateYourPrice', function(req, res) {
 
-      var split = req.params.id.split(':');
+      console.log(req.body);
 
-      var cardID = split[1];
+      var cardID = req.body.id;
+      var price = req.body.price;
 
-      YourCard.findByIdAndUpdate(cardID, { price: '6' }, function(err, res) {
+      YourCard.findByIdAndUpdate(cardID, {price: price}, function(err, res) {
         if (err) {
           console.log(err);
         }
@@ -149,17 +150,17 @@ module.exports = function(app) {
         message: 'Updated yourCardPrice',
         status: false
       })
-
     })
     
     // Update want card price
-    app.put('/updateWantPrice/:id', function(req, res) {
+    app.post('/updateWantPrice', function(req, res) {
 
-      var split = req.params.id.split(':');
+      console.log(req.body);
 
-      var cardID = split[1];
+      var cardID = req.body.id;
+      var price = req.body.price;
 
-      WantCard.findByIdAndUpdate(cardID, { price: '6' }, function(err, res) {
+      WantCard.findByIdAndUpdate(cardID, {price: price}, function(err, res) {
         if (err) {
           console.log(err);
         }
@@ -168,7 +169,6 @@ module.exports = function(app) {
         message: 'Updated wantCardPrice',
         status: false
       })
-
     })
 
     //Remove a your card from DB
