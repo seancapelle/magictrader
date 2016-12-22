@@ -187,8 +187,8 @@
 
         }
 
-        // Pick which price to use
-        $scope.yourPricePick = function(id, price){
+        // Pick which price to use on your cards
+        $scope.yourPricePick = function(id, price) {
             console.log(id);
             console.log(price);
             var update = {
@@ -201,9 +201,18 @@
                     console.log(response.data.message);
 
                     pullYourCards();
-                })
+                })     
+        }
+
+        // Pick which price to use on want cards
+        $scope.wantPricePick = function(id, price) {
             
-                       
+            $http.put('/updateWantPrice/:' + id)
+                .then(function(response) {
+                    console.log(response.data.message);
+
+                    pullWantCards();
+                })
         }
 
         // Add another card
@@ -248,7 +257,7 @@
 
             $http.post(url, data)
                 .success(function(data, status) {
-                    console.log(data);
+                    
                     pullYourCards();
                     pullWantCards();
                 })

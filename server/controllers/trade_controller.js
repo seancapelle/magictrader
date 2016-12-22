@@ -151,6 +151,25 @@ module.exports = function(app) {
       })
 
     })
+    
+    // Update want card price
+    app.put('/updateWantPrice/:id', function(req, res) {
+
+      var split = req.params.id.split(':');
+
+      var cardID = split[1];
+
+      WantCard.findByIdAndUpdate(cardID, { price: '6' }, function(err, res) {
+        if (err) {
+          console.log(err);
+        }
+      })
+      res.json({
+        message: 'Updated wantCardPrice',
+        status: false
+      })
+
+    })
 
     //Remove a your card from DB
     app.delete('/removeYourCard/:id', function(req, res) {

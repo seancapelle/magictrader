@@ -68,14 +68,14 @@
                                     <!-- Controls for each card  -->
                                     <div class="btn-group btn-group-sm controls" role="group" aria-label="...">
                                         <div class="btn-group btn-group-sm" role="group">
-                                            <button type="button" ng-click="pricePick($scope)" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <strong> {{ card.avgPrice | currency }} </strong>
+                                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <strong> {{ card.price | currency }} </strong>
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu">
-                                                <li><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
-                                                <li><a href="#">Average: {{ card. avgPrice | currency }} </a></li>
-                                                <li><a href="#">High: {{ card.highPrice | currency }}</a></li>
+                                                <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
+                                                <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ card.avgPrice | currency }} </a></li>
+                                                <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ card.highPrice | currency }}</a></li>
                                             </ul>
                                         </div>
                                         <button type="button" ng-click="plusOne('wantCard', card.name, card.lowPrice, card.highPrice, card.avgPrice, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
