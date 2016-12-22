@@ -9,6 +9,7 @@ var YourCardSchema = new Schema({
     lowPrice: String,
     highPrice: String,
     avgPrice: String,
+    price: String,
     pic: String
 });
 

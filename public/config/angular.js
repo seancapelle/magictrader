@@ -74,7 +74,7 @@
             var yourValue = [];
 
             $scope.yourCards.forEach(function(element) {
-                var yourParse = parseFloat(element.avgPrice);
+                var yourParse = parseFloat(element.price);
                 yourValue.push(yourParse);
             })
 
@@ -108,7 +108,7 @@
             var wantValue = [];
 
             $scope.wantCards.forEach(function(element) {
-                var wantParse = parseFloat(element.avgPrice);
+                var wantParse = parseFloat(element.price);
                 wantValue.push(wantParse);
             })
 
@@ -119,25 +119,6 @@
             }
 
             return wantSum;
-        }
-
-        // Pick which price to use
-        // $scope.pricePick = function(price){
-        // 	console.log($scope.card);
-        // }
-
-        // Add another card
-        $scope.plusOne = function(side, name, lowPrice, highPrice, avgPrice, pic) {
-
-            var data = {
-                "name": name,
-                "lowPrice": lowPrice,
-                "highPrice": highPrice,
-                "avgPrice": avgPrice,
-                "pic": pic
-            }
-
-            search(side, data);
         }
 
         // MODAL FUNCTIONS 
@@ -168,7 +149,7 @@
             }
             // Display the currently selected card
         $scope.currentCard = function(currentVersion) {
-            console.log(currentVersion);
+           
             // Display card
             $scope.cardName = currentVersion.name;
             $scope.set = currentVersion.setName;
@@ -206,6 +187,39 @@
 
         }
 
+        // Pick which price to use
+        $scope.yourPricePick = function(id, price){
+            console.log(id);
+            console.log(price);
+            var update = {
+                id: id,
+                price: price
+            }
+// NEED TO SEND PRICE DATA ON THE ROUTE
+            $http.put('/updateYourPrice/:' + id)
+                .then(function(response) {
+                    console.log(response.data.message);
+
+                    pullYourCards();
+                })
+            
+                       
+        }
+
+        // Add another card
+        $scope.plusOne = function(side, name, lowPrice, highPrice, avgPrice, price, pic) {
+
+            var data = {
+                "name": name,
+                "lowPrice": lowPrice,
+                "highPrice": highPrice,
+                "avgPrice": avgPrice,
+                "price": price,
+                "pic": pic
+            }
+
+            search(side, data);
+        }
         $scope.addCard = function(side) {
 
             var data = {
@@ -213,6 +227,7 @@
                     "lowPrice": $scope.lowPrice,
                     "highPrice": $scope.highPrice,
                     "avgPrice": $scope.avgPrice,
+                    "price": $scope.avgPrice,
                     "pic": $scope.picURL
                 }
                 // Determine which route to send to

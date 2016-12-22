@@ -133,6 +133,25 @@ module.exports = function(app) {
       });
     });
 
+    // Update your card price
+    app.put('/updateYourPrice/:id', function(req, res) {
+
+      var split = req.params.id.split(':');
+
+      var cardID = split[1];
+
+      YourCard.findByIdAndUpdate(cardID, { price: '6' }, function(err, res) {
+        if (err) {
+          console.log(err);
+        }
+      })
+      res.json({
+        message: 'Updated yourCardPrice',
+        status: false
+      })
+
+    })
+
     //Remove a your card from DB
     app.delete('/removeYourCard/:id', function(req, res) {
 
