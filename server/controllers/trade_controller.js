@@ -53,7 +53,6 @@ module.exports = function(app) {
     app.post('/yourCard', function(req, res) {
 
       var yourCard = new YourCard(req.body);
-      console.log(req.body)
 
       yourCard.save(function(err, doc) {
         // send any errors to the browser
@@ -95,9 +94,12 @@ module.exports = function(app) {
     })
 
     //DB pull for your cards
-    app.get('/pullYourCards', function(req, res) {
+    app.post('/pullYourCards', function(req, res) {
+      
+      var session = req.body.session;
+
       // grab every doc in the Articles array
-      YourCard.find({}, function(err, doc) {
+      YourCard.find({session: session}, function(err, doc) {
         // log any errors
         if (err) {
           console.log(err);
@@ -110,9 +112,12 @@ module.exports = function(app) {
     });
 
     //DB pull for want cards
-    app.get('/pullWantCards', function(req, res) {
+    app.post('/pullWantCards', function(req, res) {
+
+      var session = req.body.session;
+
       // grab every doc in the Articles array
-      WantCard.find({}, function(err, doc) {
+      WantCard.find({session: session}, function(err, doc) {
         // log any errors
         if (err) {
           console.log(err);

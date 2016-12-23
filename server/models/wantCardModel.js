@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 
 // create the WantCard schema
 var WantCardSchema = new Schema({
+    session: String,
     name: String,
     lowPrice: String,
     highPrice: String,

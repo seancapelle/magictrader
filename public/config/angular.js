@@ -10,32 +10,38 @@
         // Global variables	
         var yourArray = [];
         var wantArray = [];
+        var sessionID = 0;
+
+        // Create a new session
+        newSession();
 
         // Run functions to display cards
-        pullYourCards();
-        pullWantCards();
-
-        //Main page display
-        newSession();
+        // pullYourCards();
+        // pullWantCards();
 
         // Creates a new session in DB and saves to localStorage
         function newSession() {
+            
             $http.get('/session')
                 .then(function(response) {
-                    console.log();
 
-                    var sessionID = response.data._id;
+                    sessionID = response.data._id;
 
-                    localStorage.setItem('Session', sessionID);
-
-                    console.log("New session: " + sessionID);
+                    // Run functions to display cards
+                    pullYourCards();
+                    pullWantCards();
                 })
+                
         }
-        
+
         // Grab yourCards from DB
         function pullYourCards() {
+           
+            var data = {
+                session: sessionID
+            }
 
-            $http.get('/pullYourCards')
+            $http.post('/pullYourCards', data)
                 .then(function(response) {
 
                     $scope.yourCards = response.data;
@@ -53,8 +59,12 @@
 
          // Grab wantCards from DB
         function pullWantCards() {
+
+            var data = {
+                session: sessionID
+            }
            
-            $http.get('/pullWantCards')
+            $http.post('/pullWantCards', data)
                 .then(function(response) {
 
                     $scope.wantCards = response.data;
@@ -250,6 +260,7 @@
         $scope.addCard = function(side) {
 
             var data = {
+                    "session": sessionID,
                     "name": $scope.cardName,
                     "lowPrice": $scope.lowPrice,
                     "highPrice": $scope.highPrice,
