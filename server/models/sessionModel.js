@@ -5,17 +5,19 @@ var Schema = mongoose.Schema;
 
 // create the Card schema
 var SessionSchema = new Schema({
-    name: {
-        type: String
-    },
-    yourCards: [{
-        type: String, //Schema.Types.ObjectID,
-        ref: 'yourCard'
-    }],
-    wantCards: [{
-        type: String, //Schema.Types.ObjectID,
-        ref: 'wantCard'
-    }]
+    name: String
+    // {
+    //     type: String
+    // }
+    // ,
+    // yourCards: [{
+    //     type: String, //Schema.Types.ObjectID,
+    //     ref: 'yourCard'
+    // }],
+    // wantCards: [{
+    //     type: String, //Schema.Types.ObjectID,
+    //     ref: 'wantCard'
+    // }]
 });
 
 // create the User model with the UserSchema

@@ -16,10 +16,25 @@
         pullWantCards();
 
         //Main page display
+        newSession();
 
+        // Creates a new session in DB and saves to localStorage
+        function newSession() {
+            $http.get('/session')
+                .then(function(response) {
+                    console.log();
+
+                    var sessionID = response.data._id;
+
+                    localStorage.setItem('Session', sessionID);
+
+                    console.log("New session: " + sessionID);
+                })
+        }
+        
+        // Grab yourCards from DB
         function pullYourCards() {
 
-            // Grab yourCards from DB
             $http.get('/pullYourCards')
                 .then(function(response) {
 
@@ -36,8 +51,9 @@
         // Attach $scope to yourArray
         $scope.yourCards = yourArray;
 
+         // Grab wantCards from DB
         function pullWantCards() {
-            // Grab wantCards from DB
+           
             $http.get('/pullWantCards')
                 .then(function(response) {
 

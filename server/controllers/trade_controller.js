@@ -20,28 +20,19 @@ var url = path.join(__dirname, '../../public/views', 'index.html');
 module.exports = function(app) {
 
 
+    // Create new session
+    app.get('/session', function(req, res) {
 
-    // app.get('/', function(req, res) {
-
-    //   var session = new Session();
-
-    //   session.save(function(err, doc) {
-    //     if (err) {
-    //       res.send(err);
-    //     } else {
-
-    //       // res.sendFile(__dirname + '/index.html');
-    //       res.sendFile(path.join(__dirname, '../../public/views', 'index.html'));
-
-    //       var sessionID = doc._id;
-
-    //       console.log(sessionID);
-
-    //       // localStorage.setItem('Session', sessionID);
-    //     }
-    //   })
-    // })
-
+      var session = new Session();
+      
+      session.save(function(err, doc) {
+        if (err) {
+          res.send(err);
+        } else {
+          res.send(doc);
+        }
+      })
+    })
 
     //Card search route
     app.post('/search', function(req, res) {
