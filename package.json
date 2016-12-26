@@ -35,9 +35,10 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
+    "request": "^2.79.0",
     "session-file-store": "^1.0.0"
   },
   "engines": {
-   "node": "6.3.1"
- }
+    "node": "6.3.1"
+  }
 }

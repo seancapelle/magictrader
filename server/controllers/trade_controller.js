@@ -2,6 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
+var request = require('request'); 
 var mtg = require('mtgsdk');
 
 //Bring in DB models
@@ -48,6 +49,24 @@ module.exports = function(app) {
 
         });
     })
+
+    // Grab card prices
+    // app.post('/prices', function(req, res) {
+    //   var set = req.body.set;
+    //   var name = req.body.name;
+    //   var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name;
+
+    //   // Grab TCGPlayer pricing
+    //   request(queryURL, function(req, res) {
+    //     console.log(res.body);
+    //     res.json({
+    //       message: 'Grabbed TCG Pricing',
+    //       status: false
+    //     })
+    //   })
+
+
+    // })
 
     //DB post for your cards
     app.post('/yourCard', function(req, res) {

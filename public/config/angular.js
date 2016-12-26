@@ -176,6 +176,47 @@
             // Display the currently selected card
         $scope.currentCard = function(currentVersion) {
            
+           // var data = {
+           //  name: currentVersion.name,
+           //  set: currentVersion.setName
+           // }
+
+           var set = currentVersion.setName;
+           var name = currentVersion.name;
+           
+           switch(set) {
+                case 'Magic 2010':
+                    set = 'Magic 2010 (M10)';
+                    break;
+                case 'Magic 2011':
+                    set = 'Magic 2011 (M11)';
+                    break;
+                case 'Magic 2012':
+                    set = 'Magic 2012 (M12)';
+                    break;
+                case 'Magic 2013':
+                    set = 'Magic 2013 (M13)';
+                    break;
+                case 'Magic 2014':
+                    set = 'Magic 2014 (M14)';
+                    break;    
+                case 'Magic 2015':
+                    set = 'Magic 2015 (M15)'
+            }
+
+          
+           var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
+           console.log(queryURL);
+           $http.get(queryURL)
+            .success(function(data) {
+                console.log(data);
+            })
+
+            // $http.post('/prices', data)
+            //     .success(function(data) {
+            //         console.log(data);
+            //     })
+
             // Display card
             $scope.cardName = currentVersion.name;
             $scope.set = currentVersion.setName;
