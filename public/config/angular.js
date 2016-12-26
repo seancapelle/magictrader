@@ -176,15 +176,43 @@
             // Display the currently selected card
         $scope.currentCard = function(currentVersion) {
            
-           // var data = {
-           //  name: currentVersion.name,
-           //  set: currentVersion.setName
-           // }
-
            var set = currentVersion.setName;
            var name = currentVersion.name;
            
            switch(set) {
+                case 'Limited Edition Alpha':
+                    set = 'Alpha Edition';
+                    break;
+                case 'Arena League':
+                    set = 'Arena Promos';
+                    break;
+                case 'Limited Edition Beta':
+                    set = 'Beta Edition';
+                    break;
+                case 'Champs and States':
+                    set = 'Champs Promos';
+                    break;
+                case 'Commander 2013 Edition':
+                    set = 'Commander 2013';
+                    break;
+                case 'Modern Masters 2015 Edition':
+                    set = 'Modern Masters 2015';
+                    break;
+                case 'Planechase 2012 Edition':
+                    set = 'Planechase 2012'
+                    break;
+                case 'Seventh Edition':
+                    set = '7th Edition';
+                    break;
+                case 'Eighth Edition':
+                    set = '8th Edition';
+                    break;
+                case 'Ninth Edition':
+                    set = '9th Edition';
+                    break;
+                case 'Tenth Edition':
+                    set = '10th Edition';
+                    break;
                 case 'Magic 2010':
                     set = 'Magic 2010 (M10)';
                     break;
@@ -210,31 +238,27 @@
            $http.get(queryURL)
             .success(function(data) {
                 console.log(data);
+                // DATA IS IN XML, NOT JSON
+
+                // Display card
+                $scope.cardName = currentVersion.name;
+                $scope.set = currentVersion.setName;
+                $scope.picURL = currentVersion.imageUrl;
+
+                // Create bogus pricing
+                $scope.lowPrice = (Math.random() * 2);
+                $scope.highPrice = $scope.lowPrice + 1;
+                $scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
+
+                // Push all card printings to array		
+                var setArray = [];
+
+                currentVersion.printings.forEach(function(element) {
+                    setArray.push(element);
+                })
+
+                $scope.setList = setArray;
             })
-
-            // $http.post('/prices', data)
-            //     .success(function(data) {
-            //         console.log(data);
-            //     })
-
-            // Display card
-            $scope.cardName = currentVersion.name;
-            $scope.set = currentVersion.setName;
-            $scope.picURL = currentVersion.imageUrl;
-
-            // Create bogus pricing
-            $scope.lowPrice = (Math.random() * 2);
-            $scope.highPrice = $scope.lowPrice + 1;
-            $scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
-
-            // Push all card printings to array		
-            var setArray = [];
-
-            currentVersion.printings.forEach(function(element) {
-                setArray.push(element);
-            })
-
-            $scope.setList = setArray;
         }
 
         // When user selects different set from modal dropdown
