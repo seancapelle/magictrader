@@ -232,7 +232,7 @@
                     set = 'Magic 2015 (M15)'
             }
 
-            var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
+            var queryURL = 'https://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
             console.log(queryURL);
 
             $http.get(queryURL,
