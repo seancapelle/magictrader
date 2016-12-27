@@ -178,7 +178,7 @@
            
            var set = currentVersion.setName;
            var name = currentVersion.name;
-           
+           // Convert Magic API set naming into TCG format
            switch(set) {
                 case 'Limited Edition Alpha':
                     set = 'Alpha Edition';
@@ -255,16 +255,17 @@
                     $scope.lowPrice = response.products.product.lowprice;
                     $scope.highPrice = response.products.product.hiprice;
                     $scope.avgPrice = response.products.product.avgprice;
-                   
                     $scope.foilPrice = response.products.product.foilavgprice;
+
+                    $scope.buyLink = response.products.product.link;
                     // If no foil printing of card
-                    if (response.products.product.foilavgprice == "0"){
+                    // if (response.products.product.foilavgprice == "0"){
                       
-                        $scope.foilPrice = "N/A";
-                    }
-                    else {
-                        $scope.foilPrice = "$" + response.products.product.foilavgprice;
-                    }
+                    //     $scope.foilPrice = "N/A";
+                    // }
+                    // else {
+                    //     $scope.foilPrice = "$" + response.products.product.foilavgprice;
+                    // }
                     
 
                     // Push all card printings to array		

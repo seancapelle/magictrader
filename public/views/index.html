@@ -42,7 +42,7 @@
                                             <li ng-click="yourPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
                                             <li ng-click="yourPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ card.avgPrice | currency }} </a></li>
                                             <li ng-click="yourPricePick(card._id, card.highPrice)"><a href="#">High: {{ card.highPrice | currency }}</a></li>
-                                            <li ng-click="yourPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice }}</a></li>
+                                            <li ng-click="yourPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
                                         </ul>
                                     </div>
                                     <button type="button" ng-click="plusOne('yourCard', card.name, card.lowPrice, card.highPrice, card.avgPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -77,7 +77,7 @@
                                                 <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
                                                 <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ card.avgPrice | currency }} </a></li>
                                                 <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ card.highPrice | currency }}</a></li>
-                                                <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice  }}</a></li>
+                                                <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
                                             </ul>
                                         </div>
                                         <button type="button" ng-click="plusOne('wantCard', card.name, card.lowPrice, card.highPrice, card.avgPrice, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
@@ -134,7 +134,8 @@
                             <button>{{ lowPrice | currency }}</button>
                             <button>{{ avgPrice | currency }} </button>
                             <button>{{ highPrice | currency }}</button>
-                            <button>{{ foilPrice }}</button> </div>
+                            <button>{{ foilPrice | currency }}</button> 
+                            <button><a href="{{ buyLink }}" target="_blank">Buy Now</a></button></div>
                             <div class="sets">
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="printingsDropDownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Expansions
