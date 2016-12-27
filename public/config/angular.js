@@ -232,33 +232,50 @@
                     set = 'Magic 2015 (M15)'
             }
 
-          
-           var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
-           console.log(queryURL);
-           $http.get(queryURL)
-            .success(function(data) {
-                console.log(data);
-                // DATA IS IN XML, NOT JSON
+            var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
+            console.log(queryURL);
 
-                // Display card
-                $scope.cardName = currentVersion.name;
-                $scope.set = currentVersion.setName;
-                $scope.picURL = currentVersion.imageUrl;
-
-                // Create bogus pricing
-                $scope.lowPrice = (Math.random() * 2);
-                $scope.highPrice = $scope.lowPrice + 1;
-                $scope.avgPrice = ($scope.highPrice + $scope.lowPrice) / 2;
-
-                // Push all card printings to array		
-                var setArray = [];
-
-                currentVersion.printings.forEach(function(element) {
-                    setArray.push(element);
+            $http.get(queryURL,
+                {   
+                    // Turn XML into JSON
+                    transformResponse: function (cnv) {
+                        var x2js = new X2JS();
+                        var aftCnv = x2js.xml_str2json(cnv);
+                        return aftCnv;
+                    }
                 })
+                .success(function(response) {
+                    console.log(response);
+                    // Display card
+                    $scope.cardName = currentVersion.name;
+                    $scope.set = currentVersion.setName;
+                    $scope.picURL = currentVersion.imageUrl;
 
-                $scope.setList = setArray;
-            })
+                    // Attach TCG pricing
+                    $scope.lowPrice = response.products.product.lowprice;
+                    $scope.highPrice = response.products.product.hiprice;
+                    $scope.avgPrice = response.products.product.avgprice;
+                   
+                    $scope.foilPrice = response.products.product.foilavgprice;
+                    // If no foil printing of card
+                    if (response.products.product.foilavgprice == "0"){
+                      
+                        $scope.foilPrice = "N/A";
+                    }
+                    else {
+                        $scope.foilPrice = "$" + response.products.product.foilavgprice;
+                    }
+                    
+
+                    // Push all card printings to array		
+                    var setArray = [];
+
+                    currentVersion.printings.forEach(function(element) {
+                        setArray.push(element);
+                    })
+
+                    $scope.setList = setArray;
+                 })
         }
 
         // When user selects different set from modal dropdown
@@ -309,13 +326,14 @@
         }
 
         // Add another card
-        $scope.plusOne = function(side, name, lowPrice, highPrice, avgPrice, price, pic) {
+        $scope.plusOne = function(side, name, lowPrice, highPrice, avgPrice, foilPrice, price, pic) {
 
             var data = {
                 "name": name,
                 "lowPrice": lowPrice,
                 "highPrice": highPrice,
                 "avgPrice": avgPrice,
+                "foilPrice": foilPrice,
                 "price": price,
                 "pic": pic
             }
@@ -330,6 +348,7 @@
                     "lowPrice": $scope.lowPrice,
                     "highPrice": $scope.highPrice,
                     "avgPrice": $scope.avgPrice,
+                    "foilPrice": $scope.foilPrice,
                     "price": $scope.avgPrice,
                     "pic": $scope.picURL
                 }

@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var request = require('request'); 
+var requestify = require('requestify'); 
 var mtg = require('mtgsdk');
 
 //Bring in DB models

@@ -10,6 +10,7 @@ var WantCardSchema = new Schema({
     lowPrice: String,
     highPrice: String,
     avgPrice: String,
+    foilPrice: String,
     price: String,
     pic: String
 });
