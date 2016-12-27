@@ -144,10 +144,10 @@ app.use(session({ secret: 'FblthpIsNotT0tallyLost!' }));
 
 // Database configuration with mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/magictrader');
+// mongoose.connect('mongodb://localhost/magictrader');
 
 //Heroku mongoose connection
-// mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
+mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
 
 var db = mongoose.connection;
 
