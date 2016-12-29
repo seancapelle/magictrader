@@ -1,6 +1,6 @@
 (function() {
 
-    angular.module('cardTrade', [])
+    angular.module('cardTrade', ['ui.bootstrap.modal'])
         .controller('TradeController', TradeController)
 
     TradeController.$inject = ['$scope', '$http', '$window'];
@@ -14,10 +14,6 @@
 
         // Create a new session
         newSession();
-
-        // Run functions to display cards
-        // pullYourCards();
-        // pullWantCards();
 
         // Creates a new session in DB and saves to localStorage
         function newSession() {
@@ -76,7 +72,6 @@
                 })
         }
 
-
         // Attach $scope to wantArray
         $scope.wantCards = wantArray;
 
@@ -89,6 +84,21 @@
 
             $http.delete('/removeYourCard/:' + id)
                 .then(function(response) {
+                    console.log(response.data.message);
+                })
+
+        }
+
+        // Remove wantCards from display
+        $scope.wantDelete = function(card) {
+
+            $scope.wantCards.splice($scope.wantCards.indexOf(card), 1);
+
+            var id = card._id;
+
+            $http.delete('/removeWantCard/:' + id)
+                .then(function(response) {
+
                     console.log(response.data.message);
                 })
 
@@ -113,21 +123,6 @@
             return yourSum;
         }
 
-        // Remove wantCards from display
-        $scope.wantDelete = function(card) {
-
-            $scope.wantCards.splice($scope.wantCards.indexOf(card), 1);
-
-            var id = card._id;
-
-            $http.delete('/removeWantCard/:' + id)
-                .then(function(response) {
-
-                    console.log(response.data.message);
-                })
-
-        }
-
         // Total price of want cards
         $scope.wantTotal = function() {
 
@@ -147,10 +142,19 @@
             return wantSum;
         }
 
+
         // MODAL FUNCTIONS 
-        $scope.test = function(){
-        	angular.element('#cardSearchButton').trigger('click');
+        // Open modal
+        $scope.open = function(){
+        
+        	$scope.cardDisplay = true;
+            $scope.search();
         }
+
+        // Close modal
+         $scope.close = function() {
+                $scope.cardDisplay = false;
+            };
 		
 
         // Initial search to find card
@@ -173,11 +177,12 @@
                     })
 
             }
-            // Display the currently selected card
+        // Display the currently selected card
         $scope.currentCard = function(currentVersion) {
            
            var set = currentVersion.setName;
            var name = currentVersion.name;
+
            // Convert Magic API set naming into TCG format
            switch(set) {
                 case 'Limited Edition Alpha':
@@ -235,6 +240,7 @@
             var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
             console.log(queryURL);
 
+            // TCG call
             $http.get(queryURL,
                 {   
                     // Turn XML into JSON
@@ -258,15 +264,6 @@
                     $scope.foilPrice = response.products.product.foilavgprice;
 
                     $scope.buyLink = response.products.product.link;
-                    // If no foil printing of card
-                    // if (response.products.product.foilavgprice == "0"){
-                      
-                    //     $scope.foilPrice = "N/A";
-                    // }
-                    // else {
-                    //     $scope.foilPrice = "$" + response.products.product.foilavgprice;
-                    // }
-                    
 
                     // Push all card printings to array		
                     var setArray = [];
@@ -327,9 +324,13 @@
         }
 
         // Add another card
-        $scope.plusOne = function(side, name, lowPrice, highPrice, avgPrice, foilPrice, price, pic) {
-
+        $scope.plusOne = function(side, session, name, lowPrice, highPrice, avgPrice, foilPrice, price, pic) {
+console.log("in plusone");
+console.log(name);
+console.log(foilPrice);
+console.log(price);
             var data = {
+                "session": session,
                 "name": name,
                 "lowPrice": lowPrice,
                 "highPrice": highPrice,
@@ -341,8 +342,12 @@
 
             search(side, data);
         }
-        $scope.addCard = function(side) {
 
+        $scope.addCard = function(side) {
+            
+            // Close modal
+            $scope.close();
+            
             var data = {
                     "session": sessionID,
                     "name": $scope.cardName,
@@ -353,7 +358,8 @@
                     "price": $scope.avgPrice,
                     "pic": $scope.picURL
                 }
-                // Determine which route to send to
+
+            // Determine which route to send to
             if (side == 'yourCard') {
 
                 search(side, data);

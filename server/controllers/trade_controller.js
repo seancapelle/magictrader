@@ -2,7 +2,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var requestify = require('requestify'); 
+// var requestify = require('requestify'); 
 var mtg = require('mtgsdk');
 
 //Bring in DB models
@@ -12,12 +12,8 @@ var WantCard = require('../models/wantCardModel.js')
 var Session = require('../models/sessionModel.js');
 
 var url = path.join(__dirname, '../../public/views', 'index.html');
-//Routes
 
-// Original
-// app.get('/', function(req, res) {
-//     res.sendFile(__dirname + '/index.html');
-// })
+// Routes
 module.exports = function(app) {
 
 
@@ -204,4 +200,3 @@ module.exports = function(app) {
       })
     })
   }
-  // module.exports = router;

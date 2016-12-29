@@ -45,7 +45,7 @@
                                             <li ng-click="yourPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
                                         </ul>
                                     </div>
-                                    <button type="button" ng-click="plusOne('yourCard', card.name, card.lowPrice, card.highPrice, card.avgPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                    <button type="button" ng-click="plusOne('yourCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                                     <button type="button" ng-click="yourDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                 </div>
                                <img src={{card.pic}}></li>
@@ -80,7 +80,7 @@
                                                 <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
                                             </ul>
                                         </div>
-                                        <button type="button" ng-click="plusOne('wantCard', card.name, card.lowPrice, card.highPrice, card.avgPrice, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                        <button type="button" ng-click="plusOne('wantCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                                         <button type="button" ng-click="wantDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                     </div>
                                     <img src={{card.pic}}>
@@ -94,9 +94,9 @@
                 <div class="row">
                     <div class="col-md-12 search">
                         <div class="input-group">
-                            <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && test()">
+                            <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()">
                             <span class="input-group-btn">
-		      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="search()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+		      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="open()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                             </span>
                         </div>
                     </div>
@@ -113,12 +113,12 @@
             </div>
         </footer>
         <!-- Card Modal -->
-        <div class="modal fade" id="cardModal" role="dialog">
+        <div class="modal fade" id="cardModal" role="dialog" modal="cardDisplay">
             <div class="modal-dialog">
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <button type="button" class="close" data-dismiss="modal" ng-click="close()">&times;</button>
                         <h4 class="modal-title">Which card do you want to add?</h4>
                     </div>
                     <div class="modal-body">
@@ -151,18 +151,19 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <!-- jQuery -->
                 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+                 <!-- Bootstrap Core JavaScript -->
+                <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
                 <!-- Angular -->
                 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
                 <script type="text/javascript" src="./config/angular.js"></script>
-                <!-- Bootstrap Core JavaScript -->
-                <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+                <script type="text/javascript" src="./vendor/angular-ui-bootstrap-modal.js"></script>    
                 <!-- XML2JSON -->
                 <script type="text/javascript" src="./vendor/xml2json.js"></script> 
             </div>
