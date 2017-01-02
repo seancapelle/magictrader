@@ -325,10 +325,7 @@
 
         // Add another card
         $scope.plusOne = function(side, session, name, lowPrice, highPrice, avgPrice, foilPrice, price, pic) {
-console.log("in plusone");
-console.log(name);
-console.log(foilPrice);
-console.log(price);
+            
             var data = {
                 "session": session,
                 "name": name,
