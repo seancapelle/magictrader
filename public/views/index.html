@@ -21,13 +21,13 @@
   				<input type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon2">
 			</div> -->
             </div>
-            <img src="./assets/img/magic-trader.png" class="logo">
+            <img src="./assets/img/logo.png" class="logo">
         </div>
         <main>
             <div class="row">
                 <!-- Your Cards -->
                 <div class="col-md-5 col-sm-12">
-                    <h1 class="centered">Your Cards</h1>
+                    <h1 class="centered title">Your Cards</h1>
                     <div id="yourCards" class="card-well">
                         <ul ng-repeat="card in yourCards">
                             <li>
@@ -122,20 +122,33 @@
                         <h4 class="modal-title">Which card do you want to add?</h4>
                     </div>
                     <div class="modal-body">
-                        <button class="yourCardsAdd" ng-click="addCard('yourCard')"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
-                        <button class="wantCardsAdd" ng-click="addCard('wantCard')"><span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></button>
+                        <a href="#"><img src="./assets/img/your-side.png" class="your-side yourCardsAdd" ng-click="addCard('yourCard')"></a>
+                        <a href="#"><img src="./assets/img/want-side.png" class="want-side wantCardsAdd" ng-click="addCard('wantCard')"></a>
                         <div class="card-view"></div>
                         <h3> {{ cardName }} </h3>
                         <p> {{ set }} </p>
-                        <img src="{{ picURL }}">
+                        <img ng-src="{{ picURL }}" src="./assets/img/default.png">
                         <br>
                         <p>Price</p>
                         <div class="prices">
+                        <div class="btn-group btn-group-sm prices" role="group" aria-label="...">
+                                        <div class="btn-group btn-group-sm" role="group">
+                                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                               Prices
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ lowPrice | currency }} </a></li>
+                                                <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ avgPrice | currency }} </a></li>
+                                                <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ highPrice | currency }}</a></li>
+                                                <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ foilPrice | currency }}</a></li>
+                                            </ul>
+                                        </div>
                             <button>{{ lowPrice | currency }}</button>
                             <button>{{ avgPrice | currency }} </button>
                             <button>{{ highPrice | currency }}</button>
-                            <button>{{ foilPrice | currency }}</button> 
-                            <button><a href="{{ buyLink }}" target="_blank">Buy Now</a></button></div>
+                            <button class="foil">{{ foilPrice | currency }}</button> 
+                            <button class="buy-button"><a href="{{ buyLink }}" target="_blank">Buy Now</a></button>
                             <div class="sets">
                                 <div class="dropdown">
                                     <button class="btn btn-default dropdown-toggle" type="button" id="printingsDropDownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Expansions
