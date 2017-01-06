@@ -153,9 +153,10 @@
 
         // Close modal
          $scope.close = function() {
+           
                 $scope.cardDisplay = false;
             };
-		
+        // backdrop.on('click', $scope.close());
 
         // Initial search to find card
         $scope.search = function() {
@@ -238,7 +239,6 @@
             }
 
             var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
-            console.log(queryURL);
 
             // TCG call
             $http.get(queryURL,
@@ -251,7 +251,7 @@
                     }
                 })
                 .success(function(response) {
-                    console.log(response);
+                   
                     // Display card
                     $scope.cardName = currentVersion.name;
                     $scope.set = currentVersion.setName;

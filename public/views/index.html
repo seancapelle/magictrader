@@ -4,30 +4,33 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="./assets/css/style.css" type="text/css" rel="stylesheet">
+    <link href="./assets/css/mobile.css" type="text/css" rel="stylesheet" media="only screen and (max-device-width: 480px)">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magic Trader</title>
 </head>
 
 <body ng-controller="TradeController as trade">
     <div class="main-container">
-        <div class="jumbotron">
-            <div class="login">
-                <!-- 	<div class="input-group">
-  				<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
- 				<input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
-			</div>
-			<div class="input-group">
-				<span class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-book" aria-hidden="true"></span></span>
-  				<input type="text" class="form-control" placeholder="Password" aria-describedby="basic-addon2">
-			</div> -->
-            </div>
+        <div class="header">
             <img src="./assets/img/logo.png" class="logo">
         </div>
         <main>
+          <!-- Search -->
+                <div class="row">
+                    <div class="col-md-12 search">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()">
+                            <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="cardSearchButton" data-target="#cardModal" ng-click="open()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
             <div class="row">
                 <!-- Your Cards -->
                 <div class="col-md-5 col-sm-12">
-                    <h1 class="centered title">Your Cards</h1>
+                    <h1 class="centered title">Cards You Have</h1>
                     <div id="yourCards" class="card-well">
                         <ul ng-repeat="card in yourCards">
                             <li>
@@ -48,21 +51,23 @@
                                     <button type="button" ng-click="plusOne('yourCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                                     <button type="button" ng-click="yourDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                                 </div>
-                               <img src={{card.pic}}></li>
+                               <img src={{card.pic}}>
+                            </li>
                         </ul>
                         </div>
                         <h1 class="centered">Total: {{ yourTotal() | currency }}</h1>
-                    </div>
+                   
+                </div>
                     <!-- Value Section -->
                     <div class="col-md-2 col-sm-12">
-                        <h1 class="centered">Value</h1>
+                        <h1 class="centered value-title">Value</h1>
                         <div id="value" class="value-well">
                             <h2>{{ wantTotal() - yourTotal() | currency}}</h2>
                         </div>
                     </div>
                     <!-- Want Cards -->
                     <div class="col-md-5">
-                        <h1 class="centered">Want Cards</h1>
+                        <h1 class="centered">Cards You Want</h1>
                         <div id="wantCards" class="card-well">
                             <ul ng-repeat="card in wantCards">
                                 <li>
@@ -90,17 +95,7 @@
                         <h1 class="centered">Total: {{ wantTotal() | currency}}</h1>
                     </div>
                 </div>
-                <!-- Search -->
-                <div class="row">
-                    <div class="col-md-12 search">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()">
-                            <span class="input-group-btn">
-		      			<button class="btn btn-default" type="button" id="cardSearchButton" data-toggle="modal" data-target="#cardModal" ng-click="open()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
+              
             </div>
         </main>
         <footer>
@@ -176,7 +171,7 @@
                 <!-- Angular -->
                 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
                 <script type="text/javascript" src="./config/angular.js"></script>
-                <script type="text/javascript" src="./vendor/angular-ui-bootstrap-modal.js"></script>    
+                <script type="text/javascript" src="./vendor/angular-ui-bootstrap-modal.js"></script>
                 <!-- XML2JSON -->
                 <script type="text/javascript" src="./vendor/xml2json.js"></script> 
             </div>

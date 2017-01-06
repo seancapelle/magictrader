@@ -20,6 +20,13 @@ body {
     text-align: center;
 }
 
+.header {
+	background-color: #765b39;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    color: #7b99c4;
+    text-align: center;
+}
 .logo-div {
     background-color: white;
     border-radius: 5px;
@@ -30,6 +37,7 @@ body {
 .logo {
     width: 30%;
     border-radius: 5px;
+    margin: 20px;
 }
 
 .logo-name {
@@ -106,20 +114,26 @@ body {
 .want-value {
     float: right;
 }
-
+.value-title {
+	position: relative;
+    top: 125px;
+}
 .value-well {
     border: 1px solid black;
-    border-radius: 50px;
+    border-radius: 100px;
     background-color: #6e93bd;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     margin: auto;
+    position: relative;
+    /*top: 125px;*/
+    top: 50%;
 }
 
 .value-well h2 {
     text-align: center;
     position: relative;
-    top: 13px;
+    top: 35px;
     color: white;
 }
 
@@ -217,3 +231,4 @@ background-blend-mode: screen;
 #printingsDropdown {
     margin: auto;
 }
+
