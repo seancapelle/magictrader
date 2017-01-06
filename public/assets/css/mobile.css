@@ -3,3 +3,30 @@
     border-radius: 5px;
     margin: 5px;
 }
+
+#cardInput {
+	width: 250px;
+}
+
+.title {
+	font-size: 1.5em;
+	margin-top: 0;
+	margin-bottom: 5px;
+}
+
+.card-well {
+	height: 150px;
+	width: 290px;
+}
+
+.value-well {
+	height: 50px;
+	width: 290px;
+	border-radius: 10px;
+}
+
+.value {
+	font-size: 1.5em;
+	margin: 0px;
+
+}

@@ -17,8 +17,8 @@
         </div>
         <main>
           <!-- Search -->
-                <div class="row">
-                    <div class="col-md-12 search">
+                <div class="row search">
+                    <div class="col-md-12">
                         <div class="input-group">
                             <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()">
                             <span class="input-group-btn">
@@ -55,19 +55,19 @@
                             </li>
                         </ul>
                         </div>
-                        <h1 class="centered">Total: {{ yourTotal() | currency }}</h1>
+                        <h1 class="centered title">Total: {{ yourTotal() | currency }}</h1>
                    
                 </div>
                     <!-- Value Section -->
                     <div class="col-md-2 col-sm-12">
                         <h1 class="centered value-title">Value</h1>
                         <div id="value" class="value-well">
-                            <h2>{{ wantTotal() - yourTotal() | currency}}</h2>
+                            <h2 class="value">{{ wantTotal() - yourTotal() | currency}}</h2>
                         </div>
                     </div>
                     <!-- Want Cards -->
                     <div class="col-md-5">
-                        <h1 class="centered">Cards You Want</h1>
+                        <h1 class="centered title">Cards You Want</h1>
                         <div id="wantCards" class="card-well">
                             <ul ng-repeat="card in wantCards">
                                 <li>
@@ -92,7 +92,7 @@
                                 </li>
                             </ul>
                         </div>
-                        <h1 class="centered">Total: {{ wantTotal() | currency}}</h1>
+                        <h1 class="centered title">Total: {{ wantTotal() | currency}}</h1>
                     </div>
                 </div>
               
