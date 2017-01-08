@@ -2,7 +2,7 @@ body {
     background-color: white;
 }
 
-.main-container {
+.container-fluid {
     background-color: #b57252;
 }
 
@@ -130,10 +130,6 @@ body {
     position: relative;
     top: 35px;
     color: white;
-}
-
-.search {
-    margin: auto;
 }
 
 .input-group {

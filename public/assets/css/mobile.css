@@ -1,32 +1,47 @@
 .logo {
-    width: 60%;
+    width: 50%;
     border-radius: 5px;
     margin: 5px;
 }
 
 #cardInput {
 	width: 250px;
+
 }
 
 .title {
-	font-size: 1.5em;
+	font-size: 1.25em;
 	margin-top: 0;
 	margin-bottom: 5px;
 }
 
 .card-well {
-	height: 150px;
+	height: 140px;
 	width: 290px;
+}
+
+.card-well img {
+    width: 50%;
+    margin: auto;
+    display: block;
+    margin-top: 10px;
+    margin-right: 7px;
+    border-radius: 10px;
 }
 
 .value-well {
-	height: 50px;
+	height: 30px;
 	width: 290px;
 	border-radius: 10px;
+	position: relative;
+	bottom: 50px;
+	margin-top: 0px;
 }
 
-.value {
+.value-well h2 {
 	font-size: 1.5em;
-	margin: 0px;
-
+	z-index: 100;
+	margin: 0;
+	position: relative;
+	top: 4px;
 }

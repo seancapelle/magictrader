@@ -11,138 +11,135 @@
 </head>
 
 <body ng-controller="TradeController as trade">
-    <div class="main-container">
-        <div class="header">
-            <img src="./assets/img/logo.png" class="logo">
-        </div>
-        <main>
-          <!-- Search -->
-                <div class="row search">
-                    <div class="col-md-12">
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()">
-                            <span class="input-group-btn">
+    <div class="header">
+        <img src="./assets/img/logo.png" class="logo">
+    </div>
+    <main class="container-fluid">
+        <!-- Search -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()">
+                    <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="cardSearchButton" data-target="#cardModal" ng-click="open()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                            </span>
-                        </div>
-                    </div>
+                    </span>
                 </div>
-            <div class="row">
-                <!-- Your Cards -->
-                <div class="col-md-5 col-sm-12">
-                    <h1 class="centered title">Cards You Have</h1>
-                    <div id="yourCards" class="card-well">
-                        <ul ng-repeat="card in yourCards">
-                            <li>
-                                <!-- Controls for each card  -->
-                                <div class="btn-group btn-group-sm controls" role="group" aria-label="...">
-                                    <div class="btn-group btn-group-sm" role="group">
-                                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <strong> {{ card.price | currency }} </strong>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li ng-click="yourPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
-                                            <li ng-click="yourPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ card.avgPrice | currency }} </a></li>
-                                            <li ng-click="yourPricePick(card._id, card.highPrice)"><a href="#">High: {{ card.highPrice | currency }}</a></li>
-                                            <li ng-click="yourPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
-                                        </ul>
-                                    </div>
-                                    <button type="button" ng-click="plusOne('yourCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                                    <button type="button" ng-click="yourDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+            </div>
+        </div>
+        <div class="row">
+            <!-- Your Cards -->
+            <div class="col-md-5 col-xs-12">
+                <h1 class="centered title">Cards You Have</h1>
+                <div id="yourCards" class="card-well">
+                    <ul ng-repeat="card in yourCards">
+                        <li>
+                            <!-- Controls for each card  -->
+                            <div class="btn-group btn-group-sm controls" role="group" aria-label="...">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong> {{ card.price | currency }} </strong>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li ng-click="yourPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
+                                        <li ng-click="yourPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ card.avgPrice | currency }} </a></li>
+                                        <li ng-click="yourPricePick(card._id, card.highPrice)"><a href="#">High: {{ card.highPrice | currency }}</a></li>
+                                        <li ng-click="yourPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
+                                    </ul>
                                 </div>
-                               <img src={{card.pic}}>
-                            </li>
-                        </ul>
-                        </div>
-                        <h1 class="centered title">Total: {{ yourTotal() | currency }}</h1>
-                   
+                                <button type="button" ng-click="plusOne('yourCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                <button type="button" ng-click="yourDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            </div>
+                            <img src={{card.pic}}>
+                        </li>
+                    </ul>
                 </div>
-                    <!-- Value Section -->
-                    <div class="col-md-2 col-sm-12">
-                        <h1 class="centered value-title">Value</h1>
-                        <div id="value" class="value-well">
-                            <h2 class="value">{{ wantTotal() - yourTotal() | currency}}</h2>
-                        </div>
-                    </div>
-                    <!-- Want Cards -->
-                    <div class="col-md-5">
-                        <h1 class="centered title">Cards You Want</h1>
-                        <div id="wantCards" class="card-well">
-                            <ul ng-repeat="card in wantCards">
-                                <li>
-                                    <!-- Controls for each card  -->
-                                    <div class="btn-group btn-group-sm controls" role="group" aria-label="...">
-                                        <div class="btn-group btn-group-sm" role="group">
-                                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                <strong> {{ card.price | currency }} </strong>
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
-                                                <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ card.avgPrice | currency }} </a></li>
-                                                <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ card.highPrice | currency }}</a></li>
-                                                <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
-                                            </ul>
-                                        </div>
-                                        <button type="button" ng-click="plusOne('wantCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                                        <button type="button" ng-click="wantDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-                                    </div>
-                                    <img src={{card.pic}}>
-                                </li>
-                            </ul>
-                        </div>
-                        <h1 class="centered title">Total: {{ wantTotal() | currency}}</h1>
-                    </div>
-                </div>
-              
+                <h1 class="centered title">{{ yourTotal() | currency }}</h1>
             </div>
-        </main>
-        <footer>
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        Copyright &copy; Sean Capelle 2016
-                    </div>
+            <!-- Value Section -->
+            <div class="col-md-2 col-xs-12">
+                <h1 class="centered value-title">Value</h1>
+                <div id="value" class="value-well">
+                    <h2 class="value">{{ wantTotal() - yourTotal() | currency}}</h2>
                 </div>
             </div>
-        </footer>
-        <!-- Card Modal -->
-        <div class="modal fade" id="cardModal" role="dialog" modal="cardDisplay">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" ng-click="close()">&times;</button>
-                        <h4 class="modal-title">Which card do you want to add?</h4>
-                    </div>
-                    <div class="modal-body">
-                        <a href="#"><img src="./assets/img/your-side.png" class="your-side yourCardsAdd" ng-click="addCard('yourCard')"></a>
-                        <a href="#"><img src="./assets/img/want-side.png" class="want-side wantCardsAdd" ng-click="addCard('wantCard')"></a>
-                        <div class="card-view"></div>
-                        <h3> {{ cardName }} </h3>
-                        <p> {{ set }} </p>
-                        <img ng-src="{{ picURL }}" src="./assets/img/default.png">
-                        <br>
-                        <p>Price</p>
-                        <div class="prices">
+            <!-- Want Cards -->
+            <div class="col-md-5 col-xs-12">
+                <h1 class="centered title">Cards You Want</h1>
+                <div id="wantCards" class="card-well">
+                    <ul ng-repeat="card in wantCards">
+                        <li>
+                            <!-- Controls for each card  -->
+                            <div class="btn-group btn-group-sm controls" role="group" aria-label="...">
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <strong> {{ card.price | currency }} </strong>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ card.lowPrice | currency }} </a></li>
+                                        <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ card.avgPrice | currency }} </a></li>
+                                        <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ card.highPrice | currency }}</a></li>
+                                        <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ card.foilPrice | currency }}</a></li>
+                                    </ul>
+                                </div>
+                                <button type="button" ng-click="plusOne('wantCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                                <button type="button" ng-click="wantDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
+                            </div>
+                            <img src={{card.pic}}>
+                        </li>
+                    </ul>
+                </div>
+                <h1 class="centered title">{{ wantTotal() | currency}}</h1>
+            </div>
+        </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    Copyright &copy; Sean Capelle 2016
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Card Modal -->
+    <div class="modal fade" id="cardModal" role="dialog" modal="cardDisplay">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" ng-click="close()">&times;</button>
+                    <h4 class="modal-title">Which card do you want to add?</h4>
+                </div>
+                <div class="modal-body">
+                    <a href="#"><img src="./assets/img/your-side.png" class="your-side yourCardsAdd" ng-click="addCard('yourCard')"></a>
+                    <a href="#"><img src="./assets/img/want-side.png" class="want-side wantCardsAdd" ng-click="addCard('wantCard')"></a>
+                    <div class="card-view"></div>
+                    <h3> {{ cardName }} </h3>
+                    <p> {{ set }} </p>
+                    <img ng-src="{{ picURL }}" src="./assets/img/default.png">
+                    <br>
+                    <p>Price</p>
+                    <div class="prices">
                         <div class="btn-group btn-group-sm prices" role="group" aria-label="...">
-                                        <div class="btn-group btn-group-sm" role="group">
-                                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                               Prices
-                                                <span class="caret"></span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ lowPrice | currency }} </a></li>
-                                                <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ avgPrice | currency }} </a></li>
-                                                <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ highPrice | currency }}</a></li>
-                                                <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ foilPrice | currency }}</a></li>
-                                            </ul>
-                                        </div>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Prices
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ lowPrice | currency }} </a></li>
+                                    <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ avgPrice | currency }} </a></li>
+                                    <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ highPrice | currency }}</a></li>
+                                    <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ foilPrice | currency }}</a></li>
+                                </ul>
+                            </div>
                             <button>{{ lowPrice | currency }}</button>
                             <button>{{ avgPrice | currency }} </button>
                             <button>{{ highPrice | currency }}</button>
-                            <button class="foil">{{ foilPrice | currency }}</button> 
+                            <button class="foil">{{ foilPrice | currency }}</button>
                             <button class="buy-button"><a href="{{ buyLink }}" target="_blank">Buy Now</a></button>
                             <div class="sets">
                                 <div class="dropdown">
@@ -166,14 +163,14 @@
                 </div>
                 <!-- jQuery -->
                 <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-                 <!-- Bootstrap Core JavaScript -->
+                <!-- Bootstrap Core JavaScript -->
                 <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
                 <!-- Angular -->
                 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
                 <script type="text/javascript" src="./config/angular.js"></script>
                 <script type="text/javascript" src="./vendor/angular-ui-bootstrap-modal.js"></script>
                 <!-- XML2JSON -->
-                <script type="text/javascript" src="./vendor/xml2json.js"></script> 
+                <script type="text/javascript" src="./vendor/xml2json.js"></script>
             </div>
 </body>
 
