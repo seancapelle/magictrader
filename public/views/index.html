@@ -54,11 +54,11 @@
                         </li>
                     </ul>
                 </div>
-                <h1 class="centered title">{{ yourTotal() | currency }}</h1>
+                <h1 class="centered price">{{ yourTotal() | currency }}</h1>
             </div>
             <!-- Value Section -->
             <div class="col-md-2 col-xs-12">
-                <h1 class="centered value-title">Value</h1>
+                <!-- <h1 class="centered value-title">Value</h1> -->
                 <div id="value" class="value-well">
                     <h2 class="value">{{ wantTotal() - yourTotal() | currency}}</h2>
                 </div>
@@ -90,7 +90,7 @@
                         </li>
                     </ul>
                 </div>
-                <h1 class="centered title">{{ wantTotal() | currency}}</h1>
+                <h1 class="centered price">{{ wantTotal() | currency}}</h1>
             </div>
         </div>
         </div>
@@ -99,7 +99,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    Copyright &copy; Sean Capelle 2016
+                    <p class="copyright">Copyright &copy; <a href="http://www.seancapelle.com" target="_blank">Sean Capelle</a> 2017</p>
                 </div>
             </div>
         </div>
