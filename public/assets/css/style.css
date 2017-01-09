@@ -211,22 +211,14 @@ background-blend-mode: screen;
 	color: white;
 }
 
-.yourCardsAdd {
-    float: left;
-    height: 50px;
-}
-
 .your-side {
 	height: 50px;
-}
-
-.wantCardsAdd {
-    float: right;
-    height: 50px;
+	float: left;
 }
 
 .want-side {
 	height: 50px;
+	float: right;
 }
 
 #printingsDropdown {

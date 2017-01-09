@@ -114,12 +114,27 @@
                     <h4 class="modal-title">Which card do you want to add?</h4>
                 </div>
                 <div class="modal-body">
-                    <a href="#"><img src="./assets/img/your-side.png" class="your-side yourCardsAdd" ng-click="addCard('yourCard')"></a>
-                    <a href="#"><img src="./assets/img/want-side.png" class="want-side wantCardsAdd" ng-click="addCard('wantCard')"></a>
+                    <!-- <a href="#"><img src="./assets/img/your-side.png" class="your-side yourCardsAdd" ng-click="addCard('yourCard')"></a>
+                    <a href="#"><img src="./assets/img/want-side.png" class="want-side wantCardsAdd" ng-click="addCard('wantCard')"></a> -->
                     <div class="card-view"></div>
                     <h3> {{ cardName }} </h3>
                     <p> {{ set }} </p>
-                    <img ng-src="{{ picURL }}" src="./assets/img/default.png">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-2 col-xs-2">
+                                <a href="#"><img src="./assets/img/your-side.png" class="your-side" ng-click="addCard('yourCard')"></a>
+                            </div>
+                            <div class="col-md-8 col-xs-8">
+                                 <img ng-src="{{ picURL }}" src="./assets/img/default.png" class="card">
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                                <a href="#"><img src="./assets/img/want-side.png" class="want-side" ng-click="addCard('wantCard')"></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   
+                    
                     <br>
                     <p>Price</p>
                     <div class="prices">

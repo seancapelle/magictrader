@@ -92,3 +92,33 @@
 .copyright {
 	font-size: .5em;
 }
+
+/*Modal Styling*/
+.modal-title {
+	font-size: 1em;
+}
+
+.container-fluid {
+    background-color: white;
+}
+
+.modal-body h3{
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+.card {
+	/*margin: auto;*/
+    display: block;
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.your-side {
+	position: relative;
+	top: 75px;
+}
+.want-side {
+	position: relative;
+	top: 75px;
+}
