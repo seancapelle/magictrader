@@ -5,6 +5,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 
+// var SessionStore = require('session-mongoose')(express);
 // var mtg = require('mtgsdk');
 
 // var passport = require('passport');
@@ -144,13 +145,12 @@ app.use(session({ secret: 'FblthpIsNotT0tallyLost!' }));
 
 // Database configuration with mongoose
 mongoose.Promise = global.Promise;
-// mongoose.connect('mongodb://localhost/magictrader');
+mongoose.connect('mongodb://localhost/magictrader');
 
 //Heroku mongoose connection
-mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
+// mongoose.connect('mongodb://heroku_9th412f2:d5m3l5eb9tk70o42g958nekufn@ds119598.mlab.com:19598/heroku_9th412f2');
 
 // Modulus mongoose connection
-// mongoose.connect('olympia.modulusmongo.net:27017/gYworu8p');
 // mongoose.connect('mongodb://olympia.modulusmongo.net:27017/gYworu8p');
 
 var db = mongoose.connection;
@@ -192,6 +192,15 @@ db.once('open', function() {
 
 
 app.use(express.static(__dirname + '/public'));
+
+// app.use(express.session({
+// 		store: new SessionStore({
+// 		url: 'mongodb://localhost/magictrader',
+// 		interval: 1000
+// 	}),
+// 	cookie: {maxAge: 1000},
+// 	secret: 'my secret'
+// }))
 
 
 var routes = require('./server/routes/routes.js')(app);
