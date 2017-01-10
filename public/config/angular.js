@@ -262,6 +262,7 @@
                     $scope.highPrice = response.products.product.hiprice;
                     $scope.avgPrice = response.products.product.avgprice;
                     $scope.foilPrice = response.products.product.foilavgprice;
+                    $scope.price = response.products.product.avgprice;
 
                     $scope.buyLink = response.products.product.link;
 
@@ -274,6 +275,12 @@
 
                     $scope.setList = setArray;
                  })
+        }
+
+        // When user selects price from modal dropdown
+        $scope.pricePick = function(price) {
+ 
+            $scope.price = price;
         }
 
         // When user selects different set from modal dropdown
@@ -352,7 +359,7 @@
                     "highPrice": $scope.highPrice,
                     "avgPrice": $scope.avgPrice,
                     "foilPrice": $scope.foilPrice,
-                    "price": $scope.avgPrice,
+                    "price": $scope.price,
                     "pic": $scope.picURL
                 }
 

@@ -50,7 +50,7 @@
                                 <button type="button" ng-click="plusOne('yourCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                                 <button type="button" ng-click="yourDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                             </div>
-                            <img src={{card.pic}}>
+                            <img src={{card.pic}} class="card-trade">
                         </li>
                     </ul>
                 </div>
@@ -86,7 +86,7 @@
                                 <button type="button" ng-click="plusOne('wantCard', card.session, card.name, card.lowPrice, card.highPrice, card.avgPrice, card.foilPrice, card.price, card.pic)" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                                 <button type="button" ng-click="wantDelete(card)" class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
                             </div>
-                            <img src={{card.pic}}>
+                            <img src={{card.pic}} class="card-trade">
                         </li>
                     </ul>
                 </div>
@@ -136,7 +136,7 @@
                    
                     
                     <br>
-                    <p>Price</p>
+                    <p>Price</p> {{ price | currency }}
                     <div class="row">
                         <div class="col-md-4 col-xs-4">
                             <div class="prices">
@@ -147,10 +147,10 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li ng-click="wantPricePick(card._id, card.lowPrice)"><a href="#">Low: {{ lowPrice | currency }} </a></li>
-                                    <li ng-click="wantPricePick(card._id, card.avgPrice)"><a href="#">Average: {{ avgPrice | currency }} </a></li>
-                                    <li ng-click="wantPricePick(card._id, card.highPrice)"><a href="#">High: {{ highPrice | currency }}</a></li>
-                                    <li ng-click="wantPricePick(card._id, card.foilPrice)"><a href="#">Foil: {{ foilPrice | currency }}</a></li>
+                                    <li ng-click="pricePick(lowPrice)"><a href="#">Low: {{ lowPrice | currency }} </a></li>
+                                    <li ng-click="pricePick(avgPrice)"><a href="#">Average: {{ avgPrice | currency }} </a></li>
+                                    <li ng-click="pricePick(highPrice)"><a href="#">High: {{ highPrice | currency }}</a></li>
+                                    <li ng-click="pricePick(foilPrice)"><a href="#">Foil: {{ foilPrice | currency }}</a></li>
                                 </ul>
                             </div>
                            <!--  <button>{{ lowPrice | currency }}</button>
