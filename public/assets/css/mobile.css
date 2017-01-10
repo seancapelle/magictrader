@@ -7,35 +7,30 @@
 #cardInput {
 	width: 250px;
 }
+.input-group {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
 
 .title {
-	font-size: 1.25em;
+	font-size: 1em;
 	margin-top: 0;
 	margin-bottom: 5px;
-	margin-left: 8px;
-	/*position: relative;
-	top: 30px;*/
 	float: left;
-/*	background-color: white;
 	border-radius: 5px;
 	border: 1px solid black;
-	box-sizing: border-box;
-	width: 95%;*/
+	display: block;
 }
 
 .want-title {
-	font-size: 1.25em;
+	font-size: 1em;
 	margin-top: 0;
 	margin-bottom: 5px;
-	margin-left: 8px;
-	position: relative;
-	top: 167px;
-	float: left;
-/*	background-color: white;
 	border-radius: 5px;
 	border: 1px solid black;
-	box-sizing: border-box;
-	width: 95%;*/
+	position: relative;
+	top: 165px;
+	float: left;
 }
 
 .price {
@@ -84,6 +79,7 @@
 	position: relative;
 	bottom: 3px;
 	margin-top: 0px;
+	border: 2px solid black;
 }
 
 .value-well h2 {
@@ -91,7 +87,7 @@
 	z-index: 100;
 	margin: 0;
 	position: relative;
-	top: 4px;
+	top: 3px;
 }
 
 .copyright {
