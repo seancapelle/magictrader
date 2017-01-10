@@ -114,8 +114,6 @@
                     <h4 class="modal-title">Which card do you want to add?</h4>
                 </div>
                 <div class="modal-body">
-                    <!-- <a href="#"><img src="./assets/img/your-side.png" class="your-side yourCardsAdd" ng-click="addCard('yourCard')"></a>
-                    <a href="#"><img src="./assets/img/want-side.png" class="want-side wantCardsAdd" ng-click="addCard('wantCard')"></a> -->
                     <div class="card-view"></div>
                     <h3> {{ cardName }} </h3>
                     <p> {{ set }} </p>
@@ -125,40 +123,33 @@
                                 <a href="#"><img src="./assets/img/your-side.png" class="your-side" ng-click="addCard('yourCard')"></a>
                             </div>
                             <div class="col-md-8 col-xs-8">
-                                 <img ng-src="{{ picURL }}" src="./assets/img/default.png" class="card">
+                                <img ng-src="{{ picURL }}" src="./assets/img/default.png" class="card">
                             </div>
                             <div class="col-md-2 col-xs-2">
                                 <a href="#"><img src="./assets/img/want-side.png" class="want-side" ng-click="addCard('wantCard')"></a>
                             </div>
                         </div>
                     </div>
-                    
-                   
-                    
                     <br>
                     <p>Price</p> {{ price | currency }}
                     <div class="row">
                         <div class="col-md-4 col-xs-4">
                             <div class="prices">
                                 <div class="btn-group btn-group-sm prices" role="group" aria-label="...">
-                                <div class="btn-group btn-group-sm" role="group">
-                                <button type="button" class="btn btn-warning dropdown-toggle price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Prices
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li ng-click="pricePick(lowPrice)"><a href="#">Low: {{ lowPrice | currency }} </a></li>
-                                    <li ng-click="pricePick(avgPrice)"><a href="#">Average: {{ avgPrice | currency }} </a></li>
-                                    <li ng-click="pricePick(highPrice)"><a href="#">High: {{ highPrice | currency }}</a></li>
-                                    <li ng-click="pricePick(foilPrice)"><a href="#">Foil: {{ foilPrice | currency }}</a></li>
-                                </ul>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <button type="button" class="btn btn-warning dropdown-toggle price-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Prices
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li ng-click="pricePick(lowPrice)"><a href="#">Low: {{ lowPrice | currency }} </a></li>
+                                            <li ng-click="pricePick(avgPrice)"><a href="#">Average: {{ avgPrice | currency }} </a></li>
+                                            <li ng-click="pricePick(highPrice)"><a href="#">High: {{ highPrice | currency }}</a></li>
+                                            <li ng-click="pricePick(foilPrice)"><a href="#">Foil: {{ foilPrice | currency }}</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                           <!--  <button>{{ lowPrice | currency }}</button>
-                            <button>{{ avgPrice | currency }} </button>
-                            <button>{{ highPrice | currency }}</button>
-                            <button class="foil">{{ foilPrice | currency }}</button> -->
-                        </div>
-                        </div>
                         </div>
                         <div class="col-md-4 col-xs-4">
                             <div class="sets">
@@ -180,23 +171,23 @@
                             <button class="buy-button"><a href="{{ buyLink }}" target="_blank">Buy Now</a></button>
                         </div>
                     </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
                     </div>
                 </div>
-                <!-- jQuery -->
-                <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
-                <!-- Bootstrap Core JavaScript -->
-                <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
-                <!-- Angular -->
-                <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-                <script type="text/javascript" src="./config/angular.js"></script>
-                <script type="text/javascript" src="./vendor/angular-ui-bootstrap-modal.js"></script>
-                <!-- XML2JSON -->
-                <script type="text/javascript" src="./vendor/xml2json.js"></script>
             </div>
+        </div>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+        <!-- Angular -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script type="text/javascript" src="./config/angular.js"></script>
+        <script type="text/javascript" src="./vendor/angular-ui-bootstrap-modal.js"></script>
+        <!-- XML2JSON -->
+        <script type="text/javascript" src="./vendor/xml2json.js"></script>
+    </div>
 </body>
 
 </html>
