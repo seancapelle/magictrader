@@ -19,7 +19,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()">
+                    <input type="text" class="form-control" id="cardInput" ng-model="cardName" ng-value="name" placeholder="Enter card name" ng-keydown="$event.which === 13 && open()" ng-keyup="filter()">
                     <span class="input-group-btn">
                         <button class="btn btn-default" type="button" id="cardSearchButton" data-target="#cardModal" ng-click="open()"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     </span>

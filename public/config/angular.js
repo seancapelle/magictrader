@@ -7,7 +7,7 @@
 
     function TradeController($scope, $http) {
 
-        // Global variables	
+        // Global variables 
         var yourArray = [];
         var wantArray = [];
         var sessionID = 0;
@@ -17,7 +17,7 @@
 
         // Creates a new session in DB and saves to localStorage
         function newSession() {
-            
+
             $http.get('/session')
                 .then(function(response) {
 
@@ -27,12 +27,12 @@
                     pullYourCards();
                     pullWantCards();
                 })
-                
+
         }
 
         // Grab yourCards from DB
         function pullYourCards() {
-           
+
             var data = {
                 session: sessionID
             }
@@ -53,13 +53,13 @@
         // Attach $scope to yourArray
         $scope.yourCards = yourArray;
 
-         // Grab wantCards from DB
+        // Grab wantCards from DB
         function pullWantCards() {
 
             var data = {
                 session: sessionID
             }
-           
+
             $http.post('/pullWantCards', data)
                 .then(function(response) {
 
@@ -145,30 +145,38 @@
 
         // MODAL FUNCTIONS 
         // Open modal
-        $scope.open = function(){
-        
-        	$scope.cardDisplay = true;
+        $scope.open = function() {
+
+            $scope.cardDisplay = true;
             $scope.search();
         }
 
         // Close modal
-         $scope.close = function() {
-           
-                $scope.cardDisplay = false;
-            };
+        $scope.close = function() {
+
+            $scope.cardDisplay = false;
+        };
         // backdrop.on('click', $scope.close());
 
         // Filter search
         $scope.filter = function() {
+            // https://api.magicthegathering.io/v1/cards?name=avacyn
+            console.log($scope.cardName);
+            // var data = {
+            //     name: $scope.cardName
+            // }
 
-            var data = {
-                name: $scope.cardName
-            }
+            // $http.post('filter', data)
+            //     .success(function(data) {
+            //         console.log(data.name);
+            //     })
 
-            $http.post('filter', data)
-            .success(function(data) {
-                console.log(data);
-            })
+            var queryURL = 'https://api.magicthegathering.io/v1/cards?name=' + $scope.cardName;
+            console.log(queryURL);
+            $http.get(queryURL)
+                .success(function(data) {
+                    console.log(data);
+                })
         }
 
         // Initial search to find card
@@ -180,9 +188,9 @@
 
                 $http.post('/search', data)
                     .success(function(data) {
-//data.card
-//data.status
-//data.message
+                        //data.card
+                        //data.status
+                        //data.message
                         // Selects the most current printing of the card
                         var set = data.printings[data.printings.length - 1];
 
@@ -192,14 +200,14 @@
                     })
 
             }
-        // Display the currently selected card
+            // Display the currently selected card
         $scope.currentCard = function(currentVersion) {
-           
-           var set = currentVersion.setName;
-           var name = currentVersion.name;
 
-           // Convert Magic API set naming into TCG format
-           switch(set) {
+            var set = currentVersion.setName;
+            var name = currentVersion.name;
+
+            // Convert Magic API set naming into TCG format
+            switch (set) {
                 case 'Limited Edition Alpha':
                     set = 'Alpha Edition';
                     break;
@@ -247,7 +255,7 @@
                     break;
                 case 'Magic 2014':
                     set = 'Magic 2014 (M14)';
-                    break;    
+                    break;
                 case 'Magic 2015':
                     set = 'Magic 2015 (M15)'
             }
@@ -255,17 +263,16 @@
             var queryURL = 'http://partner.tcgplayer.com/x3/phl.asmx/p?pk=MagicTrader&s=' + set + '&p=' + name
 
             // TCG call
-            $http.get(queryURL,
-                {   
+            $http.get(queryURL, {
                     // Turn XML into JSON
-                    transformResponse: function (cnv) {
+                    transformResponse: function(cnv) {
                         var x2js = new X2JS();
                         var aftCnv = x2js.xml_str2json(cnv);
                         return aftCnv;
                     }
                 })
                 .success(function(response) {
-                   
+
                     // Display card
                     $scope.cardName = currentVersion.name;
                     $scope.set = currentVersion.setName;
@@ -280,7 +287,7 @@
 
                     $scope.buyLink = response.products.product.link;
 
-                    // Push all card printings to array		
+                    // Push all card printings to array     
                     var setArray = [];
 
                     currentVersion.printings.forEach(function(element) {
@@ -288,12 +295,12 @@
                     })
 
                     $scope.setList = setArray;
-                 })
+                })
         }
 
         // When user selects price from modal dropdown
         $scope.pricePick = function(price) {
- 
+
             $scope.price = price;
         }
 
@@ -321,17 +328,17 @@
                 id: id,
                 price: price
             }
-  
+
             $http.post('/updateYourPrice', update)
                 .success(function(data, status) {
-                    
+
                     pullYourCards();
-                })  
+                })
         }
 
         // Pick which price to use on want cards
         $scope.wantPricePick = function(id, price) {
-            
+
             var update = {
                 id: id,
                 price: price
@@ -346,7 +353,7 @@
 
         // Add another card
         $scope.plusOne = function(side, session, name, lowPrice, highPrice, avgPrice, foilPrice, price, pic) {
-            
+
             var data = {
                 "session": session,
                 "name": name,
@@ -362,20 +369,20 @@
         }
 
         $scope.addCard = function(side) {
-            
+
             // Close modal
             $scope.close();
-            
+
             var data = {
-                    "session": sessionID,
-                    "name": $scope.cardName,
-                    "lowPrice": $scope.lowPrice,
-                    "highPrice": $scope.highPrice,
-                    "avgPrice": $scope.avgPrice,
-                    "foilPrice": $scope.foilPrice,
-                    "price": $scope.price,
-                    "pic": $scope.picURL
-                }
+                "session": sessionID,
+                "name": $scope.cardName,
+                "lowPrice": $scope.lowPrice,
+                "highPrice": $scope.highPrice,
+                "avgPrice": $scope.avgPrice,
+                "foilPrice": $scope.foilPrice,
+                "price": $scope.price,
+                "pic": $scope.picURL
+            }
 
             // Determine which route to send to
             if (side == 'yourCard') {
@@ -395,7 +402,7 @@
 
             $http.post(url, data)
                 .success(function(data, status) {
-                    
+
                     pullYourCards();
                     pullWantCards();
                 })
