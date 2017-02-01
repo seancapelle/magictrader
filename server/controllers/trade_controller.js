@@ -31,6 +31,22 @@ module.exports = function(app) {
       })
     })
 
+    // Filter search
+    app.post('/filter', function(req, res) {
+
+    //Grab card by name and set (optional)
+      mtg.card.all({
+          name: req.body.name,
+          set: req.body.set
+        })
+        .on('data', function(card) {
+
+          res.send(card);
+
+        }); 
+
+    })
+
     //Card search route
     app.post('/search', function(req, res) {
 
@@ -95,7 +111,7 @@ module.exports = function(app) {
       
       var session = req.body.session;
 
-      // grab every doc in the Articles array
+      // Grab every card based on the session
       YourCard.find({session: session}, function(err, doc) {
         // log any errors
         if (err) {
@@ -113,7 +129,7 @@ module.exports = function(app) {
 
       var session = req.body.session;
 
-      // grab every doc in the Articles array
+      // Grab every card based on the session
       WantCard.find({session: session}, function(err, doc) {
         // log any errors
         if (err) {

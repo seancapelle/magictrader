@@ -158,12 +158,26 @@
             };
         // backdrop.on('click', $scope.close());
 
+        // Filter search
+        $scope.filter = function() {
+
+            var data = {
+                name: $scope.cardName
+            }
+
+            $http.post('filter', data)
+            .success(function(data) {
+                console.log(data);
+            })
+        }
+
         // Initial search to find card
         $scope.search = function() {
 
                 var data = {
                     name: $scope.cardName
                 }
+
                 $http.post('/search', data)
                     .success(function(data) {
 //data.card
